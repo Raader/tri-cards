@@ -1,11 +1,17 @@
 const express = require('express')
 const app = express()
-const port = 3000
+const http = require("http").createServer(app)
+const io = require("socket.io")(http)
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.listen(port, () => {
+io.on("connection",(socket) => {
+  console.log("A socket has connected.")
+})
+
+const port = process.env.PORT || 5000
+http.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`)
 })
