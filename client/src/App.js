@@ -10,6 +10,7 @@ import {
 import { About } from "./About"
 import { Home } from './Home';
 import { Join } from './Join';
+import { Login } from './Login';
 function App() {
   return (
     <Router>
@@ -31,6 +32,9 @@ function App() {
         </Route>
         <Route path="/join">
           <Join></Join>
+        </Route>
+        <Route path="/login">
+          <Login></Login>
         </Route>
         <Route path="/game">
 

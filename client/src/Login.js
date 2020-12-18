@@ -1,15 +1,11 @@
 import { Container, Form, Button,Row,Col } from "react-bootstrap";
-export function Join() {
+export function Login() {
     return (
         <Container>
             <Row>
             <Col className="mx-auto" lg="auto">
-            <p>Already have an account? <a href="/login">login</a> instead.</p>
-            <Form id="join-form" variant="dark">
-                <Form.Group controlId="formBasicName">
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control placeholder="Username"/>
-                </Form.Group>               
+            <p>Don't have an account? <a href="/join">Sign up!</a></p>
+            <Form id="join-form" variant="dark">            
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control type="email" placeholder="Enter email" />
@@ -20,7 +16,7 @@ export function Join() {
                     <Form.Control type="password" placeholder="Password" />
                 </Form.Group>
                 <Button variant="primary" type="submit">
-                    Sign Up
+                    Login
                 </Button>
             </Form>
             </Col>
