@@ -11,6 +11,7 @@ import { About } from "./About"
 import { Home } from './Home';
 import { Join } from './Join';
 import { Login } from './Login';
+import { Game } from './Game';
 function App() {
   return (
     <Router>
@@ -22,7 +23,7 @@ function App() {
           <Nav className="mr-auto">
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="about">About</Nav.Link>
-            <Nav.Link>Game <Badge variant="secondary">FREE</Badge></Nav.Link>
+            <Nav.Link href="/game">Game <Badge variant="secondary">FREE</Badge></Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
@@ -37,7 +38,7 @@ function App() {
           <Login></Login>
         </Route>
         <Route path="/game">
-
+          <Game></Game>
         </Route>
         <Route path="/">
             <Home></Home>
