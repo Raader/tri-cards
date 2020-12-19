@@ -21,9 +21,9 @@ function App() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="about">About</Nav.Link>
-            <Nav.Link href="/game">Game <Badge variant="secondary">FREE</Badge></Nav.Link>
+            <Nav.Link href="/"><i class="fas fa-home"></i> Home</Nav.Link>
+            <Nav.Link href="about"><i class="fas fa-info-circle"></i> About</Nav.Link>
+            <Nav.Link href="/game"><i class="fas fa-gamepad"></i> Game <Badge variant="secondary">FREE</Badge></Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
