@@ -1,11 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
 import {Nav, Navbar, Badge} from "react-bootstrap";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 import { About } from "./About"
 import { Home } from './Home';

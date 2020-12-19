@@ -5,12 +5,22 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "client": "npm run start --prefix client"
+    "client": "npm run start --prefix client",
+    "dev": "nodemon index.js"
+  },
+  "nodemonConfig": {
+    "verbose": true,
+    "ignore": [
+      "client/*"
+    ]
   },
   "author": "Raader",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
     "socket.io": "^3.0.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
   }
 }
