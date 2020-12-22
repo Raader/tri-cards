@@ -10,8 +10,26 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
+const sockets = {}
 io.on("connection",(socket) => {
   console.log("A socket has connected.")
+  sockets[socket.id] = socket;
+  const userList = Object.keys(sockets).filter((id) => sockets[id] ? true : false);
+  console.log(userList);
+
+  socket.on("subToUserList",() => {
+    socket.join("userListSubs");
+    socket.emit("userList",userList);
+  })
+  socket.on("unsubFromUserList", () => {
+    socket.leave("userListSubs");
+  })
+  socket.on("disconnect", () => {
+    sockets[socket.id] = undefined;
+    const userList = Object.keys(sockets).filter((id) => sockets[id] ? true : false);
+    io.emit("userList",userList)
+  })
+  io.to("userListSubs").emit("userList",userList);
 })
 
 const port = process.env.PORT || 5000

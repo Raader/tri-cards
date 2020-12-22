@@ -1,11 +1,13 @@
-import { useEffect, useRef } from "react";
-import io from "socket.io-client";
+import { useEffect, useState } from "react";
+import { subscribeToUserList, unsubscribeFromUserList } from "./api/users";
+
 export function useGame(){
-    const socketRef = useRef();
+    const [userList, setUserList] = useState([]);
+    
     useEffect(() => {
-        socketRef.current = io("http://localhost:5000");
-        return(() => {
-            socketRef.current.disconnect();
-        })
-    })
+        subscribeToUserList((err,list) => setUserList(list));
+        return(() => unsubscribeFromUserList())
+    },[]);
+
+    return({userList})
 }

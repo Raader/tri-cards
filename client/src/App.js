@@ -10,6 +10,7 @@ import { Home } from './Home';
 import { Join } from './Join';
 import { Login } from './Login';
 import { Game } from './Game';
+import { SocketClient } from './api/socket';
 function App() {
   return (
     <Router>
@@ -36,6 +37,7 @@ function App() {
           <Login></Login>
         </Route>
         <Route path="/game">
+          <SocketClient></SocketClient>
           <Game></Game>
         </Route>
         <Route path="/">
