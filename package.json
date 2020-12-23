@@ -17,7 +17,9 @@
   "author": "Raader",
   "license": "ISC",
   "dependencies": {
+    "config": "^3.3.3",
     "express": "^4.17.1",
+    "mongoose": "^5.11.8",
     "socket.io": "^3.0.4"
   },
   "devDependencies": {

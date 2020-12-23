@@ -1,4 +1,7 @@
 const express = require('express')
+const config = require("config");
+const mongoose = require("mongoose")
+
 const app = express()
 const http = require("http").createServer(app)
 const io = require("socket.io")(http,{cors: {
@@ -30,6 +33,11 @@ io.on("connection",(socket) => {
     io.emit("userList",userList)
   })
   io.to("userListSubs").emit("userList",userList);
+})
+
+mongoose.connect(config.mongoURI,{useNewUrlParser: true, useUnifiedTopology: true},(err) => {
+  if(err) return console.error(err);
+  console.log("Connected to the database")
 })
 
 const port = process.env.PORT || 5000
