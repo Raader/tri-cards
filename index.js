@@ -9,9 +9,13 @@ const io = require("socket.io")(http,{cors: {
   methods: ["GET", "POST"]
 }})
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
+mongoose.connect(config.mongoURI,{useNewUrlParser: true, useUnifiedTopology: true},(err) => {
+  if(err) return console.error(err);
+  console.log("Connected to the database")
 })
+
+app.use(express.json());
+app.use("/api",require("./routes/api"))
 
 const sockets = {}
 io.on("connection",(socket) => {
@@ -35,10 +39,7 @@ io.on("connection",(socket) => {
   io.to("userListSubs").emit("userList",userList);
 })
 
-mongoose.connect(config.mongoURI,{useNewUrlParser: true, useUnifiedTopology: true},(err) => {
-  if(err) return console.error(err);
-  console.log("Connected to the database")
-})
+
 
 const port = process.env.PORT || 5000
 http.listen(port, () => {
