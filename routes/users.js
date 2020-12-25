@@ -1,5 +1,9 @@
 const express = require("express")
+
+//initialize router
 const router = express.Router();
+
+//handle requests
 
 router.post("/login", function(req,res) {
     res.send("login");

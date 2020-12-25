@@ -1,5 +1,8 @@
 const controller = require("../controllers/sockets")
 
+/**
+*handles events fired from sockets
+*/
 function socketHandler(io, socket){
     controller.connection(io, socket);
 
