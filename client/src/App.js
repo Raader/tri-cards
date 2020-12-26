@@ -25,6 +25,11 @@ function App() {
             <Nav.Link href="/game"><i class="fas fa-gamepad"></i> Game <Badge variant="secondary">FREE</Badge></Nav.Link>
           </Nav>
         </Navbar.Collapse>
+        <Navbar.Collapse className="justify-content-end">
+          <Navbar.Text>
+          <a href="/login">Login</a> / <a href="/join">Sign Up</a>
+          </Navbar.Text>
+        </Navbar.Collapse>
       </Navbar>
       <Switch>
         <Route path="/about">
