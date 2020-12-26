@@ -1,4 +1,5 @@
 const express = require("express")
+const controller = require("../controllers/users");
 
 //initialize router
 const router = express.Router();
@@ -10,7 +11,7 @@ router.post("/login", function(req,res) {
 })
 
 router.post("/register", function(req,res){
-    res.send("register");
+    controller.register(req,res);
 })
 
 router.get("/:id", function(req,res){
