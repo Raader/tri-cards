@@ -7,7 +7,7 @@ const router = express.Router();
 //handle requests
 
 router.post("/login", function(req,res) {
-    res.send("login");
+    controller.login(req,res);
 })
 
 router.post("/register", function(req,res){
