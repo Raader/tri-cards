@@ -1,5 +1,6 @@
 const express = require("express")
 const controller = require("../controllers/users");
+const auth =  require("../middleware/auth");
 
 //initialize router
 const router = express.Router();
@@ -14,8 +15,8 @@ router.post("/register", function(req,res){
     controller.register(req,res);
 })
 
-router.get("/:id", function(req,res){
-    res.send("userInfo");
+router.get("/",auth, function(req,res){
+    controller.get(req,res);
 })
 
 module.exports = router;
