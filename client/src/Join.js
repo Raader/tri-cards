@@ -1,5 +1,17 @@
+import { useRef } from "react";
 import { Container, Form, Button,Row,Col } from "react-bootstrap";
+import { register } from "./api/join";
 export function Join() {
+    const name = useRef();
+    const email = useRef();
+    const password = useRef();
+
+    function onJoin(){
+        register(name.current.value,email.current.value,password.current.value,(err,val)=>{
+            if(err) return console.error(err);
+            console.log(val);
+        })
+    }
     return (
         <Container>
             <Row>
@@ -8,18 +20,18 @@ export function Join() {
             <Form id="join-form" variant="dark">
                 <Form.Group controlId="formBasicName">
                     <Form.Label>Username</Form.Label>
-                    <Form.Control placeholder="Username"/>
+                    <Form.Control type="text" ref={ref => name.current = ref} placeholder="Username"/>
                 </Form.Group>               
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" />
+                    <Form.Control type="email" ref={ref => email.current = ref} placeholder="Enter email" />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" />
+                    <Form.Control type="password" ref={ref => password.current = ref} placeholder="Password" />
                 </Form.Group>
-                <Button variant="primary" type="submit">
+                <Button variant="primary" onClick={onJoin}>
                     Sign Up
                 </Button>
             </Form>
