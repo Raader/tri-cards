@@ -11,20 +11,22 @@ import { Login } from './Login';
 import { Game } from './Game';
 import { SocketClient } from './api/socket';
 import { NavMenu } from './NavMenu';
+import { useUser } from './useUser';
 function App() {
+  const user = useUser()
   return (
     <Router>
     <div className="App">
-      <NavMenu></NavMenu>
+      <NavMenu user={user}></NavMenu>
       <Switch>
         <Route path="/about">
             <About></About>
         </Route>
         <Route path="/join">
-          <Join></Join>
+          <Join user={user}></Join>
         </Route>
         <Route path="/login">
-          <Login></Login>
+          <Login user={user}></Login>
         </Route>
         <Route path="/game">
           <SocketClient></SocketClient>

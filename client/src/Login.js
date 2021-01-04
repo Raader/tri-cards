@@ -1,14 +1,10 @@
 import { useRef } from "react";
 import { Container, Form, Button,Row,Col } from "react-bootstrap";
-import { login } from "./api/join";
-export function Login() {
+export function Login(props) {
     const email = useRef();
     const password = useRef();
     function onLogin(){
-        login(email.current.value,password.current.value,(err, token) =>{
-            if(err) return console.error(err);
-            console.log(token);
-        })
+        props.user.login(email.current.value,password.current.value);
     }
     return (
         <Container>

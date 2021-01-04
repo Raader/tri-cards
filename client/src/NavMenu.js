@@ -1,6 +1,11 @@
+import { Fragment, useEffect, useState } from "react";
 import { Nav, Navbar, Badge } from "react-bootstrap";
 
-export function NavMenu() {
+export function NavMenu(props) {
+    const [user,setUser] = useState();
+    useEffect(() =>{
+        setUser(props.user.user);
+    },[user,props.user.user])
     return (
         <Navbar bg="dark" variant="dark" expand="lg">
             <Navbar.Brand href="#"><span><i class="fas fa-gamepad"></i></span>Tricards</Navbar.Brand>
@@ -14,7 +19,8 @@ export function NavMenu() {
             </Navbar.Collapse>
             <Navbar.Collapse className="justify-content-end">
                 <Navbar.Text>
-                    <a href="/login">Login</a> / <a href="/join">Sign Up</a>
+                    {user ? user.name : <Fragment><a href="/login">Login</a> / <a href="/join">Sign Up</a></Fragment>}
+                    
                 </Navbar.Text>
             </Navbar.Collapse>
         </Navbar>

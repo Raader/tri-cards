@@ -1,16 +1,12 @@
 import { useRef } from "react";
 import { Container, Form, Button,Row,Col } from "react-bootstrap";
-import { register } from "./api/join";
-export function Join() {
+export function Join(props) {
     const name = useRef();
     const email = useRef();
     const password = useRef();
 
     function onJoin(){
-        register(name.current.value,email.current.value,password.current.value,(err,val)=>{
-            if(err) return console.error(err);
-            console.log(val);
-        })
+        props.user.register(name.current.value,email.current.value,password.current.value);
     }
     return (
         <Container>
