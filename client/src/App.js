@@ -4,14 +4,14 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import { About } from "./About"
-import { Home } from './Home';
-import { Join } from './Join';
-import { Login } from './Login';
-import { Game } from './Game';
+import { About } from "./components/About"
+import { Home } from './components/Home';
+import { Join } from './components/Join';
+import { Login } from './components/Login';
+import { Game } from './components/Game';
 import { SocketClient } from './api/socket';
-import { NavMenu } from './NavMenu';
-import { useUser } from './useUser';
+import { NavMenu } from './components/NavMenu';
+import { useUser } from './hooks/useUser';
 function App() {
   const user = useUser()
   return (

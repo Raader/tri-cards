@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { subscribeToUserList, unsubscribeFromUserList } from "./api/users";
+import { subscribeToUserList, unsubscribeFromUserList } from "../api/users";
 
 export function useGame(){
     const [userList, setUserList] = useState([]);

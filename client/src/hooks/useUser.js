@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
-import {user as u, login as l, register as r,token, getUser} from "./api/join";
-import { useHistory } from "react-router-dom";
+import {user as u, login as l, register as r,token, getUser} from "../api/join";
 
 export function useUser(){
     const [user,setUser] = useState(null)
