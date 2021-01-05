@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
-import { Nav, Navbar, Badge } from "react-bootstrap";
+import { Nav, Navbar, Badge, NavDropdown } from "react-bootstrap";
 
 export function NavMenu(props) {
     const [user,setUser] = useState();
@@ -18,10 +18,14 @@ export function NavMenu(props) {
                 </Nav>
             </Navbar.Collapse>
             <Navbar.Collapse className="justify-content-end">
-                <Navbar.Text>
-                    {user ? user.name : <Fragment><a href="/login">Login</a> / <a href="/join">Sign Up</a></Fragment>}
-                    
-                </Navbar.Text>
+                <Nav>
+                    {user ?  
+                    <NavDropdown title={user.name} id="useer-dropdown">
+                        <NavDropdown.Item onClick={props.user.logout} id="logout" >Logout</NavDropdown.Item>
+                    </NavDropdown>
+                    : <Navbar.Text><a href="/login">Login</a> / <a href="/join">Sign Up</a></Navbar.Text>}
+                    <Nav.Link><i class="fab fa-github"></i> Github</Nav.Link>
+                </Nav>
             </Navbar.Collapse>
         </Navbar>
     )

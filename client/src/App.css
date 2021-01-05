@@ -43,3 +43,6 @@
     transform: rotate(360deg);
   }
 }
+#logout:hover{
+  color: red;
+}

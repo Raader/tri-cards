@@ -30,5 +30,10 @@ export function useUser(){
             window.location.pathname = "/";
         })
     }
-    return({user,login,register})
+    const logout = () => {
+        setUser(null);
+        localStorage.setItem("token","");
+        window.location.pathname = "/";
+    }
+    return({user,login,register,logout})
 }
