@@ -13,6 +13,7 @@ function login(email,password,cb){
     fetch("/api/users/login",options)
     .then(res => res.json())
     .then(data => {
+        if(!data.user) throw data.msg
         user = data.user
         token = data.token;
         localStorage.setItem("token",token)
@@ -35,6 +36,7 @@ function register(name,email,password,cb){
     fetch("/api/users/register",options)
     .then(res => res.json())
     .then(data => {
+        if(!data.user) throw data.msg
         user = data.user
         token = data.token;
         localStorage.setItem("token",token)

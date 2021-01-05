@@ -14,19 +14,21 @@ export function useUser(){
         if(!user) setUser(u);
     },[user])
 
-    const login = (email,password) =>{
+    const login = (email,password,cb) =>{
         l(email,password,(err,data)=>{
-            if(err) return console.error(err);
+            if(err) return cb(err);
             console.log(data.user);
             setUser(data.user);
+            cb(null,data.user);
             window.location.pathname = "/";
         })
     }
-    const register = (name,email,password) =>{
+    const register = (name,email,password,cb) =>{
         r(name,email,password,(err,data)=>{
-            if(err) return console.error(err);
+            if(err) return cb(err);
             console.log(data.user);
             setUser(data.user);
+            cb(null,data.user);
             window.location.pathname = "/";
         })
     }

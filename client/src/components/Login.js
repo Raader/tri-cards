@@ -1,10 +1,14 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Container, Form, Button,Row,Col } from "react-bootstrap";
+import {ErrorMessage} from "./ErrorMessage";
 export function Login(props) {
     const email = useRef();
     const password = useRef();
+    const [msg,setMsg] = useState("");
     function onLogin(){
-        props.user.login(email.current.value,password.current.value);
+        props.user.login(email.current.value,password.current.value,(err,user) => {
+            if(err) setMsg(err.toString());
+        });
     }
     return (
         <Container>
@@ -24,7 +28,9 @@ export function Login(props) {
                 <Button onClick={onLogin} variant="primary">
                     Login
                 </Button>
+                <ErrorMessage msg={msg}></ErrorMessage>
             </Form>
+            
             </Col>
             </Row>
         </Container>

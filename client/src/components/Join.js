@@ -1,12 +1,15 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Container, Form, Button,Row,Col } from "react-bootstrap";
+import { ErrorMessage } from "./ErrorMessage";
 export function Join(props) {
     const name = useRef();
     const email = useRef();
     const password = useRef();
-
+    const [msg,setMsg] = useState("")
     function onJoin(){
-        props.user.register(name.current.value,email.current.value,password.current.value);
+        props.user.register(name.current.value,email.current.value,password.current.value,(err,user) => {
+            if(err) setMsg(err.toString());
+        });
     }
     return (
         <Container>
@@ -30,6 +33,7 @@ export function Join(props) {
                 <Button variant="primary" onClick={onJoin}>
                     Sign Up
                 </Button>
+                <ErrorMessage msg={msg}></ErrorMessage>
             </Form>
             </Col>
             </Row>
