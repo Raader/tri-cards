@@ -85,6 +85,8 @@ function get(req,res){
 function getById(req,res){
     //parse user id from request params
     const id = req.params.id;
+    //check id validity
+    if(!id) return res.status(400);
     userModel.findById(id).exec()
     .then((doc) => {
         if(!doc){

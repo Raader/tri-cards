@@ -21,6 +21,7 @@ export function NavMenu(props) {
                 <Nav>
                     {user ?  
                     <NavDropdown title={user.name} id="useer-dropdown">
+                        <NavDropdown.Item href={"/users/" + user._id} id="profile-button" >Profile</NavDropdown.Item>
                         <NavDropdown.Item onClick={props.user.logout} id="logout" >Logout</NavDropdown.Item>
                     </NavDropdown>
                     : <Navbar.Text><a href="/login">Login</a> / <a href="/join">Sign Up</a></Navbar.Text>}

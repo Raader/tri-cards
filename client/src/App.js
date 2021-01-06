@@ -12,6 +12,7 @@ import { Game } from './components/Game';
 import { SocketClient } from './api/socket';
 import { NavMenu } from './components/NavMenu';
 import { useUser } from './hooks/useUser';
+import { Profile } from './components/Profile';
 function App() {
   const user = useUser()
   return (
@@ -31,6 +32,9 @@ function App() {
         <Route path="/game">
           <SocketClient></SocketClient>
           <Game></Game>
+        </Route>
+        <Route path="/users/:id">
+          <Profile></Profile>
         </Route>
         <Route path="/">
             <Home></Home>
