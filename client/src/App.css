@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap');
+
 .App {
   text-align: center;
+  font-family: 'Roboto Mono', monospace;
 }
 
 .App-logo {
@@ -52,4 +55,20 @@
   border-radius: 5px;
   color:white;
   margin-top: 0.5cm;
+}
+
+#user-frame{
+  font-size: 8rem;
+  padding: 1rem;
+  margin-bottom: 0;
+}
+#user-frame i{
+  background-color: rgb(180, 177, 177);
+  border-radius: 5px;
+  padding: 1rem;
+  border: 0.1rem solid black;
+}
+#post-section,#user-frame{
+}
+#post-section{
 }
