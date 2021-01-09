@@ -8,11 +8,15 @@ let io;
  * updates user list based on sockets
  */
 function updateUserList(){
-    userList = Object.keys(sockets).map((id) => sockets[id] ? sockets[id].user.name : "")
+    userList = Object.keys(sockets).map((id) => sockets[id] ? sockets[id].user: "")
     io.to("userListSubs").emit("userList",userList);
 }
 
 function connection(i,socket){
+    //check if socket is already connected
+    if(Object.values(sockets).find((s) => s && (s.user.id === socket.user.id))){
+        return socket.disconnect(true);
+    }
     //adds socket to sockets list
     io = i;
     sockets[socket.id] = socket;
