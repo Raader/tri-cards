@@ -5,7 +5,9 @@ export function Game(){
     const game = useGame()
     return(
         <Container>
-            {game.userList.map((val) => <h1>{val}</h1>)}
+            {game.userList.map((user) => <div onClick={() => window.location.pathname = "users/" + user.id}>
+                <h1>{user.name}</h1>
+                </div>)}
         </Container>
     )
 }
