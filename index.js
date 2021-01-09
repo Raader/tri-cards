@@ -24,6 +24,7 @@ const io = require("socket.io")(http,{
       methods: ["GET", "POST"]
   }
 });
+io.use(require("./middleware/identify"));
 io.on("connection",(socket) => require("./routes/sockets")(io, socket));
 
 //set port and listen

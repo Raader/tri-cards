@@ -1,3 +1,5 @@
+
+
 const sockets = {}
 let userList = []
 let io;
@@ -6,7 +8,7 @@ let io;
  * updates user list based on sockets
  */
 function updateUserList(){
-    userList = Object.keys(sockets).filter((id) => sockets[id] ? true : false);
+    userList = Object.keys(sockets).map((id) => sockets[id] ? sockets[id].user.name : "")
     io.to("userListSubs").emit("userList",userList);
 }
 
