@@ -4,6 +4,7 @@ const userSchema = mongoose.Schema({
     name: String,
     email: String,
     password: String,
+    avatar_color: String,
     cake: { type: Date, default: Date.now }
 })
 
