@@ -5,8 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "build":"NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
     "client": "npm run start --prefix client",
     "dev": "nodemon index.js"
+  },
+  "engines": {
+    "node": "14.x"
   },
   "nodemonConfig": {
     "verbose": true,
