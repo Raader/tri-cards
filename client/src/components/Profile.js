@@ -24,7 +24,7 @@ export function Profile(){
                 </Col>
                 <Col>
                 <div id="post-section">
-                <h2>Posts</h2>
+                <h2>Activities</h2>
                 </div>
                 </Col>
             </Row>
