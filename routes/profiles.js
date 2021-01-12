@@ -12,4 +12,8 @@ router.post("/edit/color",auth,function(req,res){
     controller.editColor(req,res);
 })
 
+router.get("/:id",function(req, res) {
+    controller.getProfile(req,res);
+})
+
 module.exports = router;
