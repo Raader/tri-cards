@@ -20,7 +20,12 @@ export function Profile(props){
                 <i style={{color:user ? user.avatar_color : ""}} class="fas fa-user"></i>
                 <h3>{user ? user.name : ""}</h3>
                 </div>
-                <Button variant="secondary">Follow</Button>
+                {
+                    props.user.user && (id === props.user.user._id) ? 
+                    <Button href="/edit" variant="dark"><i class="fas fa-user-cog"></i> Edit Profile</Button>
+                    :
+                    <Button variant="secondary">Follow</Button>
+                }
                 </Col>
                 <Col>
                 <div id="post-section">
@@ -28,16 +33,6 @@ export function Profile(props){
                 </div>
                 </Col>
             </Row>
-            {props.user.user && (id === props.user.user._id) ?(
-                <Row>
-                    <Col className="mx-auto">
-                    <Button href="/edit" variant="dark"><i class="fas fa-user-cog"></i> Edit Profile</Button>
-                    </Col>
-                </Row>
-            ):
-            (
-                <Row></Row>
-            )}
         </Container>
     )
 }
