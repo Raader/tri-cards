@@ -32,7 +32,7 @@ function editColor(req,res){
             res.status(400).json({msg:"user not found"});
             throw new Error("user not found");
         }
-        res.json({msg:"edited color",color:doc.avatar_color,name:doc.name})
+        res.json({msg:"edited color",color:doc.avatar_color,user:{name:doc.name,_id:doc.id}})
     })
     .catch(err => {
         console.error(err);

@@ -13,6 +13,7 @@ import { SocketClient } from './api/socket';
 import { NavMenu } from './components/NavMenu';
 import { useUser } from './hooks/useUser';
 import { Profile } from './components/Profile';
+import { EditProfile } from './components/EditProfile';
 function App() {
   const user = useUser()
   return (
@@ -35,6 +36,9 @@ function App() {
         </Route>
         <Route path="/users/:id">
           <Profile></Profile>
+        </Route>
+        <Route path="/edit">
+          <EditProfile></EditProfile>
         </Route>
         <Route path="/">
             <Home></Home>
