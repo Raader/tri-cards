@@ -12,7 +12,7 @@ function getProfile(req,res){
             res.status(400).json({msg:"user not found"});
             throw new Error("user not found")
         }
-        res.json({user:{name:doc.name, cake:doc.cake, _id:doc.id, avatar_color:doc.avatar_color}});
+        res.json({user:{name:doc.name, cake:doc.cake, _id:doc.id, avatar_color:doc.avatar_color,status_msg:doc.status_msg}});
     })
     .catch(err => {
         console.error(err);

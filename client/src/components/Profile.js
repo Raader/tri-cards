@@ -19,6 +19,7 @@ export function Profile(props){
                 <div id="user-frame">
                 <i style={{color:user ? user.avatar_color : ""}} class="fas fa-user"></i>
                 <h3>{user ? user.name : ""}</h3>
+                <h5>{user ? user.status_msg: ""}</h5>
                 </div>
                 {
                     props.user.user && (id === props.user.user._id) ? 

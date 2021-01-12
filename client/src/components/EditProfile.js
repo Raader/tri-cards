@@ -1,15 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import { Button, Row, Col, Container, FormControl, InputGroup } from "react-bootstrap";
-import { editColor } from "../api/edit";
+import { editColor, editStatus } from "../api/edit";
 import "./EditProfile.css"
 export function EditProfile(props) {
     const color = useRef();
+    const status = useRef();
 
     useEffect(() => {
         if(color.current && props.user.user){
             color.current.value = props.user.user.avatar_color;
         }
-    },[color,props.user.user])
+        if(status.current && props.user.user){
+            status.current.value = props.user.user.status_msg;
+        }
+    },[color,status,props.user.user])
 
     return (
         <Container id="edit-profile" sm="md">
@@ -26,9 +30,19 @@ export function EditProfile(props) {
                         </InputGroup.Prepend>
                         <FormControl ref={(ref) => color.current = ref} style={{ width: "10rem" }} type="color" aria-label="avatar-color" aria-describedby="basic-addon2"></FormControl>
                     </InputGroup>
+                    <InputGroup>
+                        <InputGroup.Prepend>
+                            <InputGroup.Text id="basic-addon1">Status Message</InputGroup.Text>
+                        </InputGroup.Prepend>
+                        <FormControl ref={(ref) => status.current = ref} style={{ width: "20rem" }} aria-label="status-message" aria-describedby="basic-addon2"></FormControl>
+                    </InputGroup>
                     <Button id="apply-btn" variant="dark" onClick={() => {
                         console.log(color.current.value)
                         editColor(color.current.value, (err,data) => {
+                            if(err) return console.error(err);
+                            window.location.pathname = "/users/" + data.user._id;
+                        })
+                        editStatus(status.current.value, (err,data) => {
                             if(err) return console.error(err);
                             window.location.pathname = "/users/" + data.user._id;
                         })
