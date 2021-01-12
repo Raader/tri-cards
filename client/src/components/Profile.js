@@ -17,7 +17,7 @@ export function Profile(){
             <Row>
                 <Col className="mx-auto" xs="auto">
                 <div id="user-frame">
-                <i class="fas fa-user"></i>
+                <i style={{color:user ? user.avatar_color : ""}} class="fas fa-user"></i>
                 <h3>{user ? user.name : ""}</h3>
                 </div>
                 <Button variant="secondary">Follow</Button>

@@ -66,7 +66,7 @@ function getUser(token,cb){
 }
 
 function getUserById(id,cb){
-    fetch("/api/users/" + id)
+    fetch("/api/profiles/" + id)
     .then(res => res.json())
     .then(data => {
         if(!data.user) throw data.msg;
