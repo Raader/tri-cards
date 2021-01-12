@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Button, Row, Col, Container, FormControl, InputGroup } from "react-bootstrap";
-import { editColor, editStatus } from "../api/edit";
+import { edit } from "../api/edit";
 import "./EditProfile.css"
 export function EditProfile(props) {
     const color = useRef();
@@ -37,15 +37,21 @@ export function EditProfile(props) {
                         <FormControl ref={(ref) => status.current = ref} style={{ width: "20rem" }} aria-label="status-message" aria-describedby="basic-addon2"></FormControl>
                     </InputGroup>
                     <Button id="apply-btn" variant="dark" onClick={() => {
-                        console.log(color.current.value)
-                        editColor(color.current.value, (err,data) => {
-                            if(err) return console.error(err);
+                        const edits = {
+                            avatar_color: color.current.value,
+                            status_msg: status.current.value
+                        }
+                        const filtered = {}
+                        for(let key of Object.keys(edits)){
+                            if(edits[key]){
+                                filtered[key] = edits[key]
+                            }
+                        }
+                        edit(filtered,(err,data) => {
+                            if(err) console.error(err);
                             window.location.pathname = "/users/" + data.user._id;
                         })
-                        editStatus(status.current.value, (err,data) => {
-                            if(err) return console.error(err);
-                            window.location.pathname = "/users/" + data.user._id;
-                        })
+                    
                     }}>Apply</Button>
                 </Col>
             </Row>

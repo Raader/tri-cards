@@ -1,18 +1,18 @@
 import { token } from "./join";
 
-function editColor(color,cb){
+function edit(edits,cb){
     const options = {
         method:"POST",
         headers: {    
             'Content-Type': 'application/json',
             "Authorization": "Bearer " + token      
         },
-        body:JSON.stringify({color:color})
+        body:JSON.stringify({edit:edits})
     }
-    fetch("/api/profiles/edit/color",options)
+    fetch("/api/profiles/edit",options)
     .then(res => res.json())
     .then(data => {
-        if(!data.color) throw data.msg;
+        if(!data.user) throw data.msg;
         cb(null,data);
     })
     .catch(err => {
@@ -20,24 +20,4 @@ function editColor(color,cb){
     })
 }
 
-function editStatus(status,cb){
-    const options = {
-        method:"POST",
-        headers: {    
-            'Content-Type': 'application/json',
-            "Authorization": "Bearer " + token      
-        },
-        body:JSON.stringify({status:status})
-    }
-    fetch("/api/profiles/edit/status",options)
-    .then(res => res.json())
-    .then(data => {
-        if(!data.status) throw data.msg;
-        cb(null,data);
-    })
-    .catch(err => {
-        cb(err);
-    })
-}
-
-export {editColor, editStatus}
+export {edit}

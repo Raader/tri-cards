@@ -19,47 +19,30 @@ function getProfile(req,res){
     })
 }
 
-function editColor(req,res){
-    //parse color from request 
-    const color = req.body.color;
-    if(!color) return res.status(400).json({msg:"no color found"});
+const editables = ["avatar_color","status_msg"]
+
+function edit(req,res){
+    const edit = req.body.edit;
+    if(!edit) return res.status(400).json({msg:"no change found"})
+    for(let key of Object.keys(edit)){
+        if(!editables.find((val) => val.localeCompare(key) === 0)){
+            return res.status(400).json({msg:"tried to edit a noneditable property"})
+        }
+    }
     //parse user id from request
     const id = req.userId;
-    //find user in the database
-    userModel.findByIdAndUpdate(id,{avatar_color:color},{useFindAndModify:false,new:true}).exec()
+    userModel.findByIdAndUpdate(id,edit,{useFindAndModify:false,new:true}).exec()
     .then(doc => {
         if(!doc) {
             res.status(400).json({msg:"user not found"});
             throw new Error("user not found");
         }
-        res.json({msg:"edited color",color:doc.avatar_color,user:{name:doc.name,_id:doc.id}})
+        res.json({msg:"edited user",user:{name:doc.name,_id:doc.id}})
     })
     .catch(err => {
         console.error(err);
     })
 }
 
-function editStatus(req,res){
-    //parse status message from request 
-    const status = req.body.status;
-    if(!status) return res.status(400).json({msg:"no status found"});
-    //parse user id from request
-    const id = req.userId;
-    //find user in the database
-    userModel.findByIdAndUpdate(id,{status_msg:status},{useFindAndModify:false,new:true}).exec()
-    .then(doc => {
-        if(!doc) {
-            res.status(400).json({msg:"user not found"});
-            throw new Error("user not found");
-        }
-        res.json({msg:"edited status",status:doc.status_msg,user:{name:doc.name,_id:doc.id}})
-    })
-    .catch(err => {
-        console.error(err);
-    })
-}
-
-
-module.exports.editColor = editColor;
 module.exports.getProfile = getProfile;
-module.exports.editStatus = editStatus;
+module.exports.edit = edit;
