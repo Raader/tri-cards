@@ -75,32 +75,15 @@ function get(req,res){
             res.status(400).json({msg:"user not found"});
             throw new Error("user not found")
         }
-        res.json({user:{name:doc.name, email:doc.email, cake:doc.cake, _id:doc.id}});
+        res.json({user:{name:doc.name, email:doc.email, cake:doc.cake, _id:doc.id,avatar_color:doc.avatar_color}});
     })
     .catch(err => {
         console.error(err);
     })
 }
 
-function getById(req,res){
-    //parse user id from request params
-    const id = req.params.id;
-    //check id validity
-    if(!id) return res.status(400);
-    userModel.findById(id).exec()
-    .then((doc) => {
-        if(!doc){
-            res.status(400).json({msg:"user not found"});
-            throw new Error("user not found")
-        }
-        res.json({user:{name:doc.name, cake:doc.cake, _id:doc.id}});
-    })
-    .catch(err => {
-        console.error(err);
-    })
-}
+
 
 module.exports.register = register;
 module.exports.login = login;
 module.exports.get = get;
-module.exports.getById = getById;
