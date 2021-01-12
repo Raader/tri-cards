@@ -35,10 +35,10 @@ function App() {
           <Game></Game>
         </Route>
         <Route path="/users/:id">
-          <Profile></Profile>
+          <Profile user={user}></Profile>
         </Route>
         <Route path="/edit">
-          <EditProfile></EditProfile>
+          <EditProfile user={user}></EditProfile>
         </Route>
         <Route path="/">
             <Home></Home>

@@ -3,7 +3,7 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom"
 import { getUserById } from "../api/join";
 
-export function Profile(){
+export function Profile(props){
     const {id} = useParams();
     const [user,setUser] = useState();
     useEffect(() => {
@@ -28,6 +28,16 @@ export function Profile(){
                 </div>
                 </Col>
             </Row>
+            {props.user.user && (id === props.user.user._id) ?(
+                <Row>
+                    <Col className="mx-auto">
+                    <Button href="/edit" variant="dark"><i class="fas fa-user-cog"></i> Edit Profile</Button>
+                    </Col>
+                </Row>
+            ):
+            (
+                <Row></Row>
+            )}
         </Container>
     )
 }

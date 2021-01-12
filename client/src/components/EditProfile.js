@@ -1,9 +1,15 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button, Row, Col, Container, FormControl, InputGroup } from "react-bootstrap";
 import { editColor } from "../api/edit";
 import "./EditProfile.css"
-export function EditProfile() {
+export function EditProfile(props) {
     const color = useRef();
+
+    useEffect(() => {
+        if(color.current && props.user.user){
+            color.current.value = props.user.user.avatar_color;
+        }
+    },[color,props.user.user])
 
     return (
         <Container id="edit-profile" sm="md">
