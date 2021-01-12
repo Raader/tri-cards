@@ -11,6 +11,10 @@ router.post("/edit/color",auth,function(req,res){
     controller.editColor(req,res);
 })
 
+router.post("/edit/status",auth,function(req,res){
+    controller.editStatus(req,res);
+})
+
 router.get("/:id",function(req, res) {
     controller.getProfile(req,res);
 })

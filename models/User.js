@@ -5,6 +5,7 @@ const userSchema = mongoose.Schema({
     email: String,
     password: String,
     avatar_color: String,
+    status_msg: String,
     cake: { type: Date, default: Date.now }
 })
 
