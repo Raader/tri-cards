@@ -19,6 +19,7 @@ function App() {
   return (
     <Router>
     <div className="App">
+      <SocketClient></SocketClient>
       <NavMenu user={user}></NavMenu>
       <Switch>
         <Route path="/about">
@@ -31,7 +32,6 @@ function App() {
           <Login user={user}></Login>
         </Route>
         <Route path="/game">
-          <SocketClient></SocketClient>
           <Game></Game>
         </Route>
         <Route path="/users/:id">
