@@ -75,13 +75,29 @@ function generateId(length = 5){
 }
 
 function createRoom(socket,roomName){
+    if(socket.room) return;
     const room = {
         name:roomName,
         id:generateId()
     }
-    socket.join(room.id);
     rooms.push(room);
+    socket.join(room.id);
+    socket.room = room;
+    socket.emit("joinRoom",room.id);
     updateRoomList();
+}
+
+function joinRoom(socket,id){
+    if(socket.room) return;
+    socket.join(id);
+    socket.room = rooms.find((val) => val.id.localeCompare(id) === 0);
+    socket.emit("joinRoom",room.id);
+}
+
+function leaveRoom(socket){
+    if(!socket.room) return;
+    socket.leave(socket.room.id);
+    socket.room = null;
 }
 module.exports.connection = connection;
 module.exports.disconnect = disconnect;
@@ -90,3 +106,5 @@ module.exports.unsubFromUserList = unsubFromUserList;
 module.exports.subToRoomList = subToRoomList;
 module.exports.unsubFromRoomList = unsubFromRoomList;
 module.exports.createRoom = createRoom;
+module.exports.joinRoom = joinRoom;
+module.exports.leaveRoom = leaveRoom;

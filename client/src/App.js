@@ -14,12 +14,14 @@ import { NavMenu } from './components/NavMenu';
 import { useUser } from './hooks/useUser';
 import { Profile } from './components/Profile';
 import { EditProfile } from './components/EditProfile';
+import { Room } from './components/Room';
 function App() {
   const user = useUser()
   return (
     <Router>
     <div className="App">
       <NavMenu user={user}></NavMenu>
+      <SocketClient></SocketClient>
       <Switch>
         <Route path="/about">
             <About></About>
@@ -31,7 +33,7 @@ function App() {
           <Login user={user}></Login>
         </Route>
         <Route path="/game">
-          <SocketClient></SocketClient>
+
           <Game></Game>
         </Route>
         <Route path="/users/:id">
@@ -39,6 +41,10 @@ function App() {
         </Route>
         <Route path="/edit">
           <EditProfile user={user}></EditProfile>
+        </Route>
+        <Route path="/room/:id">
+          
+          <Room></Room>
         </Route>
         <Route path="/">
             <Home></Home>
