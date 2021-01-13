@@ -1,6 +1,8 @@
 import { Jumbotron,Button } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 
 export function Home(){
+    const history = useHistory();
     return(
         <div>
             <Jumbotron fluid>
@@ -9,7 +11,7 @@ export function Home(){
                 Collect your cards and get into a battle of wits.
                 </p>
                 <p>
-                <Button href="/join" variant="primary">Join Now <i class="fas fa-play"></i></Button>
+                <Button onClick={() => history.push("/join")} variant="primary">Join Now <i class="fas fa-play"></i></Button>
                 </p>
             </Jumbotron>
         </div>

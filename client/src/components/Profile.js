@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
-import { useParams } from "react-router-dom"
+import { useHistory, useParams } from "react-router-dom"
 import { getUserById } from "../api/join";
 
 export function Profile(props){
     const {id} = useParams();
     const [user,setUser] = useState();
+    const history = useHistory();
     useEffect(() => {
         getUserById(id,(err,data) => {
             if(err) return console.error(err);
@@ -23,7 +24,7 @@ export function Profile(props){
                 </div>
                 {
                     props.user.user && (id === props.user.user._id) ? 
-                    <Button href="/edit" variant="dark"><i class="fas fa-user-cog"></i> Edit Profile</Button>
+                    <Button onClick={() => history.push("/edit") } variant="dark"><i class="fas fa-user-cog"></i> Edit Profile</Button>
                     :
                     <Button variant="secondary">Follow</Button>
                 }
