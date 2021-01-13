@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { Container, Form, Button,Row,Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { ErrorMessage } from "./ErrorMessage";
 export function Join(props) {
     const name = useRef();
@@ -15,7 +16,7 @@ export function Join(props) {
         <Container>
             <Row>
             <Col className="mx-auto" lg="auto">
-            <p>Already have an account? <a href="/login">login</a> instead.</p>
+            <p>Already have an account? <Link to="/login">login</Link> instead.</p>
             <Form id="join-form" variant="dark">
                 <Form.Group controlId="formBasicName">
                     <Form.Label>Username</Form.Label>

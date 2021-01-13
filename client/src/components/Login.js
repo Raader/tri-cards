@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { Container, Form, Button,Row,Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import {ErrorMessage} from "./ErrorMessage";
 export function Login(props) {
     const email = useRef();
@@ -14,7 +15,7 @@ export function Login(props) {
         <Container>
             <Row>
             <Col className="mx-auto" lg="auto">
-            <p>Don't have an account? <a href="/join">Sign up!</a></p>
+            <p>Don't have an account? <Link to="/join">Sign up!</Link></p>
             <Form id="join-form" variant="dark">            
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
