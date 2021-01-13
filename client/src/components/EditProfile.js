@@ -1,10 +1,12 @@
 import { useEffect, useRef } from "react";
 import { Button, Row, Col, Container, FormControl, InputGroup } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 import { edit } from "../api/edit";
 import "../sheets/EditProfile.css"
 export function EditProfile(props) {
     const color = useRef();
     const status = useRef();
+    const history = useHistory();
 
     useEffect(() => {
         if(color.current && props.user.user){
@@ -49,9 +51,8 @@ export function EditProfile(props) {
                         }
                         edit(filtered,(err,data) => {
                             if(err) console.error(err);
-                            window.location.pathname = "/users/" + data.user._id;
-                        })
-                    
+                            history.push("/users/" + data.user._id)
+                        }) 
                     }}>Apply</Button>
                 </Col>
             </Row>
