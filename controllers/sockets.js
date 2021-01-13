@@ -9,6 +9,7 @@ let io;
  */
 function updateUserList(){
     userList = Object.keys(sockets).map((id) => sockets[id] ? sockets[id].user: "")
+    userlist = userList.filter((val) => val);
     io.to("userListSubs").emit("userList",userList);
 }
 
