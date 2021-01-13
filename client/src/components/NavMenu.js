@@ -14,9 +14,9 @@ export function NavMenu(props) {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto" id="main-nav">
-                    <Nav.Link><Link style={{textDecoration:"none",color:"lightgray"}} to="/"><i class="fas fa-home"></i> Home</Link></Nav.Link>
-                    <Nav.Link><Link style={{textDecoration:"none",color:"lightgray"}} to="/about"><i class="fas fa-home"></i> About</Link></Nav.Link>
-                    <Nav.Link ><Link style={{textDecoration:"none",color:"lightgray"}} to="/game"><i class="fas fa-gamepad"></i> Game <Badge variant="secondary">FREE</Badge></Link></Nav.Link>
+                    <Nav.Link onClick={() => history.push("/")}><i class="fas fa-home"></i> Home</Nav.Link>
+                    <Nav.Link onClick={() => history.push("/about")}><i class="fas fa-home"></i> About</Nav.Link>
+                    <Nav.Link onClick={() => history.push("/game")}><i class="fas fa-gamepad"></i> Game <Badge variant="secondary">FREE</Badge></Nav.Link>
                 </Nav>
             </Navbar.Collapse>
             <Navbar.Collapse className="justify-content-end">
