@@ -1,0 +1,20 @@
+#user-list{
+    height: 30rem;
+    overflow-y: scroll;
+    border-right:black 0.2rem solid;
+}
+
+.list-user{
+    border-top: black 0.2rem solid;
+    transition: background-color 0.35s;
+}
+.list-user:hover{
+    background-color: rgb(233, 238, 240);
+}
+
+#game{
+    margin-top: 1rem;
+}
+
+#room-list h2{
+}

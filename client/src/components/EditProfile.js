@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Button, Row, Col, Container, FormControl, InputGroup } from "react-bootstrap";
 import { edit } from "../api/edit";
-import "./EditProfile.css"
+import "../sheets/EditProfile.css"
 export function EditProfile(props) {
     const color = useRef();
     const status = useRef();
