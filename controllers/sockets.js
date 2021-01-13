@@ -1,9 +1,7 @@
-
-
-
 const sockets = {}
 let userList = []
 let io;
+const rooms = [];
 
 /**
  * updates user list based on sockets
@@ -16,6 +14,13 @@ function updateUserList(){
         }
     }
     io.to("userListSubs").emit("userList",userList);
+}
+
+function updateRoomList(){
+    const list = rooms.map(val => {
+        return {name:val.name,id:val.id};
+    });
+    io.to("roomListSubs").emit("roomList",list)
 }
 
 function connection(i,socket){
@@ -48,7 +53,40 @@ function unsubFromUserList(socket){
     socket.leave("userListSubs");
 }
 
+function subToRoomList(socket){
+    //subscribes socket to receive roomlist updates
+    socket.join("roomListSubs")
+    socket.emit("roomList",rooms.map(val => {
+        return {name:val.name,id:val.id};
+    }))
+}
+
+function unsubFromRoomList(socket){
+    //unsubscribes socket from recieving roomlist updates
+    socket.leave("roomListSubs")
+}
+
+function generateId(length = 5){
+    let id = ""
+    for(let i = 0;i < length;i++){
+        id += Math.floor(Math.random() * 10);
+    }
+    return id;
+}
+
+function createRoom(socket,roomName){
+    const room = {
+        name:roomName,
+        id:generateId()
+    }
+    socket.join(room.id);
+    rooms.push(room);
+    updateRoomList();
+}
 module.exports.connection = connection;
 module.exports.disconnect = disconnect;
 module.exports.subToUserList = subToUserList;
 module.exports.unsubFromUserList = unsubFromUserList;
+module.exports.subToRoomList = subToRoomList;
+module.exports.unsubFromRoomList = unsubFromRoomList;
+module.exports.createRoom = createRoom;

@@ -17,6 +17,18 @@ function socketHandler(io, socket){
     socket.on("disconnect", () => {
         controller.disconnect(socket);
     });
+    
+    socket.on("subToRoomList",() => {
+        controller.subToRoomList(socket);
+    })
+
+    socket.on("unsubFromRoomList",() => {
+        controller.unsubFromRoomList(socket)
+    })
+
+    socket.on("createRoom",(roomName) => {
+        controller.createRoom(socket,roomName)
+    })
 }
 
 module.exports = socketHandler;

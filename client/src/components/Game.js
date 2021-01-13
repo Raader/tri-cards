@@ -18,7 +18,8 @@ export function Game() {
                 <Col>
                     <div id="room-list">
                         <h2>Rooms</h2>
-                        <Button>Create Room</Button>
+                        <Button onClick={() => game.createRoom("yarra")}>Create Room</Button>
+                        {game.roomList.map(room => (<div><h1>{room.name}</h1></div>))}
                     </div>
                 </Col>
             </Row>
