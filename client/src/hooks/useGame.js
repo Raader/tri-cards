@@ -13,7 +13,7 @@ export function useGame(){
     useEffect(() => {
         subscribeToRoomList((err,list) => setRoomList(list));
         return(() => unsubscribeFromRoomList())
-    })
+    },[])
     const createRoom = (name) => {
         cr(name)
     }
