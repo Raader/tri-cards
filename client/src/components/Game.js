@@ -12,19 +12,24 @@ export function Game() {
                 <Col sm="4">
                     <div id="user-list">
                         <h2>Users</h2>
+                        <div id="users">
                         {game.userList.map((user) => <div className="list-user" onClick={() => window.location.pathname = "users/" + user.id}>
-                            <h1>{user.name}</h1>
+                            <p><i class="fas fa-user"></i> {user.name}</p>
                         </div>)}
+                        </div>
                     </div>
                 </Col>
                 <Col>
                     <div id="room-list">
-                        <h2>Rooms</h2>
-                        <Button onClick={() => game.createRoom("yarra",(err,room) => {
+                        <h2>Rooms <span><Button variant="secondary" onClick={() => game.createRoom("yarra",(err,room) => {
                             if(err) return console.error(err);
                             history.push("/room/" + room.id)
-                        })}>Create Room</Button>
-                        {game.roomList.map(room => (<div onClick={() => history.push("/room/" + room.id)}><h1>{room.name}</h1></div>))}
+                        })}>Create Room</Button></span></h2>
+                        
+                        <div id="rooms">
+                        {game.roomList.map(room => (<div className="list-room" onClick={() => history.push("/room/" + room.id)}>
+                            <p>{room.name}</p></div>))}
+                        </div>
                     </div>
                 </Col>
             </Row>
