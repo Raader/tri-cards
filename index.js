@@ -17,6 +17,7 @@ mongoose.connect(config.mongoURI,{useNewUrlParser: true, useUnifiedTopology: tru
 //use routes and middleware
 app.use(express.json()); //json body parser for POST requests
 app.use("/api",require("./routes/api"));
+app.use("/static",express.static("static"));
 
 //open socket
 const io = require("socket.io")(http,{
