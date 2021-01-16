@@ -76,3 +76,8 @@
 #main-nav{
   text-decoration: none;
 }
+
+.portrait{
+  width: 128px;
+  height: 128px;
+}

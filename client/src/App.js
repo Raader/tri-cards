@@ -15,6 +15,7 @@ import { useUser } from './hooks/useUser';
 import { Profile } from './components/Profile';
 import { EditProfile } from './components/EditProfile';
 import { Room } from './components/Room';
+import { Cards } from './components/Cards';
 function App() {
   const user = useUser()
   return (
@@ -45,6 +46,9 @@ function App() {
         <Route path="/room/:id">
           
           <Room></Room>
+        </Route>
+        <Route path="/cards">
+          <Cards></Cards>
         </Route>
         <Route path="/">
             <Home></Home>
