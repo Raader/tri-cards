@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { subscribeToRoomList, unsubscribeFromRoomList, createRoom as cr } from "../api/rooms";
 import { subscribeToUserList, unsubscribeFromUserList } from "../api/users";
 
@@ -14,8 +15,8 @@ export function useGame(){
         subscribeToRoomList((err,list) => setRoomList(list));
         return(() => unsubscribeFromRoomList())
     },[])
-    const createRoom = (name) => {
-        cr(name)
+    const createRoom = (name, cb) => {
+        cr(name, cb)
     }
     return({userList,roomList,createRoom})
 }

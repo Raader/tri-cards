@@ -23,6 +23,17 @@ function updateRoomList(){
     io.to("roomListSubs").emit("roomList",list)
 }
 
+function updateRoomUsers(room){
+    const list = room.sockets.map((socket) => {
+        return {
+            name:socket.user.name,
+            _id:socket.user.id
+        }
+    });
+    console.log(list)
+    io.to(room.id).emit("roomUsers",list);
+}
+
 function connection(i,socket){
     //check if socket is already connected
     if(Object.values(sockets).find((s) => s && (s.user.id === socket.user.id))){
@@ -78,26 +89,34 @@ function createRoom(socket,roomName){
     if(socket.room) return;
     const room = {
         name:roomName,
-        id:generateId()
+        id:generateId(),
+        sockets:[]
     }
     rooms.push(room);
-    socket.join(room.id);
-    socket.room = room;
-    socket.emit("joinRoom",room.id);
+    socket.emit("createRoom",{name:room.name,id:room.id});
+    console.log(socket.user.name + " created room: " +room.name + "(" + room.id + ")");
     updateRoomList();
 }
 
 function joinRoom(socket,id){
     if(socket.room) return;
+    const room = rooms.find((val) => val.id.localeCompare(id) === 0);
+    if(!room) return;
     socket.join(id);
-    socket.room = rooms.find((val) => val.id.localeCompare(id) === 0);
-    socket.emit("joinRoom",room.id);
+    socket.room = room;
+    socket.room.sockets.push(socket);
+    socket.emit("joinRoom",{id:socket.room.id,name:socket.room.name});
+    console.log(socket.user.name + "joined the room:" + socket.room.name);
+    updateRoomUsers(socket.room);
 }
 
 function leaveRoom(socket){
     if(!socket.room) return;
+    const room = socket.room
     socket.leave(socket.room.id);
+    room.sockets.splice(room.sockets.indexOf(socket),1);
     socket.room = null;
+    updateRoomUsers(room);
 }
 module.exports.connection = connection;
 module.exports.disconnect = disconnect;

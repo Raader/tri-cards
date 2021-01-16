@@ -29,6 +29,10 @@ function socketHandler(io, socket){
     socket.on("createRoom",(roomName) => {
         controller.createRoom(socket,roomName)
     })
+
+    socket.on("joinRoom", (id) => {
+        controller.joinRoom(socket,id)
+    })
 }
 
 module.exports = socketHandler;
