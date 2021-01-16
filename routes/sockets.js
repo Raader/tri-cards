@@ -18,6 +18,9 @@ function socketHandler(io, socket){
         controller.disconnect(socket);
     });
     
+    socket.on("disconnecting", () => {
+        controller.disconnecting(socket);
+    })
     socket.on("subToRoomList",() => {
         controller.subToRoomList(socket);
     })
@@ -32,6 +35,10 @@ function socketHandler(io, socket){
 
     socket.on("joinRoom", (id) => {
         controller.joinRoom(socket,id)
+    })
+
+    socket.on("leaveRoom", () => {
+        controller.leaveRoom(socket);
     })
 }
 

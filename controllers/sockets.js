@@ -7,6 +7,7 @@ const rooms = [];
  * updates user list based on sockets
  */
 function updateUserList(){
+    
     userList = []
     for(let socket of Object.values(sockets)){
         if(socket) {
@@ -24,6 +25,9 @@ function updateRoomList(){
 }
 
 function updateRoomUsers(room){
+    if(room.sockets.length <= 0){
+        return removeRoom(room);
+    }
     const list = room.sockets.map((socket) => {
         return {
             name:socket.user.name,
@@ -45,7 +49,9 @@ function connection(i,socket){
     updateUserList()
     console.log("A socket has connected.");
 }
-
+function disconnecting(socket){
+    leaveRoom(socket);
+}
 function disconnect(socket){
     //removes socket from the sockets list
     sockets[socket.id] = undefined;
@@ -106,7 +112,7 @@ function joinRoom(socket,id){
     socket.room = room;
     socket.room.sockets.push(socket);
     socket.emit("joinRoom",{id:socket.room.id,name:socket.room.name});
-    console.log(socket.user.name + "joined the room:" + socket.room.name);
+    console.log(socket.user.name + " joined the room: " + socket.room.name);
     updateRoomUsers(socket.room);
 }
 
@@ -116,10 +122,17 @@ function leaveRoom(socket){
     socket.leave(socket.room.id);
     room.sockets.splice(room.sockets.indexOf(socket),1);
     socket.room = null;
+    console.log(socket.user.name + " left the room: ");
     updateRoomUsers(room);
+}
+
+function removeRoom(room){
+    rooms.splice(rooms.indexOf(room),1);
+    console.log("removed room: " + room.name);
 }
 module.exports.connection = connection;
 module.exports.disconnect = disconnect;
+module.exports.disconnecting = disconnecting;
 module.exports.subToUserList = subToUserList;
 module.exports.unsubFromUserList = unsubFromUserList;
 module.exports.subToRoomList = subToRoomList;

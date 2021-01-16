@@ -9,10 +9,9 @@ export function Room(props){
     useEffect(() => {
         joinRoom(id,(err, room) =>{
             if(err) return console.error(err);
-            console.log(room);
             setName(room.name);
         })
-        return leaveRoom;
+        return () => leaveRoom();
     },[id])
 
     useEffect(() => {
