@@ -77,7 +77,12 @@
   text-decoration: none;
 }
 
-.portrait{
-  width: 128px;
-  height: 128px;
+#card-slot{
+  float: left;
+  margin:0.3rem;
+  width: 12rem;
+  height: 20rem;
+  padding: 0;
+}
+.cards{
 }

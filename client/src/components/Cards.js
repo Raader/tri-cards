@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { getAllCards } from "../api/game"
+import { GameCard } from "./Card"
 
 export function Cards(){
     const [cards,setCards] = useState([])
@@ -10,12 +11,11 @@ export function Cards(){
         })
     },[])
     return (
-        <div>
-            {cards.map(val => 
-            <div> 
-                <h1>{val.name}</h1>
-                <img className="portrait" alt="hello" src={val.portrait} />
-            </div>)}
+        <div id="cards">
+            {cards.map(val => (
+                <div id="card-slot">
+            <GameCard name={val.name} portrait={val.portrait} power={val.power} endurance={val.endurance} speed={val.speed}></GameCard>
+            </div>))}
         </div>
     )
 }
