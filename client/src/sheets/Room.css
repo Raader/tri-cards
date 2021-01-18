@@ -1,0 +1,35 @@
+
+
+#room-ctn{
+    color: white;
+    
+    margin-top:1rem;
+    border-radius: 1rem;
+}
+
+#room-main{
+    padding: 1rem;
+    border-radius: 1rem;
+    background-color: #343a40;
+    margin:1rem;
+}
+.room-user{
+    background-color: #3e444b;
+    font-size: 2rem;
+    text-align: left;
+}
+.room-user p{
+    margin-left: 1rem;
+}
+#room-users{
+    border: 0.25rem solid rgb(159, 159, 161);
+    border-radius: 1rem;
+    height: 20rem;
+    overflow-y: scroll;
+}
+#room-bottom{
+    font-size: 1rem;
+    border-radius: 1rem;
+    background-color: #343a40;
+    height: 4rem;
+}
