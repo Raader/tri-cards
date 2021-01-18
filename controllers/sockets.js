@@ -109,9 +109,10 @@ function joinRoom(socket,id){
     const room = rooms.find((val) => val.id.localeCompare(id) === 0);
     if(!room) return;
     socket.join(id);
+    const isHost = room.sockets.length <= 0;
     socket.room = room;
     socket.room.sockets.push(socket);
-    socket.emit("joinRoom",{id:socket.room.id,name:socket.room.name});
+    socket.emit("joinRoom",{id:socket.room.id,name:socket.room.name,isHost});
     console.log(socket.user.name + " joined the room: " + socket.room.name);
     updateRoomUsers(socket.room);
 }
