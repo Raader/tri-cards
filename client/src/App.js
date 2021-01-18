@@ -16,8 +16,13 @@ import { Profile } from './components/Profile';
 import { EditProfile } from './components/EditProfile';
 import { Room } from './components/Room';
 import { Cards } from './components/Cards';
+import { useEffect } from 'react';
 function App() {
   const user = useUser()
+
+  useEffect(() => {
+    document.body.style.backgroundColor = "SlateGray"
+  },[])
   return (
     <Router>
     <div className="App">
