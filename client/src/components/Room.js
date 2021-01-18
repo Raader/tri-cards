@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { joinRoom, leaveRoom, subscribeToRoomUsers, unsubscribeFromRoomUsers } from "../api/rooms";
 import "../sheets/Room.css"
@@ -7,10 +7,12 @@ export function Room(props){
     const {id} = useParams()
     const [name, setName] = useState("");
     const [users,setUsers] = useState([]);
+    const [isHost,setIsHost] = useState(false);
     useEffect(() => {
         joinRoom(id,(err, room) =>{
             if(err) return console.error(err);
             setName(room.name);
+            setIsHost(room.isHost);
         })
         return () => leaveRoom();
     },[id])
@@ -18,7 +20,7 @@ export function Room(props){
     useEffect(() => {
         subscribeToRoomUsers((err,list) => {
             if(err) return console.error(err);
-            setUsers(list);
+            setUsers(list);   
         })
         return unsubscribeFromRoomUsers;
     },[id])
@@ -42,7 +44,11 @@ export function Room(props){
             <Row>
                 <Col sm="8" className="mx-auto" id="room-bottom-col">
                 <div id="room-bottom">
+                {isHost ? 
+                <Button variant="secondary">Start Game</Button>
+                :
                 <p>Waiting for host to start the game</p>
+                }
                 </div>
                 </Col>
             </Row>
