@@ -2,7 +2,9 @@ class Player{
     speed = 2.5;
     dir = {x:0,y:0};
     onCooldown = false;
-    dead = false
+    dead = false;
+    actions = {};
+    bullets = [];
     constructor(id,x,y,width,height){
         this.id = id
         this.x = x;

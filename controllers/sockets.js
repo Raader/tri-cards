@@ -134,9 +134,7 @@ function removeRoom(room){
     rooms.splice(rooms.indexOf(room),1);
     console.log("removed room: " + room.name);
 }
-function collides(point,area){
-    return area.x <= point.x && point.x <= area.x + area.width && area.y <= point.y && point.y <= area.y + area.height;
-}
+
 const state={}
 const tanks = []
 const barriers = [
@@ -155,11 +153,7 @@ function tankUpdate(socket,input){
 }
 
 function fireBullet(socket){
-    const tank = tanks.find((val) => val.id === socket.user.id);
-    if(!tank || tank.onCooldown) return;
-    tank.bullets.push({x:tank.x,y:tank.y,dir:tank.dir});
-    tank.onCooldown = true;
-    setTimeout(() => tank.onCooldown = false,1000);
+    tankGame.fire(socket.user.id);
 }
 module.exports.connection = connection;
 module.exports.disconnect = disconnect;

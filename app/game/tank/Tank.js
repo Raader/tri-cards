@@ -7,6 +7,10 @@ const barriers = [
 
 let actions = {}
 
+function collides(point,area){
+    return area.x <= point.x && point.x <= area.x + area.width && area.y <= point.y && point.y <= area.y + area.height;
+}
+
 function addTank(id){
     const player = tanks.find((val) => val.id === id);
     if(player) return;
@@ -15,9 +19,20 @@ function addTank(id){
 function removeTank(id){
     tanks.splice(tanks.indexOf(tanks.find((val) => val.id === id)),1);
 }
+function fire(id){
+    const tank = tanks.find((val) => val.id === id);
+    if(!tank || tank.onCooldown) return;
+    tank.actions.fire = () => {
+        console.log("fire")
+    tank.bullets.push({x:tank.x,y:tank.y,dir:tank.dir});
+    tank.onCooldown = true;
+    setTimeout(() => tank.onCooldown = false,1000);
+    }
+}
 function moveTank(id,input){
     const player = tanks.find((val) => val.id === id);
     if(!player || player.dead) return;
+    player.actions.move = () =>{
     const{oldx,oldy} = player.calculateMovement(input.uKey,input.dKey,input.rKey,input.lKey);
     if(player.x > 400-player.width/2){
         player.x = 400-player.width/2;
@@ -50,11 +65,38 @@ function moveTank(id,input){
             }
         }
     }
+    }
 }
 function update(){
     const ts = [];
     for(let p of tanks){
-        ts.push({x:p.x,y:p.y,width:p.width,height:p.height,dead:p.dead,dir:p.dir,bullets:[]})
+        for(let action of Object.values(p.actions)){
+            if(action) action();
+        }
+        for(let i= 0; i < p.bullets.length;i++){
+            const bullet = p.bullets[i];
+            bullet.x += bullet.dir.x * 5;
+            bullet.y += bullet.dir.y * 5; 
+            for(let b of barriers){
+                if(collides(bullet,b)){
+                    tank.bullets.splice(i,1);
+                    break;
+                }
+            }
+            for(let i=0;i < tanks.length; i++){
+                const t = tanks[i];
+                if(t !== p && collides(bullet,t)){
+                    t.dead = true;
+                    p.bullets.splice(i,1);
+                    setTimeout(() => {
+                        t.dead = false
+                    },5000)
+                    break
+                }
+            }
+        }
+        p.actions = {};
+        ts.push({x:p.x,y:p.y,width:p.width,height:p.height,dead:p.dead,dir:p.dir,bullets:p.bullets})
     }
     const bs = [];
     for(let b of barriers){
@@ -70,3 +112,4 @@ module.exports.addTank = addTank;
 module.exports.removeTank = removeTank;
 module.exports.update = update;
 module.exports.moveTank = moveTank;
+module.exports.fire = fire
