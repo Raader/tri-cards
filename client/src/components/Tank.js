@@ -72,6 +72,9 @@ export function Tank(props){
         p.setup = () => {
             p.createCanvas(400, 400);
             p.rectMode(p.CENTER);
+            setInterval(() => {
+                socket.emit("tankUpdate",{x: player.x,y: player.y,dir:player.dir})
+            },10)
         }
         p.keyPressed = () => {
             if(p.keyCode === 32){
@@ -96,7 +99,7 @@ export function Tank(props){
             if(player.y> 400- player.height/2){
                 player.y = 400- player.width/2;
             }
-            socket.emit("tankUpdate",{x: player.x,y: player.y,dir:player.dir})
+            
             p.background("lightblue")
             barriers = [];
             for(let b of gameState.barriers){
@@ -127,6 +130,7 @@ export function Tank(props){
                 p.pop();
             }
             for(let tank of gameState.tanks){
+                if(tank.dead) continue;
                 let lx = tank.x;
                 let ly = tank.y;
                 let color = "green";
@@ -137,8 +141,8 @@ export function Tank(props){
                 p.text("degrees: " + r,10,50,90,90);
                 r = heading.toFixed(2);
                 if(user && tank.id === user._id){
-                    lx = player.x;
-                    ly = player.y;
+                    //lx = player.x;
+                    //ly = player.y;
                     color = "darkgreen";
                     //let v1 = p.createVector(lx + player.dir.x,ly + player.dir.y);
                     let v1 = p.createVector(player.dir.x,player.dir.y);

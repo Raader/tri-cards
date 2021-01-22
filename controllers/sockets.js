@@ -134,17 +134,37 @@ function removeRoom(room){
     rooms.splice(rooms.indexOf(room),1);
     console.log("removed room: " + room.name);
 }
-
+function collides(point,area){
+    return area.x <= point.x && point.x <= area.x + area.width && area.y <= point.y && point.y <= area.y + area.height;
+}
 const state={}
 const tanks = []
 const barriers = [
     {x:100,y:50,width:50,height:300}
 ]
 setInterval(() => {
-    for(let tank of tanks){
-        for(let bullet of tank.bullets){
+    for(let tank  of tanks){
+        for(let i= 0; i < tank.bullets.length;i++){
+            const bullet = tank.bullets[i];
             bullet.x += bullet.dir.x * 2;
             bullet.y += bullet.dir.y * 2; 
+            for(let b of barriers){
+                if(collides(bullet,b)){
+                    tank.bullets.splice(i,1);
+                    break;
+                }
+            }
+            for(let i=0;i < tanks.length; i++){
+                const t = tanks[i];
+                if(t !== tank && collides(bullet,t)){
+                    t.dead = true;
+                    tank.bullets.splice(i,1);
+                    setTimeout(() => {
+                        t.dead = false
+                    },5000)
+                    break
+                }
+            }
         }
     }
     io.to("tank").emit("tankUpdate",{
@@ -156,12 +176,12 @@ function joinTank(socket){
     if(socket.isTank) return;
     socket.join("tank");
     socket.isTank = true;
-    tanks.push({id:socket.user.id, x: 0,y: 0,dir:{x:0,y:0},bullets:[],onCooldown:false})
+    tanks.push({id:socket.user.id, x: 0,y: 0,width:25,height:25,dir:{x:0,y:0},bullets:[],onCooldown:false,dead:false})
 }
 
 function tankUpdate(socket,pos){
     const tank = tanks.find((val) => val.id === socket.user.id);
-    if(!tank) return;
+    if(!tank || tank.dead) return;
     tank.x = pos.x;
     tank.y = pos.y;
     tank.dir = pos.dir;
