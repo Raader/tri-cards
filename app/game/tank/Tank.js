@@ -23,7 +23,6 @@ function fire(id){
     const tank = tanks.find((val) => val.id === id);
     if(!tank || tank.onCooldown) return;
     tank.actions.fire = () => {
-        console.log("fire")
     tank.bullets.push({x:tank.x,y:tank.y,dir:tank.dir});
     tank.onCooldown = true;
     setTimeout(() => tank.onCooldown = false,1000);
