@@ -138,13 +138,19 @@ function removeRoom(room){
 const state={}
 const tanks = []
 setInterval(() => {
+    for(let tank of tanks){
+        for(let bullet of tank.bullets){
+            bullet.x += bullet.dir.x * 2;
+            bullet.y += bullet.dir.y * 2; 
+        }
+    }
     io.to("tank").emit("tankUpdate",tanks);
 },10)
 function joinTank(socket){
     if(socket.isTank) return;
     socket.join("tank");
     socket.isTank = true;
-    tanks.push({id:socket.user.id, x: 0,y: 0,dir:{x:0,y:0}})
+    tanks.push({id:socket.user.id, x: 0,y: 0,dir:{x:0,y:0},bullets:[],onCooldown:false})
 }
 
 function tankUpdate(socket,pos){
@@ -153,6 +159,14 @@ function tankUpdate(socket,pos){
     tank.x = pos.x;
     tank.y = pos.y;
     tank.dir = pos.dir;
+}
+
+function fireBullet(socket){
+    const tank = tanks.find((val) => val.id === socket.user.id);
+    if(!tank || tank.onCooldown) return;
+    tank.bullets.push({x:tank.x,y:tank.y,dir:tank.dir});
+    tank.onCooldown = true;
+    setTimeout(() => tank.onCooldown = false,1000);
 }
 module.exports.connection = connection;
 module.exports.disconnect = disconnect;
@@ -166,3 +180,4 @@ module.exports.joinRoom = joinRoom;
 module.exports.leaveRoom = leaveRoom;
 module.exports.joinTank = joinTank;
 module.exports.tankUpdate = tankUpdate;
+module.exports.fireBullet = fireBullet;

@@ -47,6 +47,9 @@ function socketHandler(io, socket){
     socket.on("tankUpdate",(pos) => {
         controller.tankUpdate(socket,pos);
     })
+    socket.on("fireBullet", () => {
+        controller.fireBullet(socket);
+    })
 }
 
 module.exports = socketHandler;

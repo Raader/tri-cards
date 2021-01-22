@@ -83,6 +83,11 @@ export function Tank(props){
             p.createCanvas(400, 400);
             p.rectMode(p.CENTER);
         }
+        p.keyPressed = () => {
+            if(p.keyCode === 32){
+                socket.emit("fireBullet");
+            }
+        }
         p.draw = () => {
             //x = p.mouseX;
             //y = p.mouseY;
@@ -147,6 +152,13 @@ export function Tank(props){
                     p.text("degrees: " + r,10,50,90,90);
                     r = heading.toFixed(2)
                 }
+                for(let bullet of tank.bullets){
+                    p.push()
+                    p.translate(bullet.x,bullet.y);
+                    p.fill("yellow")
+                    p.rect(0,0,5,5);
+                    p.pop()
+                }
                 p.push()
                 p.translate(lx,ly);
                 p.rotate(r)
@@ -168,6 +180,8 @@ export function Tank(props){
                 p.rect(0,15,30,10);
                 p.rect(0,-15,30,10);
                 p.pop()
+
+                
             }
         }
     } 
