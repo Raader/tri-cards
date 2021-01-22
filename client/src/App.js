@@ -17,6 +17,7 @@ import { EditProfile } from './components/EditProfile';
 import { Room } from './components/Room';
 import { Cards } from './components/Cards';
 import { useEffect } from 'react';
+import { Tank } from './components/Tank';
 function App() {
   const user = useUser()
 
@@ -41,6 +42,9 @@ function App() {
         <Route path="/game">
 
           <Game></Game>
+        </Route>
+        <Route path="/tank">
+          <Tank user={user}></Tank>
         </Route>
         <Route path="/users/:id">
           <Profile user={user}></Profile>

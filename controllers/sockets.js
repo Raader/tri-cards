@@ -50,6 +50,9 @@ function connection(i,socket){
     console.log("A socket has connected.");
 }
 function disconnecting(socket){
+    if(socket.isTank){
+        tanks.splice(tanks.indexOf(tanks.find((val) => val.id === socket.id)),1);
+    }
     leaveRoom(socket);
 }
 function disconnect(socket){
@@ -131,6 +134,26 @@ function removeRoom(room){
     rooms.splice(rooms.indexOf(room),1);
     console.log("removed room: " + room.name);
 }
+
+const state={}
+const tanks = []
+setInterval(() => {
+    io.to("tank").emit("tankUpdate",tanks);
+},10)
+function joinTank(socket){
+    if(socket.isTank) return;
+    socket.join("tank");
+    socket.isTank = true;
+    tanks.push({id:socket.user.id, x: 0,y: 0,dir:{x:0,y:0}})
+}
+
+function tankUpdate(socket,pos){
+    const tank = tanks.find((val) => val.id === socket.user.id);
+    if(!tank) return;
+    tank.x = pos.x;
+    tank.y = pos.y;
+    tank.dir = pos.dir;
+}
 module.exports.connection = connection;
 module.exports.disconnect = disconnect;
 module.exports.disconnecting = disconnecting;
@@ -141,3 +164,5 @@ module.exports.unsubFromRoomList = unsubFromRoomList;
 module.exports.createRoom = createRoom;
 module.exports.joinRoom = joinRoom;
 module.exports.leaveRoom = leaveRoom;
+module.exports.joinTank = joinTank;
+module.exports.tankUpdate = tankUpdate;

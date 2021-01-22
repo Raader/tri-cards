@@ -40,6 +40,13 @@ function socketHandler(io, socket){
     socket.on("leaveRoom", () => {
         controller.leaveRoom(socket);
     })
+
+    socket.on("joinTank",() => {
+        controller.joinTank(socket);
+    })
+    socket.on("tankUpdate",(pos) => {
+        controller.tankUpdate(socket,pos);
+    })
 }
 
 module.exports = socketHandler;
