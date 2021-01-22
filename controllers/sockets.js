@@ -2,6 +2,7 @@ const sockets = {}
 let userList = []
 let io;
 const rooms = [];
+const tankGame = require("../app/game/tank/Tank");
 
 /**
  * updates user list based on sockets
@@ -50,9 +51,7 @@ function connection(i,socket){
     console.log("A socket has connected.");
 }
 function disconnecting(socket){
-    if(socket.isTank){
-        tanks.splice(tanks.indexOf(tanks.find((val) => val.id === socket.id)),1);
-    }
+    tankGame.removeTank(socket.user.id);
     leaveRoom(socket);
 }
 function disconnect(socket){
@@ -167,24 +166,15 @@ setInterval(() => {
             }
         }
     }
-    io.to("tank").emit("tankUpdate",{
-        tanks,
-        barriers
-    });
+    io.to("tank").emit("tankUpdate",tankGame.update());
 },10)
 function joinTank(socket){
-    if(socket.isTank) return;
     socket.join("tank");
-    socket.isTank = true;
-    tanks.push({id:socket.user.id, x: 0,y: 0,width:25,height:25,dir:{x:0,y:0},bullets:[],onCooldown:false,dead:false})
+    tankGame.addTank(socket.user.id);
 }
 
-function tankUpdate(socket,pos){
-    const tank = tanks.find((val) => val.id === socket.user.id);
-    if(!tank || tank.dead) return;
-    tank.x = pos.x;
-    tank.y = pos.y;
-    tank.dir = pos.dir;
+function tankUpdate(socket,input){
+    tankGame.moveTank(socket.user.id,input)
 }
 
 function fireBullet(socket){

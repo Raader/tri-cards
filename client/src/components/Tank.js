@@ -62,6 +62,7 @@ export function Tank(props){
     useEffect(() => {
         socket.on("tankUpdate",(state) => {
             gameState = state;
+            console.log(gameState);
         });
         socket.emit("joinTank");
     },[])
@@ -73,7 +74,7 @@ export function Tank(props){
             p.createCanvas(400, 400);
             p.rectMode(p.CENTER);
             setInterval(() => {
-                socket.emit("tankUpdate",{x: player.x,y: player.y,dir:player.dir})
+                socket.emit("tankUpdate",{uKey:p.keyIsDown(87),dKey:p.keyIsDown(83),rKey:p.keyIsDown(68),lKey:p.keyIsDown(65)})
             },10)
         }
         p.keyPressed = () => {
@@ -84,46 +85,13 @@ export function Tank(props){
         p.draw = () => {
             if(!gameState.tanks) return;
             //x = p.mouseX;
-            //y = p.mouseY;
-            
-            const {oldx,oldy} = player.calculateMovement(p.keyIsDown(87),p.keyIsDown(83),p.keyIsDown(68),p.keyIsDown(65));
-            if(player.x > 400-player.width/2){
-                player.x = 400-player.width/2;
-            }
-            if(player.x < player.width/2){
-                player.x = player.width/2;
-            }
-            if(player.y < player.height/2){
-               player.y= player.width/2;
-            }
-            if(player.y> 400- player.height/2){
-                player.y = 400- player.width/2;
-            }
-            
+            //y = p.mouseY
             p.background("lightblue")
             barriers = [];
             for(let b of gameState.barriers){
                 barriers.push(new Barrier(b.x,b.y,b.width,b.height));
             }
-            for(let barrier of barriers){
-                const width = player.width;
-                const height = player.height;
-                const x = player.x
-                const y = player.y
-                const corners = [
-                    {x: x + width/2,y: y + height/2},
-                    {x: x - width/2,y: y - height/2},
-                    {x: x + width/2,y: y - height/2},
-                    {x: x - width/2,y: y + height/2},
-                ]
-                for(let corner of corners){
-                    if(barrier.contains(corner.x,corner.y)){
-                        player.x = oldx;
-                        player.y = oldy;
-                        break;
-                    }
-                }
-                
+            for(let barrier of barriers){       
                 p.push();
                 p.rectMode(p.CORNER)
                 p.rect(barrier.x,barrier.y,barrier.width, barrier.height);
@@ -145,11 +113,6 @@ export function Tank(props){
                     //ly = player.y;
                     color = "darkgreen";
                     //let v1 = p.createVector(lx + player.dir.x,ly + player.dir.y);
-                    let v1 = p.createVector(player.dir.x,player.dir.y);
-                    let heading = v1.heading();
-                    r = p.degrees(heading).toFixed(2);
-                    p.text("degrees: " + r,10,50,90,90);
-                    r = heading.toFixed(2)
                 }
                 for(let bullet of tank.bullets){
                     p.push()
