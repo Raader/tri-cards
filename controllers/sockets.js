@@ -137,6 +137,9 @@ function removeRoom(room){
 
 const state={}
 const tanks = []
+const barriers = [
+    {x:100,y:50,width:50,height:300}
+]
 setInterval(() => {
     for(let tank of tanks){
         for(let bullet of tank.bullets){
@@ -144,7 +147,10 @@ setInterval(() => {
             bullet.y += bullet.dir.y * 2; 
         }
     }
-    io.to("tank").emit("tankUpdate",tanks);
+    io.to("tank").emit("tankUpdate",{
+        tanks,
+        barriers
+    });
 },10)
 function joinTank(socket){
     if(socket.isTank) return;

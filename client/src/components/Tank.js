@@ -52,33 +52,23 @@ class Player{
         this.dir = dir;
         this.x += this.dir.x * this.speed;
         this.y += this.dir.y * this.speed;
-        console.log(this.x,this.y)
         return {oldx,oldy}
     }
 }
 export function Tank(props){
     const canvas = useRef();
-    const [dir,setDir] = useState(1);
-    let t = [];
-    const [tanks,setTanks] = useState([]);
+    let gameState = {};
     let p = useRef();
     useEffect(() => {
-        socket.on("tankUpdate",(list) => t = list);
-        socket.on("tankUpdate", (list) => t = list);
+        socket.on("tankUpdate",(state) => {
+            gameState = state;
+        });
         socket.emit("joinTank");
     },[])
 
     const sketch = (p) => {
-        let x = 0;
-        let y = 0;
-        const speed = 2.5;
-        let r = 0;
         const player = new Player(0,0,25,25);
-        const barriers = [
-            new Barrier(100,50,50,300),
-            new Barrier(200,50,50,300)
-        ]
-
+        let barriers = []
         p.setup = () => {
             p.createCanvas(400, 400);
             p.rectMode(p.CENTER);
@@ -89,6 +79,7 @@ export function Tank(props){
             }
         }
         p.draw = () => {
+            if(!gameState.tanks) return;
             //x = p.mouseX;
             //y = p.mouseY;
             
@@ -107,6 +98,10 @@ export function Tank(props){
             }
             socket.emit("tankUpdate",{x: player.x,y: player.y,dir:player.dir})
             p.background("lightblue")
+            barriers = [];
+            for(let b of gameState.barriers){
+                barriers.push(new Barrier(b.x,b.y,b.width,b.height));
+            }
             for(let barrier of barriers){
                 const width = player.width;
                 const height = player.height;
@@ -131,7 +126,7 @@ export function Tank(props){
                 p.rect(barrier.x,barrier.y,barrier.width, barrier.height);
                 p.pop();
             }
-            for(let tank of t){
+            for(let tank of gameState.tanks){
                 let lx = tank.x;
                 let ly = tank.y;
                 let color = "green";
