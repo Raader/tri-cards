@@ -24,7 +24,8 @@ const io = require("socket.io")(http,{
   cors: {
       origin: "http://localhost:3000",
       methods: ["GET", "POST"]
-  }
+  },
+  upgradeTimeout: 30000
 });
 io.use(require("./middleware/identify"));
 io.on("connection",(socket) => require("./routes/sockets")(io, socket));

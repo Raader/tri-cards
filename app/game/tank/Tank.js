@@ -79,7 +79,7 @@ function update(){
             bullet.y += bullet.dir.y * 5; 
             for(let b of barriers){
                 if(collides(bullet,b)){
-                    tank.bullets.splice(i,1);
+                    p.bullets.splice(i,1);
                     break;
                 }
             }
