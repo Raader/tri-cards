@@ -17,6 +17,7 @@ export function NavMenu(props) {
                     <Nav.Link onClick={() => history.push("/")}><i class="fas fa-home"></i> Home</Nav.Link>
                     <Nav.Link onClick={() => history.push("/about")}><i class="fas fa-home"></i> About</Nav.Link>
                     <Nav.Link onClick={() => history.push("/game")}><i class="fas fa-gamepad"></i> Game <Badge variant="secondary">FREE</Badge></Nav.Link>
+                    <Nav.Link onClick={() => history.push("/tank")}><i class="fas fa-gamepad"></i> Tank <Badge variant="secondary">FREE</Badge></Nav.Link>
                 </Nav>
             </Navbar.Collapse>
             <Navbar.Collapse className="justify-content-end">

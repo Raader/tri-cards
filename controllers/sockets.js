@@ -48,16 +48,17 @@ function connection(i,socket){
     io = i;
     sockets[socket.id] = socket;
     updateUserList()
-    console.log("A socket has connected.");
+    console.log( socket.user.name + " socket has connected.");
 }
 function disconnecting(socket){
     tankGame.removeTank(socket.user.id);
     leaveRoom(socket);
+    
 }
-function disconnect(socket){
+function disconnect(socket,reason){
     //removes socket from the sockets list
+    console.log(socket.user.name + " socket has disconnected." + reason);
     sockets[socket.id] = undefined;
-    console.log("A socket has disconnected.");
     updateUserList()
 }
 
@@ -142,32 +143,8 @@ const barriers = [
     {x:100,y:50,width:50,height:300}
 ]
 setInterval(() => {
-    for(let tank  of tanks){
-        for(let i= 0; i < tank.bullets.length;i++){
-            const bullet = tank.bullets[i];
-            bullet.x += bullet.dir.x * 2;
-            bullet.y += bullet.dir.y * 2; 
-            for(let b of barriers){
-                if(collides(bullet,b)){
-                    tank.bullets.splice(i,1);
-                    break;
-                }
-            }
-            for(let i=0;i < tanks.length; i++){
-                const t = tanks[i];
-                if(t !== tank && collides(bullet,t)){
-                    t.dead = true;
-                    tank.bullets.splice(i,1);
-                    setTimeout(() => {
-                        t.dead = false
-                    },5000)
-                    break
-                }
-            }
-        }
-    }
     io.to("tank").emit("tankUpdate",tankGame.update());
-},10)
+},20)
 function joinTank(socket){
     socket.join("tank");
     tankGame.addTank(socket.user.id);

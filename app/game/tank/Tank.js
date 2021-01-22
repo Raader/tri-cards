@@ -5,6 +5,8 @@ const barriers = [
     new Barrier(100,50,50,300)
 ]
 
+let actions = {}
+
 function addTank(id){
     const player = tanks.find((val) => val.id === id);
     if(player) return;
@@ -48,7 +50,6 @@ function moveTank(id,input){
             }
         }
     }
-
 }
 function update(){
     const ts = [];

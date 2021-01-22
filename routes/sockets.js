@@ -14,8 +14,8 @@ function socketHandler(io, socket){
         controller.unsubFromUserList(socket);
     });
 
-    socket.on("disconnect", () => {
-        controller.disconnect(socket);
+    socket.on("disconnect", (reason) => {
+        controller.disconnect(socket,reason);
     });
     
     socket.on("disconnecting", () => {

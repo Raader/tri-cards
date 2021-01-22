@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { user } from "../api/join";
 import { socket } from "../api/socket";
+import { joinTank, tankUpdate } from "../api/tank";
 const p5 = require("p5");
 
 class Barrier{
@@ -60,11 +61,9 @@ export function Tank(props){
     let gameState = {};
     let p = useRef();
     useEffect(() => {
-        socket.on("tankUpdate",(state) => {
-            gameState = state;
-            console.log(gameState);
-        });
-        socket.emit("joinTank");
+        console.log("socket: ",socket)
+        joinTank((err,state) => gameState = state);
+        p.current = new p5(sketch, canvas.current);
     },[])
 
     const sketch = (p) => {
@@ -74,7 +73,7 @@ export function Tank(props){
             p.createCanvas(400, 400);
             p.rectMode(p.CENTER);
             setInterval(() => {
-                socket.emit("tankUpdate",{uKey:p.keyIsDown(87),dKey:p.keyIsDown(83),rKey:p.keyIsDown(68),lKey:p.keyIsDown(65)})
+                tankUpdate({uKey:p.keyIsDown(87),dKey:p.keyIsDown(83),rKey:p.keyIsDown(68),lKey:p.keyIsDown(65)})
             },10)
         }
         p.keyPressed = () => {
@@ -148,7 +147,7 @@ export function Tank(props){
         }
     } 
     useEffect(() => {
-        p.current = new p5(sketch, canvas.current);
+        
 
     },[])
     return(
