@@ -4,58 +4,6 @@ import { socket } from "../api/socket";
 import { joinTank, tankUpdate } from "../api/tank";
 const p5 = require("p5");
 
-class Barrier{
-    constructor(x,y,width,height){
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-    }
-    contains = function(x,y){
-        return this.x <= x && x <= this.x + this.width && this.y <= y && y <= this.y + this.height;
-    }
-}
-
-class Player{
-    speed = 2.5;
-    dir = {x:0,y:0}
-    constructor(x,y,width,height){
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-    }
-    calculateDir = (uKey,dKey,rKey,lKey) => {
-        const dir= {x:0,y:0}
-        if(rKey){
-            dir.x += 1;
-        }
-        if(lKey){
-            dir.x += -1;
-        }
-        if(uKey){
-            dir.y += -1;
-        }
-        if(dKey){
-            dir.y += 1;
-        }
-        if(dir.x && dir.y){
-            dir.x /= 2;
-            dir.y /= 2;
-        }
-        return dir;
-    }
-    calculateMovement = (uKey,dKey,rKey,lKey) => {
-        const oldx = this.x;
-        const oldy = this.y;
-        const dir = this.calculateDir(uKey,dKey,rKey,lKey);
-        if(!dir.x && !dir.y) return {oldx:0,oldy:0};
-        this.dir = dir;
-        this.x += this.dir.x * this.speed;
-        this.y += this.dir.y * this.speed;
-        return {oldx,oldy}
-    }
-}
 export function Tank(props){
     const canvas = useRef();
     let gameState = {};
@@ -67,8 +15,6 @@ export function Tank(props){
     },[])
 
     const sketch = (p) => {
-        const player = new Player(0,0,25,25);
-        let barriers = []
         p.setup = () => {
             p.createCanvas(400, 400);
             p.rectMode(p.CENTER);
@@ -86,11 +32,7 @@ export function Tank(props){
             //x = p.mouseX;
             //y = p.mouseY
             p.background("lightblue")
-            barriers = [];
-            for(let b of gameState.barriers){
-                barriers.push(new Barrier(b.x,b.y,b.width,b.height));
-            }
-            for(let barrier of barriers){       
+            for(let barrier of gameState.barriers){       
                 p.push();
                 p.rectMode(p.CORNER)
                 p.rect(barrier.x,barrier.y,barrier.width, barrier.height);
@@ -104,8 +46,6 @@ export function Tank(props){
                 let r = 0;
                 let v1 = p.createVector(tank.dir.x,tank.dir.y);
                 let heading = v1.heading();
-                r = p.degrees(heading).toFixed(2);
-                p.text("degrees: " + r,10,50,90,90);
                 r = heading.toFixed(2);
                 if(user && tank.id === user._id){
                     //lx = player.x;
@@ -124,7 +64,7 @@ export function Tank(props){
                 p.translate(lx,ly);
                 p.rotate(r)
                 p.fill(color)      
-                p.rect(0,0,player.width,player.height)
+                p.rect(0,0,tank.width,tank.height)
                 p.pop()
                 
                 p.push()
