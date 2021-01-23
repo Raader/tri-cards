@@ -4,36 +4,6 @@ import { socket } from "../api/socket";
 import { joinTank, subToGameState, tankUpdate } from "../api/tank";
 const p5 = require("p5");
 
-function calculateDir(uKey,dKey,rKey,lKey){
-    const dir= {x:0,y:0}
-    if(rKey){
-        dir.x += 1;
-    }
-    if(lKey){
-        dir.x += -1;
-    }
-    if(uKey){
-        dir.y += -1;
-    }
-    if(dKey){
-        dir.y += 1;
-    }
-    if(dir.x && dir.y){
-        dir.x /= 2;
-        dir.y /= 2;
-    }
-    return dir;
-}
-
- function calculateMovement(x,y,speed,input){
-    const oldx = x;
-    const oldy = y;
-    const dir = calculateDir(input.uKey,input.dKey,input.rKey,input.lKey);
-    x += dir.x * speed;
-    y += dir.y * speed;
-    return {x,y}
-}
-
 export function Tank(props){
     const canvas = useRef();
     let i = null
@@ -54,12 +24,6 @@ export function Tank(props){
             p.rectMode(p.CENTER);
             setInterval(() => {
                 const input = {uKey:p.keyIsDown(87),dKey:p.keyIsDown(83),rKey:p.keyIsDown(68),lKey:p.keyIsDown(65)};
-                const mTank = gameState.tanks.find((val) => val.id === user.id);
-                if(mTank){
-                    const {x,y} = calculateMovement(mTank.x,mTank.y,mTank.speed,input)
-                    mTank.x = x;
-                    mTank.y = y;
-                }
                 tankUpdate(input);
             },10)
         }
