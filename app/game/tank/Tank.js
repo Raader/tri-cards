@@ -121,7 +121,7 @@ class Game{
                 }
             }
             p.actions = {};
-            ts.push({x:p.x,y:p.y,width:p.width,height:p.height,dead:p.dead,dir:p.dir,
+            ts.push({x:p.x,y:p.y,width:p.width,height:p.height,dead:p.dead,dir:p.dir,speed:p.speed,
                 bullets:p.bullets.map((b) => { return {x:b.x,y:b.y,width:b.width,height:b.height,dir:b.dir}})})
         }
         const bs = [];
