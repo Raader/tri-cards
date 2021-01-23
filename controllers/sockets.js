@@ -2,7 +2,8 @@ const sockets = {}
 let userList = []
 let io;
 const rooms = [];
-const tankGame = require("../app/game/tank/Tank");
+const game = require("../app/game/tank/Tank").game;
+const tankGame = new game();
 
 /**
  * updates user list based on sockets
