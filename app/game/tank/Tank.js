@@ -1,5 +1,6 @@
 const Player = require("./Player")
 const Barrier = require("./Barrier");
+const Bullet = require("./Bullet");
 
 class Game{
     tanks = [];
@@ -35,7 +36,7 @@ class Game{
         const tank = this.tanks.find((val) => val.id === id);
         if(!tank || tank.onCooldown) return;
         tank.actions.fire = () => {
-        tank.bullets.push({x:tank.x,y:tank.y,dir:tank.dir});
+        tank.bullets.push(new Bullet(tank.x,tank.y,5,5,tank.dir,5));
         tank.onCooldown = true;
         setTimeout(() => tank.onCooldown = false,1000);
         }
@@ -91,17 +92,16 @@ class Game{
             }
             for(let i= 0; i < p.bullets.length;i++){
                 const bullet = p.bullets[i];
-                bullet.x += bullet.dir.x * 5;
-                bullet.y += bullet.dir.y * 5; 
+                bullet.calculateMovement();
                 for(let b of barriers){
-                    if(collides(bullet,b)){
+                    if(this.collides(bullet,b)){
                         p.bullets.splice(i,1);
                         break;
                     }
                 }
                 for(let i=0;i < tanks.length; i++){
                     const t = tanks[i];
-                    if(t !== p && collides(bullet,t)){
+                    if(t !== p && this.collides(bullet,t)){
                         t.dead = true;
                         p.bullets.splice(i,1);
                         setTimeout(() => {
@@ -112,7 +112,8 @@ class Game{
                 }
             }
             p.actions = {};
-            ts.push({x:p.x,y:p.y,width:p.width,height:p.height,dead:p.dead,dir:p.dir,bullets:p.bullets})
+            ts.push({x:p.x,y:p.y,width:p.width,height:p.height,dead:p.dead,dir:p.dir,
+                bullets:p.bullets.map((b) => { return {x:b.x,y:b.y,width:b.width,height:b.height,dir:b.dir}})})
         }
         const bs = [];
         for(let b of barriers){
