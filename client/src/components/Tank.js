@@ -1,22 +1,26 @@
 import { useEffect, useRef, useState } from "react"
 import { user } from "../api/join";
 import { socket } from "../api/socket";
-import { joinTank, tankUpdate } from "../api/tank";
+import { joinTank, subToGameState, tankUpdate } from "../api/tank";
 const p5 = require("p5");
 
 export function Tank(props){
     const canvas = useRef();
+    let i = null
     let gameState = {};
     let p = useRef();
     useEffect(() => {
         console.log("socket: ",socket)
-        joinTank((err,state) => gameState = state);
-        p.current = new p5(sketch, canvas.current);
+        subToGameState((err,state) => gameState = state);
+        joinTank((err,state) => {
+            i = state;
+            p.current = new p5(sketch, canvas.current);
+        });
     },[])
 
     const sketch = (p) => {
         p.setup = () => {
-            p.createCanvas(400, 400);
+            p.createCanvas(i.map.width, i.map.height);
             p.rectMode(p.CENTER);
             setInterval(() => {
                 tankUpdate({uKey:p.keyIsDown(87),dKey:p.keyIsDown(83),rKey:p.keyIsDown(68),lKey:p.keyIsDown(65)})

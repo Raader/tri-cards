@@ -1,14 +1,23 @@
 const Player = require("./Player")
 const Barrier = require("./Barrier");
+const { get } = require("config");
 const tanks = []
 const barriers = [
     new Barrier(100,50,50,300)
 ]
-
+const map = {
+    width:500,
+    height:500,
+}
 let actions = {}
+
 
 function collides(point,area){
     return area.x <= point.x && point.x <= area.x + area.width && area.y <= point.y && point.y <= area.y + area.height;
+}
+
+function getInfo(){
+    return {map};
 }
 
 function addTank(id){
@@ -33,8 +42,8 @@ function moveTank(id,input){
     if(!player || player.dead) return;
     player.actions.move = () =>{
     const{oldx,oldy} = player.calculateMovement(input.uKey,input.dKey,input.rKey,input.lKey);
-    if(player.x > 400-player.width/2){
-        player.x = 400-player.width/2;
+    if(player.x > map.width-player.width/2){
+        player.x = map.width-player.width/2;
     }
     if(player.x < player.width/2){
         player.x = player.width/2;
@@ -42,8 +51,8 @@ function moveTank(id,input){
     if(player.y < player.height/2){
        player.y= player.width/2;
     }
-    if(player.y> 400- player.height/2){
-        player.y = 400- player.width/2;
+    if(player.y> map.height- player.height/2){
+        player.y = map.height- player.width/2;
     }
     for(let barrier of barriers){
         const width = player.width;
@@ -112,3 +121,4 @@ module.exports.removeTank = removeTank;
 module.exports.update = update;
 module.exports.moveTank = moveTank;
 module.exports.fire = fire
+module.exports.getInfo = getInfo;
