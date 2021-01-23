@@ -28,10 +28,10 @@ class Game{
         const width = area1.width;
         const height = area1.height;
         const corners = [
-            {x: x + width/2,y: y + height/2},
-            {x: x - width/2,y: y - height/2},
-            {x: x + width/2,y: y - height/2},
-            {x: x - width/2,y: y + height/2},
+            {x: x,y: y},
+            {x: x + width ,y: y },
+            {x: x + width,y: y + height},
+            {x: x ,y: y + height},
         ]
         for(let corner of corners){
             if(this.collides(corner,area2)){
@@ -82,7 +82,7 @@ class Game{
             player.y = map.height- player.width/2;
         }
         for(let barrier of this.barriers){
-            if(this.intersects(player,barrier)){
+            if(this.intersects(player.getArea(),barrier.getArea())){
                 player.x = oldx;
                 player.y = oldy;
                 break;
@@ -99,20 +99,20 @@ class Game{
             for(let action of Object.values(p.actions)){
                 if(action) action();
             }
-            for(let i= 0; i < p.bullets.length;i++){
-                const bullet = p.bullets[i];
+            for(let f= 0; f < p.bullets.length;f++){
+                const bullet = p.bullets[f];
                 bullet.calculateMovement();
                 for(let b of barriers){
                     if(this.collides(bullet,b)){
-                        p.bullets.splice(i,1);
+                        p.bullets.splice(f,1);
                         break;
                     }
                 }
                 for(let i=0;i < tanks.length; i++){
                     const t = tanks[i];
-                    if(t !== p && this.collides(bullet,t)){
+                    if(t !== p && this.intersects(bullet.getArea(),t.getArea())){
+                        p.bullets.splice(f,1);
                         t.dead = true;
-                        p.bullets.splice(i,1);
                         setTimeout(() => {
                             t.dead = false
                         },5000)
@@ -122,7 +122,7 @@ class Game{
             }
             p.actions = {};
             ts.push({id:p.id,name:p.name,x:p.x,y:p.y,width:p.width,height:p.height,dead:p.dead,dir:p.dir,speed:p.speed,
-                bullets:p.bullets.map((b) => { return {x:b.x,y:b.y,width:b.width,height:b.height,dir:b.dir}})})
+                bullets:p.bullets.map((b) => {return {x:b.x,y:b.y,width:b.width,height:b.height,dir:b.dir}})})
         }
         const bs = [];
         for(let b of barriers){
