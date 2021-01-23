@@ -22,6 +22,25 @@ class Game{
         return area.x <= point.x && point.x <= area.x + area.width && area.y <= point.y && point.y <= area.y + area.height;
     }
 
+    intersects(area1,area2){
+        const x = area1.x
+        const y = area1.y
+        const width = area1.width;
+        const height = area1.height;
+        const corners = [
+            {x: x + width/2,y: y + height/2},
+            {x: x - width/2,y: y - height/2},
+            {x: x + width/2,y: y - height/2},
+            {x: x - width/2,y: y + height/2},
+        ]
+        for(let corner of corners){
+            if(this.collides(corner,area2)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     addTank = (id) => {
         const player = this.tanks.find((val) => val.id === id);
         if(player) return;
@@ -36,8 +55,10 @@ class Game{
         const tank = this.tanks.find((val) => val.id === id);
         if(!tank || tank.onCooldown) return;
         tank.actions.fire = () => {
-        tank.bullets.push(new Bullet(tank.x,tank.y,5,5,tank.dir,5));
+        const bullet = new Bullet(tank.x,tank.y,7,7,tank.dir,5);
+        tank.bullets.push(bullet);
         tank.onCooldown = true;
+        setTimeout(() => tank.bullets.splice(tank.bullets.indexOf(bullet),1),5000) 
         setTimeout(() => tank.onCooldown = false,1000);
         }
     }
@@ -61,22 +82,10 @@ class Game{
             player.y = map.height- player.width/2;
         }
         for(let barrier of this.barriers){
-            const width = player.width;
-            const height = player.height;
-            const x = player.x
-            const y = player.y
-            const corners = [
-                {x: x + width/2,y: y + height/2},
-                {x: x - width/2,y: y - height/2},
-                {x: x + width/2,y: y - height/2},
-                {x: x - width/2,y: y + height/2},
-            ]
-            for(let corner of corners){
-                if(barrier.contains(corner.x,corner.y)){
-                    player.x = oldx;
-                    player.y = oldy;
-                    break;
-                }
+            if(this.intersects(player,barrier)){
+                player.x = oldx;
+                player.y = oldy;
+                break;
             }
         }
         }

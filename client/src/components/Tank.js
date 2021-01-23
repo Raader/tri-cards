@@ -61,7 +61,7 @@ export function Tank(props){
                     p.push()
                     p.translate(bullet.x,bullet.y);
                     p.fill("yellow")
-                    p.rect(0,0,5,5);
+                    p.rect(0,0,bullet.width,bullet.height);
                     p.pop()
                 }
                 p.push()
