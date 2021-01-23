@@ -1,12 +1,15 @@
 class Player{
+    name;
+    id;
     speed = 2.5;
     dir = {x:0,y:0};
     onCooldown = false;
     dead = false;
     actions = {};
     bullets = [];
-    constructor(id,x,y,width,height){
-        this.id = id
+    constructor(id,name,x,y,width,height){
+        this.id = id;
+        this.name = name;
         this.x = x;
         this.y = y;
         this.width = width;

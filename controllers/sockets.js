@@ -146,7 +146,7 @@ setInterval(() => {
 },10)
 function joinTank(socket){
     socket.join("tank");
-    tankGame.addTank(socket.user.id);
+    tankGame.addTank(socket.user);
     socket.emit("joinTank",tankGame.getInfo());
 }
 
