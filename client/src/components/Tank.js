@@ -25,7 +25,7 @@ export function Tank(props){
             setInterval(() => {
                 const input = {uKey:p.keyIsDown(87),dKey:p.keyIsDown(83),rKey:p.keyIsDown(68),lKey:p.keyIsDown(65)};
                 tankUpdate(input);
-            },10)
+            },33)
         }
         p.keyPressed = () => {
             if(p.keyCode === 32){

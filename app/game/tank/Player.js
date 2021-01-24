@@ -1,7 +1,7 @@
 class Player{
     name;
     id;
-    speed = 2.5;
+    speed = 3.5;
     dir = {x:0,y:0};
     onCooldown = false;
     dead = false;
