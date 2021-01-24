@@ -88,6 +88,9 @@ export function Tank(props){
                     lx = player.x;
                     ly = player.y;
                     color = "darkgreen";
+                    let v1 = p.createVector(player.dir.x,player.dir.y);
+                    let heading = v1.heading();
+                    r = heading.toFixed(2);
                     //let v1 = p.createVector(lx + player.dir.x,ly + player.dir.y);
                 }
                 for(let bullet of tank.bullets){
