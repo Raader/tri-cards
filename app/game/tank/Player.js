@@ -8,13 +8,14 @@ class Player{
     actions = {};
     bullets = [];
     
-    constructor(id,name,x,y,width,height){
+    constructor(id,name,x,y,width,height,color){
         this.id = id;
         this.name = name;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        this.color = color
     }
 
     getArea = () => {

@@ -59,10 +59,18 @@ export function Tank(props){
                     player.y = oldy;
                     break;
                 }
-            }
-            p.background("lightblue")
+            }         
+            p.background("Moccasin")
+            p.push()
+            p.noFill()
+            p.rectMode(p.CORNER);
+            p.strokeWeight(32)
+            p.stroke("BurlyWood");
+            p.rect(0,0,i.map.width,i.map.height)
+            p.pop()
             for(let barrier of gameState.barriers){       
-                p.push();
+                p.push()
+                p.fill("BurlyWood")
                 p.rectMode(p.CORNER)
                 p.rect(barrier.x,barrier.y,barrier.width, barrier.height);
                 p.pop();
@@ -71,7 +79,7 @@ export function Tank(props){
                 if(tank.dead) continue;
                 let lx = tank.x;
                 let ly = tank.y;
-                let color = "green";
+                let color = tank.color;
                 let r = 0;
                 let v1 = p.createVector(tank.dir.x,tank.dir.y);
                 let heading = v1.heading();
@@ -127,7 +135,7 @@ export function Tank(props){
 
     },[])
     return(
-        <div ref={ref => canvas.current = ref}>
+        <div id="tank-area" ref={ref => canvas.current = ref}>
 
         </div>
     )
