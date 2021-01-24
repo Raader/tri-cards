@@ -38,9 +38,17 @@ export function Tank(props){
             //y = p.mouseY
             
             
-            p.background("lightblue")
+            p.background("Moccasin")
+            p.push()
+            p.noFill()
+            p.rectMode(p.CORNER);
+            p.strokeWeight(32)
+            p.stroke("BurlyWood");
+            p.rect(0,0,i.map.width,i.map.height)
+            p.pop()
             for(let barrier of gameState.barriers){       
-                p.push();
+                p.push()
+                p.fill("BurlyWood")
                 p.rectMode(p.CORNER)
                 p.rect(barrier.x,barrier.y,barrier.width, barrier.height);
                 p.pop();
@@ -104,7 +112,7 @@ export function Tank(props){
 
     },[])
     return(
-        <div ref={ref => canvas.current = ref}>
+        <div id="tank-area" ref={ref => canvas.current = ref}>
 
         </div>
     )
