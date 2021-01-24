@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import Player from "../game/Player";
+import {Player} from "../game/Player";
 import { user } from "../api/join";
 import { socket } from "../api/socket";
 import { joinTank, subToGameState, tankUpdate } from "../api/tank";

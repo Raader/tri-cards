@@ -1,4 +1,4 @@
-class Player{
+export class Player{
     name;
     id;
     speed = 3.5;
@@ -79,5 +79,3 @@ class Player{
         return false;
     }
 }
-
-module.exports = Player;
