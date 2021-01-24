@@ -49,7 +49,7 @@ export function Tank(props){
                 if(tank.dead) continue;
                 let lx = tank.x;
                 let ly = tank.y;
-                let color = "green";
+                let color = tank.color;
                 let r = 0;
                 let v1 = p.createVector(tank.dir.x,tank.dir.y);
                 let heading = v1.heading();
@@ -57,7 +57,6 @@ export function Tank(props){
                 if(user && tank.id === user._id){
                     //lx = player.x;
                     //ly = player.y;
-                    color = "darkgreen";
                     //let v1 = p.createVector(lx + player.dir.x,ly + player.dir.y);
                 }
                 for(let bullet of tank.bullets){

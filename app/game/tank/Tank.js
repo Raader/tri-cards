@@ -42,9 +42,10 @@ class Game{
     }
 
     addTank = (user) => {
+        const randomcolor = require("randomcolor");
         const player = this.tanks.find((val) => val.id === user.id);
         if(player) return;
-        this.tanks.push(new Player(user.id,user.name,0,0,25,25))
+        this.tanks.push(new Player(user.id,user.name,0,0,25,25,randomcolor()))
     }
 
     removeTank = (id) => {
@@ -121,7 +122,7 @@ class Game{
                 }
             }
             p.actions = {};
-            ts.push({id:p.id,name:p.name,x:p.x,y:p.y,width:p.width,height:p.height,dead:p.dead,dir:p.dir,speed:p.speed,
+            ts.push({id:p.id,name:p.name,x:p.x,y:p.y,width:p.width,height:p.height,dead:p.dead,dir:p.dir,speed:p.speed,color:p.color,
                 bullets:p.bullets.map((b) => {return {x:b.x,y:b.y,width:b.width,height:b.height,dir:b.dir}})})
         }
         const bs = [];

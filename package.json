@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "build":"NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
+    "build": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
     "client": "npm run start --prefix client",
     "dev": "nodemon index.js"
   },
@@ -27,6 +27,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.8",
     "parse-bearer-token": "^1.0.1",
+    "randomcolor": "^0.6.2",
     "socket.io": "^3.0.4"
   },
   "devDependencies": {
