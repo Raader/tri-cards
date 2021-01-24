@@ -66,6 +66,10 @@ class Game{
     moveTank = (id,input) => {
         const player = this.tanks.find((val) => val.id === id);
         if(!player || player.dead) return;
+        player.x = input.x;
+        player.y = input.y;
+        player.dir = input.dir;
+        return;
         player.actions.move = () =>{
         const{oldx,oldy} = player.calculateMovement(input.uKey,input.dKey,input.rKey,input.lKey);
         const map = this.map;

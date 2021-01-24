@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react"
+import Player from "../game/Player";
 import { user } from "../api/join";
 import { socket } from "../api/socket";
 import { joinTank, subToGameState, tankUpdate } from "../api/tank";
+import { intersects } from "../game/Physics";
 const p5 = require("p5");
 
 export function Tank(props){
@@ -19,12 +21,13 @@ export function Tank(props){
     },[])
 
     const sketch = (p) => {
+        const player = new Player("","",0,0,25,25);
         p.setup = () => {
             p.createCanvas(i.map.width, i.map.height);
             p.rectMode(p.CENTER);
             setInterval(() => {
                 const input = {uKey:p.keyIsDown(87),dKey:p.keyIsDown(83),rKey:p.keyIsDown(68),lKey:p.keyIsDown(65)};
-                tankUpdate(input);
+                tankUpdate({x: player.x,y : player.y,dir:player.dir});
             },33)
         }
         p.keyPressed = () => {
@@ -36,8 +39,27 @@ export function Tank(props){
             if(!gameState.tanks) return;
             //x = p.mouseX;
             //y = p.mouseY
-            
-            
+            const{oldx,oldy} = player.calculateMovement(p.keyIsDown(87),p.keyIsDown(83),p.keyIsDown(68),p.keyIsDown(65))
+            const map = i.map;
+            if(player.x > map.width-player.width/2){
+                player.x = map.width-player.width/2;
+            }
+            if(player.x < player.width/2){
+                player.x = player.width/2;
+            }
+            if(player.y < player.height/2){
+               player.y= player.width/2;
+            }
+            if(player.y> map.height- player.height/2){
+                player.y = map.height- player.width/2;
+            }
+            for(let barrier of gameState.barriers){
+                if(intersects(player.getArea(),barrier)){
+                    player.x = oldx;
+                    player.y = oldy;
+                    break;
+                }
+            }
             p.background("lightblue")
             for(let barrier of gameState.barriers){       
                 p.push();
@@ -55,8 +77,8 @@ export function Tank(props){
                 let heading = v1.heading();
                 r = heading.toFixed(2);
                 if(user && tank.id === user._id){
-                    //lx = player.x;
-                    //ly = player.y;
+                    lx = player.x;
+                    ly = player.y;
                     color = "darkgreen";
                     //let v1 = p.createVector(lx + player.dir.x,ly + player.dir.y);
                 }
