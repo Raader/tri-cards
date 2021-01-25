@@ -56,7 +56,9 @@ class Game{
         const tank = this.tanks.find((val) => val.id === id);
         if(!tank || tank.onCooldown) return;
         tank.actions.fire = () => {
-        const bullet = new Bullet(tank.x,tank.y,7,7,tank.dir,10);
+        const x = tank.x + tank.dir.x * tank.width/2;
+        const y = tank.y + tank.dir.y * tank.height/2;
+        const bullet = new Bullet(x,y,7,7,tank.dir,10);
         tank.bullets.push(bullet);
         tank.onCooldown = true;
         setTimeout(() => tank.bullets.splice(tank.bullets.indexOf(bullet),1),10000)
