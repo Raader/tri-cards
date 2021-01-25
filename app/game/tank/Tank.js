@@ -119,6 +119,7 @@ class Game{
                     const t = tanks[i];
                     if(t !== p && this.intersects(bullet.getArea(),t.getArea())){
                         p.bullets.splice(f,1);
+                        p.killCount += 1;
                         t.dead = true;
                         setTimeout(() => {
                             t.dead = false
@@ -128,7 +129,7 @@ class Game{
                 }
             }
             p.actions = {};
-            ts.push({id:p.id,name:p.name,x:p.x,y:p.y,width:p.width,height:p.height,dead:p.dead,dir:p.dir,speed:p.speed,color:p.color,
+            ts.push({id:p.id,name:p.name,x:p.x,y:p.y,width:p.width,height:p.height,dead:p.dead,dir:p.dir,speed:p.speed,color:p.color,killCount:p.killCount,
                 bullets:p.bullets.map((b) => {return {x:b.x,y:b.y,width:b.width,height:b.height,dir:b.dir}})})
         }
         const bs = [];

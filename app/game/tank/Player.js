@@ -1,4 +1,5 @@
 class Player{
+    killCount = 0;
     name;
     id;
     speed = 3.5;
