@@ -87,7 +87,6 @@ export function Tank(props){
                 if(user && tank.id === user._id){
                     lx = player.x;
                     ly = player.y;
-                    color = "darkgreen";
                     let v1 = p.createVector(player.dir.x,player.dir.y);
                     let heading = v1.heading();
                     r = heading.toFixed(2);
