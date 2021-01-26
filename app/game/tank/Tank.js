@@ -1,6 +1,7 @@
 const Player = require("./Player")
 const Barrier = require("./Barrier");
 const Bullet = require("./Bullet");
+const random = require("better-random");
 
 class Game{
     tanks = [];
@@ -39,6 +40,24 @@ class Game{
             }
         }
         return false;
+    }
+    collidesWithBarriers(point){
+        for(let barrier of this.barriers){
+            if(this.collides(point,barrier)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    randomPoint(){
+        const x = random.randInt(0,this.map.width)
+        const y = random.randInt(0,this.map.height)
+        while(this.collidesWithBarriers({x,y})){
+            x = random.randInt(0,this.map.width)
+            y = random.randInt(0,this.map.height)
+        }
+        return({x,y});
     }
 
     addTank = (user) => {
@@ -98,7 +117,7 @@ class Game{
         }
     }
 
-    update = () => {
+    update = (deathcb) => {
         const tanks = this.tanks;
         const barriers = this.barriers;
         const ts = [];
@@ -121,6 +140,7 @@ class Game{
                         p.bullets.splice(f,1);
                         p.killCount += 1;
                         t.dead = true;
+                        deathcb(t.id);
                         setTimeout(() => {
                             t.dead = false
                         },5000)

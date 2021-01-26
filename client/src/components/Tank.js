@@ -2,9 +2,10 @@ import { useEffect, useRef, useState } from "react"
 import { Player } from "../game/Player";
 import { user } from "../api/join";
 import { socket } from "../api/socket";
-import { joinTank, subToGameState, tankUpdate } from "../api/tank";
+import { joinTank, subToDeath, subToGameState, tankUpdate } from "../api/tank";
 import { intersects } from "../game/Physics";
 import { Button, Col, Container, Row } from "react-bootstrap";
+import random from "better-random";
 const p5 = require("p5");
 
 export function Tank(props) {
@@ -27,6 +28,18 @@ export function Tank(props) {
 
     const sketch = (p) => {
         const player = new Player("", "", 0, 0, 25, 25);
+        const randomPoint = () =>{
+            const x = random.randInt(0,i.map.width)
+            const y = random.randInt(0,i.map.height)
+            return({x,y});
+        }
+    
+        subToDeath((err) => {
+            const point = randomPoint();
+            player.x = point.x;
+            player.y = point.y; 
+            tankUpdate({ x: player.x, y: player.y, dir: player.dir });
+        })
         p.setup = () => {
             p.createCanvas(i.map.width, i.map.height);
             p.rectMode(p.CENTER);
@@ -44,6 +57,8 @@ export function Tank(props) {
             if (!gameState.tanks) return;
             //x = p.mouseX;
             //y = p.mouseY
+            const tank = gameState.tanks.find((val) => user && val.id === user._id);
+            if(tank && !tank.dead){
             const { oldx, oldy } = player.calculateMovement(p.keyIsDown(87), p.keyIsDown(83), p.keyIsDown(68), p.keyIsDown(65))
             const map = i.map;
             if (player.x > map.width - player.width / 2) {
@@ -65,6 +80,7 @@ export function Tank(props) {
                     break;
                 }
             }
+            }
             p.background("Moccasin")
             p.push()
             p.noFill()
@@ -81,7 +97,9 @@ export function Tank(props) {
                 p.pop();
             }
             for (let tank of gameState.tanks) {
-                if (tank.dead) continue;
+                if (tank.dead) {
+                    continue;
+                }
                 let lx = tank.x;
                 let ly = tank.y;
                 let color = tank.color;

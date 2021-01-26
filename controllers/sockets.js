@@ -142,7 +142,12 @@ const barriers = [
     {x:100,y:50,width:50,height:300}
 ]
 setInterval(() => {
-    io.to("tank").emit("tankUpdate",tankGame.update());
+    io.to("tank").emit("tankUpdate",tankGame.update((id) => {
+        const socket = Object.values(sockets).find((val) => val && val.user.id === id);
+        if(socket){
+            socket.emit("death");
+        }
+    }));
 },33)
 function joinTank(socket){
     socket.join("tank");
