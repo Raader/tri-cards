@@ -27,13 +27,14 @@ export function Tank(props) {
     }, [])
 
     const sketch = (p) => {
-        const player = new Player("", "", 0, 0, 25, 25);
+        
         const randomPoint = () =>{
             const x = random.randInt(0,i.map.width)
             const y = random.randInt(0,i.map.height)
             return({x,y});
         }
-    
+        const startPoint = randomPoint();
+        const player = new Player("", "", startPoint.x, startPoint.y, 25, 25);
         subToDeath((err) => {
             const point = randomPoint();
             player.x = point.x;
@@ -82,16 +83,11 @@ export function Tank(props) {
             }
             }
             p.background("Moccasin")
-            p.push()
-            p.noFill()
-            p.rectMode(p.CORNER);
-            p.strokeWeight(32)
-            p.stroke("BurlyWood");
-            p.rect(0, 0, i.map.width, i.map.height)
-            p.pop()
             for (let barrier of gameState.barriers) {
                 p.push()
-                p.fill("BurlyWood")
+                p.fill("burlywood")
+                p.strokeWeight(3)
+                p.stroke("#CDAA7D")
                 p.rectMode(p.CORNER)
                 p.rect(barrier.x, barrier.y, barrier.width, barrier.height);
                 p.pop();
@@ -122,6 +118,7 @@ export function Tank(props) {
                     p.rect(0, 0, bullet.width, bullet.height);
                     p.pop()
                 }
+                
                 p.push()
                 p.translate(lx, ly);
                 p.rotate(r)
@@ -139,7 +136,8 @@ export function Tank(props) {
                 p.push()
                 p.translate(lx, ly);
                 p.rotate(r)
-                p.fill("black")
+                p.stroke("#494A4A")
+                p.fill("#595A5A")
                 p.rect(0, 15, 30, 10);
                 p.rect(0, -15, 30, 10);
                 p.pop()

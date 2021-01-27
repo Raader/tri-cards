@@ -5,16 +5,23 @@ const random = require("better-random");
 
 class Game{
     tanks = [];
-    barriers = [
-        new Barrier(100,50,50,300),
-        new Barrier(300,50,50,300)
-    ];
+    
     actions = {};
     map = {
         width:500,
-        height:500,
+        height:450,
     }
-
+    borderThickness = 15;
+    barriers = [
+        new Barrier(100,0,30,375),
+        new Barrier(this.map.width - 30 - 100,75,30,375),
+        new Barrier(245,75,125,25),
+        new Barrier(130,350,125,25),
+        new Barrier(0,0,15,this.map.height),
+        new Barrier(this.map.width - this.borderThickness,0,this.borderThickness,this.map.height),
+        new Barrier(0,0,this.map.width,this.borderThickness),
+        new Barrier(0,this.map.height-this.borderThickness,this.map.width,this.borderThickness),
+    ];
     getInfo = () => {
         return {map:this.map};
     }
