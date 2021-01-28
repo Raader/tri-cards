@@ -50,9 +50,7 @@ export function Tank(props) {
 
     const sketch = (p) => {
         subToDeath((err) => {
-            const point = randomPoint();
-            player.x = point.x;
-            player.y = point.y; 
+            randomPoint(player);
             tankUpdate({ x: player.x, y: player.y, dir: player.dir });
         })
         p.setup = () => {
