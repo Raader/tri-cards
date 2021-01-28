@@ -162,6 +162,14 @@ function tankUpdate(socket,input){
 function fireBullet(socket){
     tankGame.fire(socket.user.id);
 }
+
+function joinSnake(socket){
+
+}
+
+function snakeUpdate(socket,data){
+
+}
 module.exports.connection = connection;
 module.exports.disconnect = disconnect;
 module.exports.disconnecting = disconnecting;
@@ -175,3 +183,5 @@ module.exports.leaveRoom = leaveRoom;
 module.exports.joinTank = joinTank;
 module.exports.tankUpdate = tankUpdate;
 module.exports.fireBullet = fireBullet;
+module.exports.joinSnake = joinSnake;
+module.exports.snakeUpdate = snakeUpdate;

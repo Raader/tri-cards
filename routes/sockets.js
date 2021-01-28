@@ -50,6 +50,13 @@ function socketHandler(io, socket){
     socket.on("fireBullet", () => {
         controller.fireBullet(socket);
     })
+
+    socket.on("joinSnake", () => {
+        controller.joinSnake(socket)
+    })
+    socket.on("snakeUpdate", (data) => {
+        controller.snakeUpdate(socket,data)
+    })
 }
 
 module.exports = socketHandler;
