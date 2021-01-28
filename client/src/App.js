@@ -18,6 +18,7 @@ import { Room } from './components/Room';
 import { Cards } from './components/Cards';
 import { useEffect } from 'react';
 import { Tank } from './components/Tank';
+import { Snake } from './components/Snake';
 function App() {
   const user = useUser()
 
@@ -45,6 +46,9 @@ function App() {
         </Route>
         <Route path="/tank">
           <Tank user={user}></Tank>
+        </Route>
+        <Route path="/snake">
+          <Snake></Snake>
         </Route>
         <Route path="/users/:id">
           <Profile user={user}></Profile>
