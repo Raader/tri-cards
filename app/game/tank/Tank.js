@@ -71,7 +71,7 @@ class Game{
         const randomcolor = require("randomcolor");
         const player = this.tanks.find((val) => val.id === user.id);
         if(player) return;
-        this.tanks.push(new Player(user.id,user.name,0,0,25,25,randomcolor()))
+        this.tanks.push(new Player(user.id,user.name,0,0,20,20,randomcolor()))
     }
 
     removeTank = (id) => {

@@ -3,7 +3,7 @@ import { Player } from "../game/Player";
 import { user } from "../api/join";
 import { socket } from "../api/socket";
 import { joinTank, subToDeath, subToGameState, tankUpdate } from "../api/tank";
-import { intersects } from "../game/Physics";
+import { collides, intersects } from "../game/Physics";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import random from "better-random";
 const p5 = require("p5");
@@ -14,6 +14,24 @@ export function Tank(props) {
     const [players, setPlayers] = useState([]);
     let gameState = {};
     let p = useRef();
+    let player;
+    function collidesWithBarriers(area){
+        for(let barrier of gameState.barriers){
+            if(intersects(area,barrier)){
+                return true;
+            }
+        }
+        return false;
+    }
+    const randomPoint = (area) =>{
+        area.x = random.randInt(0,i.map.width)
+        area.y = random.randInt(0,i.map.height)
+        while(collidesWithBarriers(area.getArea())){
+            area.x = random.randInt(0,i.map.width)
+            area.y = random.randInt(0,i.map.height)
+        }
+    }
+
     useEffect(() => {
         console.log("socket: ", socket)
         subToGameState((err, state) => {
@@ -21,20 +39,16 @@ export function Tank(props) {
             setPlayers(gameState.tanks.map(val => ({ name: val.name, id: val.id, killCount: val.killCount })))
         });
         joinTank((err, state) => {
-            i = state;
+            console.log(state);
+            i = state.info;
+            gameState = state.gameState;
+            player = new Player("", "", 163, 183, 20, 20);
+            randomPoint(player);          
             p.current = new p5(sketch, canvas.current);
         });
     }, [])
 
     const sketch = (p) => {
-        
-        const randomPoint = () =>{
-            const x = random.randInt(0,i.map.width)
-            const y = random.randInt(0,i.map.height)
-            return({x,y});
-        }
-        const startPoint = randomPoint();
-        const player = new Player("", "", startPoint.x, startPoint.y, 25, 25);
         subToDeath((err) => {
             const point = randomPoint();
             player.x = point.x;
@@ -59,7 +73,7 @@ export function Tank(props) {
             //x = p.mouseX;
             //y = p.mouseY
             const tank = gameState.tanks.find((val) => user && val.id === user._id);
-            if(tank && !tank.dead){
+            if(player && tank && !tank.dead){
             const { oldx, oldy } = player.calculateMovement(p.keyIsDown(87), p.keyIsDown(83), p.keyIsDown(68), p.keyIsDown(65))
             const map = i.map;
             if (player.x > map.width - player.width / 2) {
@@ -130,7 +144,7 @@ export function Tank(props) {
                 p.translate(lx, ly);
                 p.rotate(r)
                 p.fill(color)
-                p.rect(10, 0, 30, 10);
+                p.rect(8, 0, 23, 8);
                 p.pop();
 
                 p.push()
@@ -138,8 +152,8 @@ export function Tank(props) {
                 p.rotate(r)
                 p.stroke("#494A4A")
                 p.fill("#595A5A")
-                p.rect(0, 15, 30, 10);
-                p.rect(0, -15, 30, 10);
+                p.rect(0, tank.height/2 + 2.5, 25, 8);
+                p.rect(0, -tank.height/2 -2.5, 25, 8);
                 p.pop()
 
                 p.push()

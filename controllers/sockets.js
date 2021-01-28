@@ -152,7 +152,7 @@ setInterval(() => {
 function joinTank(socket){
     socket.join("tank");
     tankGame.addTank(socket.user);
-    socket.emit("joinTank",tankGame.getInfo());
+    socket.emit("joinTank",{info:tankGame.getInfo(),gameState:tankGame.update()});
 }
 
 function tankUpdate(socket,input){
