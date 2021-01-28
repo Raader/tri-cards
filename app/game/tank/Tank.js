@@ -156,12 +156,11 @@ class Game{
                 }
             }
             p.actions = {};
-            ts.push({id:p.id,name:p.name,x:p.x,y:p.y,width:p.width,height:p.height,dead:p.dead,dir:p.dir,speed:p.speed,color:p.color,killCount:p.killCount,
-                bullets:p.bullets.map((b) => {return {x:b.x,y:b.y,width:b.width,height:b.height,dir:b.dir}})})
+            ts.push(p.getData())
         }
         const bs = [];
         for(let b of barriers){
-            bs.push({x:b.x,y:b.y,width:b.width,height:b.height})
+            bs.push(b.getData())
         }
         const gameState = {
             tanks:ts,barriers:bs

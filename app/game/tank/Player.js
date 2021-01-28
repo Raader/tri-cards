@@ -1,4 +1,6 @@
-class Player{
+const Instance = require("./Instance");
+
+class Player extends Instance{
     killCount = 0;
     name;
     id;
@@ -10,6 +12,7 @@ class Player{
     bullets = [];
     
     constructor(id,name,x,y,width,height,color){
+        super()
         this.id = id;
         this.name = name;
         this.x = x;
@@ -26,6 +29,21 @@ class Player{
         width:this.width,
         height:this.height
         }
+    }
+
+    getData = () => {
+        return {id:this.id,
+            name:this.name,
+            x:this.x,
+            y:this.y,
+            width:this.width,
+            height:this.height,
+            dead:this.dead,
+            dir:this.dir,
+            speed:this.speed,
+            color:this.color,
+            killCount:this.killCount,
+            bullets:this.bullets.map((b) => b.getData())}
     }
     
     collides(point,area){

@@ -1,5 +1,9 @@
-class Bullet{
-    constructor(x,y,width,height,dir,speed){
+const Instance = require("./Instance")
+
+class Bullet extends Instance{
+    constructor(x,y,width,height,dir,speed,destroy){
+        super();
+        this.destroy = destroy;
         this.x = x;
         this.y = y,
         this.dir = dir;
@@ -17,6 +21,26 @@ class Bullet{
         }
     }
 
+    getData = () => {
+        return {
+            x:this.x,
+            y:this.y,
+            dir:this.dir,
+            width:this.width,
+            height:this.height,
+        }
+    }
+
+    update = () => {
+        this.calculateMovement();
+    }
+
+    onCollision = (collider) => {
+        if(collider.constructor.name === "Player" ){
+        }
+        this.destroy()
+    }
+ 
     calculateMovement = () => {
         this.x += this.dir.x * this.speed;
         this.y += this.dir.y * this.speed;
