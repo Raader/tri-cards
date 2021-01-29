@@ -44,6 +44,10 @@ function socketHandler(io, socket){
     socket.on("joinTank",() => {
         controller.joinTank(socket);
     })
+
+    socket.on("leaveTank", () => {
+        controller.leaveTank(socket);
+    })
     socket.on("tankUpdate",(pos) => {
         controller.tankUpdate(socket,pos);
     })

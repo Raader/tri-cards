@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState,useCallback} from "react"
 import { Player } from "../game/Player";
 import { user } from "../api/join";
 import { socket } from "../api/socket";
-import { joinTank, subToDeath, subToGameState, tankUpdate } from "../api/tank";
+import { joinTank, leaveTank, subToDeath, subToGameState, tankUpdate, unSubFromDeath, unSubFromGameState } from "../api/tank";
 import { collides, intersects } from "../game/Physics";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import random from "better-random";
@@ -15,29 +15,24 @@ export function Tank(props) {
     let gameState = {};
     let p = useRef();
     let player;
-    function collidesWithBarriers(area){
+    const collidesWithBarriers = useCallback((area) => {
         for(let barrier of gameState.barriers){
             if(intersects(area,barrier)){
                 return true;
             }
         }
         return false;
-    }
-    const randomPoint = (area) =>{
+    },[gameState.barriers])
+    const randomPoint = useCallback((area) =>{
         area.x = random.randInt(0,i.map.width)
         area.y = random.randInt(0,i.map.height)
         while(collidesWithBarriers(area.getArea())){
             area.x = random.randInt(0,i.map.width)
             area.y = random.randInt(0,i.map.height)
         }
-    }
+    },[collidesWithBarriers,i])
 
-    useEffect(() => {
-        console.log("socket: ", socket)
-        subToGameState((err, state) => {
-            gameState = state;
-            setPlayers(gameState.tanks.map(val => ({ name: val.name, id: val.id, killCount: val.killCount })))
-        });
+    useEffect(() => {        
         joinTank((err, state) => {
             console.log(state);
             i = state.info;
@@ -46,20 +41,37 @@ export function Tank(props) {
             randomPoint(player);          
             p.current = new p5(sketch, canvas.current);
         });
+        return leaveTank;
     }, [])
 
-    const sketch = (p) => {
+    useEffect(() => {
+        subToGameState((err, state) => {
+            gameState = state;
+            setPlayers(gameState.tanks.map(val => ({ name: val.name, id: val.id, killCount: val.killCount })))
+        });
+        return unSubFromGameState;
+    }, [])
+    useEffect(() => {
+        let int = setInterval(() => {
+            if(!player) return;
+            tankUpdate({ x: player.x, y: player.y, dir: player.dir });
+        }, 33)
+        return () => clearInterval(int);
+    },[player])
+    useEffect(() => {
         subToDeath((err) => {
             randomPoint(player);
             tankUpdate({ x: player.x, y: player.y, dir: player.dir });
         })
+        return unSubFromDeath;
+    },[])
+
+    const sketch = (p) => {
+        
         p.setup = () => {
             p.createCanvas(i.map.width, i.map.height);
             p.rectMode(p.CENTER);
-            setInterval(() => {
-                const input = { uKey: p.keyIsDown(87), dKey: p.keyIsDown(83), rKey: p.keyIsDown(68), lKey: p.keyIsDown(65) };
-                tankUpdate({ x: player.x, y: player.y, dir: player.dir });
-            }, 33)
+            
         }
         p.keyPressed = () => {
             if (p.keyCode === 32) {
