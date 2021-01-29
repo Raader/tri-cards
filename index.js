@@ -25,6 +25,8 @@ const io = require("socket.io")(http,{
       origin: "http://localhost:3000",
       methods: ["GET", "POST"]
   },
+  pingTimeout:60000,
+  pingInterval:25000,
   upgradeTimeout: 30000
 });
 io.use(require("./middleware/identify"));
