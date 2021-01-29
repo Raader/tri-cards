@@ -9,16 +9,16 @@ export function NavMenu(props) {
         setUser(props.user.user);
     },[user,props.user.user])
     return (
-        <Navbar bg="dark" variant="dark" expand="lg">
-            <Navbar.Brand href="#"><span><i class="fas fa-gamepad"></i></span>Tricards</Navbar.Brand>
+        <Navbar id="nav-main" expand="lg">
+            <Navbar.Brand id="h-main" href="#"><span><i class="fas fa-gamepad"></i></span>Tricards</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto" id="main-nav">
-                    <Nav.Link onClick={() => history.push("/")}><i class="fas fa-home"></i> Home</Nav.Link>
-                    <Nav.Link onClick={() => history.push("/about")}><i class="fas fa-home"></i> About</Nav.Link>
-                    <Nav.Link onClick={() => history.push("/game")}><i class="fas fa-gamepad"></i> Game <Badge variant="secondary">FREE</Badge></Nav.Link>
-                    <Nav.Link onClick={() => history.push("/tank")}><i class="fas fa-gamepad"></i> Tank <Badge variant="secondary">FREE</Badge></Nav.Link>
-                    <Nav.Link onClick={() => history.push("/snake")}><i class="fas fa-gamepad"></i> Snake <Badge variant="secondary">FREE</Badge></Nav.Link>
+                    <Nav.Link className="nav-link" onClick={() => history.push("/")}><i class="fas fa-home"></i> Home</Nav.Link>
+                    <Nav.Link className="nav-link" onClick={() => history.push("/about")}><i class="fas fa-home"></i> About</Nav.Link>
+                    <Nav.Link className="nav-link" onClick={() => history.push("/game")}><i class="fas fa-gamepad"></i> Game <Badge variant="secondary">FREE</Badge></Nav.Link>
+                    <Nav.Link className="nav-link" onClick={() => history.push("/tank")}><i class="fas fa-gamepad"></i> Tank <Badge variant="secondary">FREE</Badge></Nav.Link>
+                    <Nav.Link className="nav-link" onClick={() => history.push("/snake")}><i class="fas fa-gamepad"></i> Snake <Badge variant="secondary">FREE</Badge></Nav.Link>
                 </Nav>
             </Navbar.Collapse>
             <Navbar.Collapse className="justify-content-end">

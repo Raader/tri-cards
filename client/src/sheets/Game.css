@@ -1,13 +1,16 @@
 #user-list{
-    background-color:#343a40;
-    color: white;
+    background-color:#3D5467;
+    color: #75B9BE;
     padding: 1rem;
     border-radius: 1rem;
     margin-bottom: 1rem;
 }
+.user-list h2 .room-list h2{
+
+}
 #users {
-    background-color: #343a40;
-    border: 0.25rem solid rgb(159, 159, 161);
+    background-color: #3D5467;
+    border: 0.25rem solid #4b677e;
     border-radius: 1rem;
     overflow-y: scroll;
     height: 25rem;
@@ -26,25 +29,26 @@
 }
 .list-user,.list-room{
     transition: background-color 0.35s;
-    background-color: #3e444b;
+    background-color: #384d5e;
 }
 .list-user:hover, .list-room:hover{
     cursor: pointer;
-    background-color: #454c53;
+    background-color: #3D5467;
 }
 #game{
     margin-top: 1rem;
+    color:#75B9BE !important;
 }
 
 #room-list{
-    background-color:#343a40;
-    color: white;
+    background-color:#3D5467;
+    color: #75B9BE;
     padding: 1rem;
     border-radius: 1rem;
 
 }
 #rooms{
-    border: 0.25rem solid rgb(159, 159, 161);
+    border: 0.25rem solid #4b677e;
     border-radius: 1rem;
     height: 25rem;
     overflow-y: scroll;

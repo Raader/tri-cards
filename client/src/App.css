@@ -86,3 +86,16 @@
 }
 .cards{
 }
+#nav-main{
+  background-color: #3D5467;
+}
+
+#h-main{
+  color:#FE5F55;
+}
+.nav-link{
+  color:#e5d5c2 !important;
+}
+.nav-link:hover{
+  color:#ffeedb !important;
+}
