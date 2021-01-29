@@ -87,7 +87,7 @@ class Game{
         const bullet = new Bullet(x,y,7,7,tank.dir,10);
         tank.bullets.push(bullet);
         tank.onCooldown = true;
-        setTimeout(() => tank.bullets.splice(tank.bullets.indexOf(bullet),1),10000)
+        //setTimeout(() => tank.bullets.splice(tank.bullets.indexOf(bullet),1),10000)
         setTimeout(() => tank.onCooldown = false,1000);
         }
     }
