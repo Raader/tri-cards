@@ -1,5 +1,6 @@
 import p5 from "p5";
 import { useEffect, useRef } from "react"
+import { joinSnake, leaveSnake } from "../api/snake";
 
 export function Snake(props){
     const canvas = useRef();
@@ -14,8 +15,11 @@ export function Snake(props){
     }
 
     useEffect(() => {
+        joinSnake((err,data) => console.log(data))
         p.current = new p5(sketch,canvas.current);
+        return leaveSnake;
     },[])
+
     return(
     <div ref={ref => canvas.current = ref}>
 

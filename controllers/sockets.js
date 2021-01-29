@@ -153,6 +153,13 @@ function joinTank(socket){
     socket.join("tank");
     tankGame.addTank(socket.user);
     socket.emit("joinTank",{info:tankGame.getInfo(),gameState:tankGame.update()});
+    console.log(socket.user.name + " joined tank")
+}
+
+function leaveTank(socket){
+    socket.leave("tank");
+    tankGame.removeTank(socket.user.id);
+    console.log(socket.user.name + " left tank");
 }
 
 function tankUpdate(socket,input){
@@ -164,7 +171,14 @@ function fireBullet(socket){
 }
 
 function joinSnake(socket){
+    socket.join("snake");
+    socket.emit("joinSnake","you joined the snake")
+    console.log(socket.user.name + " joined snake");
+}
 
+function leaveSnake(socket){
+    socket.leave("snake");
+    console.log(socket.user.name + " left snake");
 }
 
 function snakeUpdate(socket,data){
@@ -181,7 +195,9 @@ module.exports.createRoom = createRoom;
 module.exports.joinRoom = joinRoom;
 module.exports.leaveRoom = leaveRoom;
 module.exports.joinTank = joinTank;
+module.exports.leaveTank = leaveTank;
 module.exports.tankUpdate = tankUpdate;
 module.exports.fireBullet = fireBullet;
 module.exports.joinSnake = joinSnake;
+module.exports.leaveSnake = leaveSnake;
 module.exports.snakeUpdate = snakeUpdate;

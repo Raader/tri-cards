@@ -48,6 +48,7 @@ function socketHandler(io, socket){
     socket.on("leaveTank", () => {
         controller.leaveTank(socket);
     })
+
     socket.on("tankUpdate",(pos) => {
         controller.tankUpdate(socket,pos);
     })
@@ -58,6 +59,11 @@ function socketHandler(io, socket){
     socket.on("joinSnake", () => {
         controller.joinSnake(socket)
     })
+
+    socket.on("leaveSnake", () => {
+        controller.leaveSnake(socket);
+    })
+    
     socket.on("snakeUpdate", (data) => {
         controller.snakeUpdate(socket,data)
     })
