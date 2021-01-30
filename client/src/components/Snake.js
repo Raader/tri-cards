@@ -35,14 +35,26 @@ export function Snake(props){
         p.draw = () => {
             
             p.background("moccasin")
+
+            let v1 = p.createVector(snake.dir.x, snake.dir.y);
+            let heading = v1.heading();
+            const r = heading.toFixed(2);
+
             p.push()
-            p.fill("lightgreen")
+            p.fill("burlywood")
             p.translate(snake.x,snake.y);
             p.rect(0,0,snake.width,snake.height)
             p.pop()
+            p.push()
+            p.fill("red")
+            p.rectMode(p.CENTER);
+            p.translate(snake.x,snake.y);
+            p.rect(snake.width/2,snake.height/ 2,5,5)
+            p.pop()
+
             for(let part of snake.parts){
             p.push()
-            p.fill("green")
+            p.fill("burlywood")
             p.translate(part.x,part.y);
             p.rect(0,0,snake.width,snake.height)
             p.pop()
