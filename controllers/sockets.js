@@ -170,15 +170,22 @@ function fireBullet(socket){
     tankGame.fire(socket.user.id);
 }
 
+const Snake = require("../app/game/snake/Snake");
+const snakeGame = new Snake();
+
 function joinSnake(socket){
-    socket.join("snake");
-    socket.emit("joinSnake","you joined the snake")
-    console.log(socket.user.name + " joined snake");
+    snakeGame.addSnake(socket.user,() => {
+        socket.join("snake");
+        socket.emit("joinSnake","you joined the snake")
+        console.log(socket.user.name + " joined snake");
+    })
 }
 
 function leaveSnake(socket){
-    socket.leave("snake");
-    console.log(socket.user.name + " left snake");
+    snakeGame.removeSnake(socket.user, () => {
+        socket.leave("snake");
+        console.log(socket.user.name + " left snake");
+    })
 }
 
 function snakeUpdate(socket,data){
