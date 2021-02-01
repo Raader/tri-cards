@@ -52,6 +52,7 @@ function connection(i,socket){
     console.log( socket.user.name + " socket has connected.");
 }
 function disconnecting(socket){
+    snakeGame.removeSnake(socket.user,() => console.log(socket.user.name + " left snake"))
     tankGame.removeTank(socket.user.id);
     leaveRoom(socket);
     
