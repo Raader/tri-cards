@@ -1,6 +1,6 @@
 import p5 from "p5";
 import { useEffect, useRef } from "react"
-import { joinSnake, leaveSnake } from "../api/snake";
+import { joinSnake, leaveSnake, subToGameState, unSubFromGameState, updateSnake } from "../api/snake";
 import { areaOutOfArea } from "../game/Physics";
 import { Snake as S } from "../game/Snake";
 
@@ -8,6 +8,7 @@ export function Snake(props){
     const canvas = useRef();
     let p = useRef();
     let snake;
+    let gameState;
     
 
     useEffect(() => {
@@ -20,6 +21,13 @@ export function Snake(props){
         return leaveSnake;
     },[])
 
+    useEffect(() => {
+        subToGameState((state) => {
+            gameState = state;
+        })
+        return unSubFromGameState;
+    },[])
+
     const sketch = (p) => {
         p.setup = () => {
             p.createCanvas(500,500);
@@ -30,34 +38,33 @@ export function Snake(props){
                 snake.x = oldX;
                 snake.y = oldY;
             }
+            updateSnake({x:snake.x,y:snake.y,parts:snake.parts.map((val) => ({x:val.x,y:val.y}))});
             },100)
         }
-        p.draw = () => {
-            
+        p.draw = () => {          
             p.background("moccasin")
 
-            let v1 = p.createVector(snake.dir.x, snake.dir.y);
-            let heading = v1.heading();
-            const r = heading.toFixed(2);
-
-            p.push()
+            for(let s of gameState.snakes){
+                p.push()
             p.fill("burlywood")
-            p.translate(snake.x,snake.y);
+            p.translate(s.x,s.y);
             p.rect(0,0,snake.width,snake.height)
             p.pop()
+
             p.push()
             p.fill("red")
             p.rectMode(p.CENTER);
-            p.translate(snake.x,snake.y);
+            p.translate(s.x,s.y);
             p.rect(snake.width/2,snake.height/ 2,5,5)
             p.pop()
 
-            for(let part of snake.parts){
+            for(let part of s.parts){
             p.push()
             p.fill("burlywood")
             p.translate(part.x,part.y);
             p.rect(0,0,snake.width,snake.height)
             p.pop()
+            }
             }
         }
     }

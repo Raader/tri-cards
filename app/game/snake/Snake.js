@@ -13,6 +13,22 @@ class Game{
         cb()
     }
 
+    snakeUpdate = (user,data,cb) => {
+        const snake = this.snakes.find((val) => val.user.id === user.id);
+        if(!snake || !data) return;
+        snake.x = data.x;
+        snake.y = data.y;
+        snake.parts = []
+        for(let part of data.parts){
+            snake.parts.push(part);
+        }
+    }
+
+    update = () => {
+        const gameState = {snakes:this.snakes};
+        return gameState;
+    }
+
 }
 
 module.exports = Game;

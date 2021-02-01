@@ -172,7 +172,9 @@ function fireBullet(socket){
 
 const Snake = require("../app/game/snake/Snake");
 const snakeGame = new Snake();
-
+setInterval(() =>{
+    io.to("snake").emit("gameState",snakeGame.update())
+})
 function joinSnake(socket){
     snakeGame.addSnake(socket.user,() => {
         socket.join("snake");
@@ -189,7 +191,7 @@ function leaveSnake(socket){
 }
 
 function snakeUpdate(socket,data){
-
+    snakeGame.snakeUpdate(socket.user,data);
 }
 module.exports.connection = connection;
 module.exports.disconnect = disconnect;
