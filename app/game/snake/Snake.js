@@ -2,10 +2,11 @@ class Game{
     snakes = [];
 
     addSnake = (user,cb) => {
+        const randomcolor = require("randomcolor");
         const snake = this.snakes.find((val) => val.user.id === user.id);
         if(snake) return;
-        this.snakes.push({user:user,x:0,y:0,width:25,height:25,parts:[]});
-        cb();
+        this.snakes.push({user:user,color:randomcolor(),x:0,y:0,width:25,height:25,parts:[]});
+        cb({map:{height:500,width:500}});
     }
 
     removeSnake = (user,cb) => {

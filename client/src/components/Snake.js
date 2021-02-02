@@ -52,7 +52,7 @@ export function Snake(props){
 
             for(let s of gameState.snakes){
                 p.push()
-            p.fill("burlywood")
+            p.fill(s.color)
             p.translate(s.x,s.y);
             p.rect(0,0,snake.width,snake.height)
             p.pop()
@@ -66,7 +66,7 @@ export function Snake(props){
 
             for(let part of s.parts){
             p.push()
-            p.fill("burlywood")
+            p.fill(s.color)
             p.translate(part.x,part.y);
             p.rect(0,0,snake.width,snake.height)
             p.pop()
