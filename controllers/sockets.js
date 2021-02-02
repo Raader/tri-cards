@@ -177,9 +177,9 @@ setInterval(() =>{
     io.to("snake").emit("gameState",snakeGame.update())
 })
 function joinSnake(socket){
-    snakeGame.addSnake(socket.user,() => {
+    snakeGame.addSnake(socket.user,(data) => {
         socket.join("snake");
-        socket.emit("joinSnake","you joined the snake")
+        socket.emit("joinSnake",data)
         console.log(socket.user.name + " joined snake");
     })
 }

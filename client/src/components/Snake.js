@@ -9,30 +9,17 @@ export function Snake(props){
     let p = useRef();
     let snake;
     let gameState;
-    
+    let gameData;
 
     useEffect(() => {
+        let loop;
         joinSnake((err,data) =>{
-            console.log(data)
+            gameData = data;
             // eslint-disable-next-line react-hooks/exhaustive-deps
             snake = new S(25,25,25,25);
             p.current = new p5(sketch,canvas.current);
-        })
-        return leaveSnake;
-    },[])
-
-    useEffect(() => {
-        subToGameState((state) => {
-            gameState = state;
-        })
-        return unSubFromGameState;
-    },[])
-
-    const sketch = (p) => {
-        p.setup = () => {
-            p.createCanvas(500,500);
-            setInterval(() => {
-                const input = { uKey: p.keyIsDown(87), dKey: p.keyIsDown(83), rKey: p.keyIsDown(68), lKey: p.keyIsDown(65) };
+            loop = setInterval(() => {
+            const input = { uKey: p.current.keyIsDown(87), dKey: p.current.keyIsDown(83), rKey: p.current.keyIsDown(68), lKey: p.current.keyIsDown(65) };
             const [oldX,oldY] = snake.calculateMovement(input);
             if(areaOutOfArea(snake.getArea(),{x:0,y:0,width:500,height:500})){
                 snake.dead = true;
@@ -46,6 +33,28 @@ export function Snake(props){
             }
             updateSnake({dead:snake.dead,x:snake.x,y:snake.y,parts:snake.parts.map((val) => ({x:val.x,y:val.y,width:val.width,height:val.height}))});
             },100)
+        })
+        return () => {
+            clearInterval(loop)
+            leaveSnake();
+        };
+    },[])
+
+    useEffect(() => {
+        subToGameState((state) => {
+            gameState = state;
+        })
+        return unSubFromGameState;
+    },[])
+
+    useEffect(() => {
+
+    })
+
+    const sketch = (p) => {
+        p.setup = () => {
+            p.createCanvas(gameData.map.width,gameData.map.height);
+            
         }
         p.draw = () => {          
             p.background("moccasin")
