@@ -96,6 +96,9 @@
 .nav-link{
   color:#e5d5c2 !important;
 }
+.a-nav-link{
+  color:#fceedf !important;
+}
 .nav-link:hover{
-  color:#ffeedb !important;
+  color:#fceedf !important;
 }
