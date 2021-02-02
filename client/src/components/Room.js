@@ -3,6 +3,7 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { joinRoom, leaveRoom, subscribeToRoomUsers, unsubscribeFromRoomUsers } from "../api/rooms";
 import "../sheets/Room.css"
+import { CreateRoom } from "./CreateRoom";
 export function Room(props){
     const {id} = useParams()
     const [name, setName] = useState("");
