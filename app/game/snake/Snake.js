@@ -18,6 +18,7 @@ class Game{
         if(!snake || !data) return;
         snake.x = data.x;
         snake.y = data.y;
+        snake.dead = data.dead;
         snake.parts = []
         for(let part of data.parts){
             snake.parts.push(part);
@@ -25,7 +26,7 @@ class Game{
     }
 
     update = () => {
-        const gameState = {snakes:this.snakes};
+        const gameState = {snakes:this.snakes.filter((val) => !val.dead)};
         return gameState;
     }
 

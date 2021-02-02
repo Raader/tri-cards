@@ -1,7 +1,7 @@
 import p5 from "p5";
 import { useEffect, useRef } from "react"
 import { joinSnake, leaveSnake, subToGameState, unSubFromGameState, updateSnake } from "../api/snake";
-import { areaOutOfArea } from "../game/Physics";
+import { areaOutOfArea, collides, intersects } from "../game/Physics";
 import { Snake as S } from "../game/Snake";
 
 export function Snake(props){
@@ -35,10 +35,16 @@ export function Snake(props){
                 const input = { uKey: p.keyIsDown(87), dKey: p.keyIsDown(83), rKey: p.keyIsDown(68), lKey: p.keyIsDown(65) };
             const [oldX,oldY] = snake.calculateMovement(input);
             if(areaOutOfArea(snake.getArea(),{x:0,y:0,width:500,height:500})){
-                snake.x = oldX;
-                snake.y = oldY;
+                snake.dead = true;
             }
-            updateSnake({x:snake.x,y:snake.y,parts:snake.parts.map((val) => ({x:val.x,y:val.y}))});
+            for(let sn of gameState.snakes){
+                for(let part of sn.parts){
+                    if(collides({x:snake.x + snake.width/2,y:snake.y + snake.height/2},part)){
+                        snake.dead = true;
+                    }
+                }
+            }
+            updateSnake({dead:snake.dead,x:snake.x,y:snake.y,parts:snake.parts.map((val) => ({x:val.x,y:val.y,width:val.width,height:val.height}))});
             },100)
         }
         p.draw = () => {          

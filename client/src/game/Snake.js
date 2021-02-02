@@ -7,9 +7,10 @@ export class Snake {
         this.width = width;
         this.height = height;
         this.parts = [];
+        this.dead = false;
         let curY = this.y + this.height;
         for(let i = 0; i < 10;i++){
-            this.parts.push({x:this.x,y:curY,dir:{x:0,y:-1}});
+            this.parts.push({x:this.x,y:curY,dir:{x:0,y:-1},width:this.width,height:this.height});
             curY += this.height;
         }
     }
