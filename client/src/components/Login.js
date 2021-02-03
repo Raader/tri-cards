@@ -26,7 +26,7 @@ export function Login(props) {
                     <Form.Label>Password</Form.Label>
                     <Form.Control ref={ref => password.current = ref} type="password" placeholder="Password" />
                 </Form.Group>
-                <Button onClick={onLogin} variant="primary">
+                <Button onClick={onLogin} variant="stylish">
                     Login
                 </Button>
                 <ErrorMessage msg={msg}></ErrorMessage>

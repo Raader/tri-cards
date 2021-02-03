@@ -38,7 +38,7 @@ export function EditProfile(props) {
                         </InputGroup.Prepend>
                         <FormControl ref={(ref) => status.current = ref} style={{ width: "20rem" }} aria-label="status-message" aria-describedby="basic-addon2"></FormControl>
                     </InputGroup>
-                    <Button id="apply-btn" variant="dark" onClick={() => {
+                    <Button id="apply-btn" variant="classic" onClick={() => {
                         const edits = {
                             avatar_color: color.current.value,
                             status_msg: status.current.value

@@ -31,7 +31,7 @@ export function Join(props) {
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password" ref={ref => password.current = ref} placeholder="Password" />
                 </Form.Group>
-                <Button variant="primary" onClick={onJoin}>
+                <Button variant="stylish" onClick={onJoin}>
                     Sign Up
                 </Button>
                 <ErrorMessage msg={msg}></ErrorMessage>

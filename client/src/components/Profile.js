@@ -24,9 +24,9 @@ export function Profile(props){
                 </div>
                 {
                     props.user.user && (id === props.user.user._id) ? 
-                    <Button onClick={() => history.push("/edit") } variant="dark"><i class="fas fa-user-cog"></i> Edit Profile</Button>
+                    <Button onClick={() => history.push("/edit") } variant="classic"><i class="fas fa-user-cog"></i> Edit Profile</Button>
                     :
-                    <Button variant="secondary">Follow</Button>
+                    <Button variant="classic">Follow</Button>
                 }
                 </Col>
                 <Col>
