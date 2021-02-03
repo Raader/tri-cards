@@ -4,6 +4,7 @@ let io;
 const rooms = [];
 const game = require("../app/game/tank/Tank").game;
 const tankGame = new game();
+const Room = require("../app/Room");
 
 /**
  * updates user list based on sockets
@@ -24,20 +25,6 @@ function updateRoomList(){
         return {name:val.name,id:val.id};
     });
     io.emit("roomList",list)
-}
-
-function updateRoomUsers(room){
-    if(room.sockets.length <= 0){
-        return removeRoom(room);
-    }
-    const list = room.sockets.map((socket) => {
-        return {
-            name:socket.user.name,
-            _id:socket.user.id
-        }
-    });
-    console.log(list)
-    io.to(room.id).emit("roomUsers",list);
 }
 
 function connection(i,socket){
@@ -98,11 +85,14 @@ function generateId(length = 5){
 
 function createRoom(socket,roomName){
     if(socket.room) return;
-    const room = {
-        name:roomName,
-        id:generateId(),
-        sockets:[]
-    }
+    const id = generateId();
+    const room = new Room(roomName,id,socket.user,
+    (list) => {
+        io.to(id).emit("roomUsers",list)
+    },() => {
+        rooms.splice(rooms.indexOf(room),1);
+        console.log("removed room: " + room.name);
+    })
     rooms.push(room);
     socket.emit("createRoom",{name:room.name,id:room.id});
     console.log(socket.user.name + " created room: " +room.name + "(" + room.id + ")");
@@ -114,27 +104,21 @@ function joinRoom(socket,id){
     const room = rooms.find((val) => val.id.localeCompare(id) === 0);
     if(!room) return;
     socket.join(id);
-    const isHost = room.sockets.length <= 0;
     socket.room = room;
-    socket.room.sockets.push(socket);
-    socket.emit("joinRoom",{id:socket.room.id,name:socket.room.name,isHost});
-    console.log(socket.user.name + " joined the room: " + socket.room.name);
-    updateRoomUsers(socket.room);
+    room.addUser(socket.user,(isHost) => {
+        socket.emit("joinRoom",{id:room.id,name:room.name,isHost});
+        console.log(socket.user.name + " joined the room: " + room.name);
+    })
 }
 
 function leaveRoom(socket){
     if(!socket.room) return;
     const room = socket.room
     socket.leave(socket.room.id);
-    room.sockets.splice(room.sockets.indexOf(socket),1);
+    room.removeUser(socket.user,() => {
+        console.log(socket.user.name + " left the room: " + room.name);
+    })
     socket.room = null;
-    console.log(socket.user.name + " left the room: ");
-    updateRoomUsers(room);
-}
-
-function removeRoom(room){
-    rooms.splice(rooms.indexOf(room),1);
-    console.log("removed room: " + room.name);
 }
 
 const state={}
