@@ -102,3 +102,24 @@
 .nav-link:hover{
   color:#fceedf !important;
 }
+
+.create-room .modal-content{
+  background-color: #3D5467 !important;
+  border-radius: 1rem;
+  color:#75B9BE;
+  border-color: 0;
+}
+
+.create-room .modal-body{
+  border-color: red;
+}
+
+.btn-stylish{
+  background-color:  #4b677e!important;
+  border: 0.15rem solid#5e9297!important;
+  border-radius: 1rem !important;
+  color:#75B9BE !important;
+}
+.btn-stylish:hover{
+  background-color:  #577994!important;
+}

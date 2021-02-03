@@ -31,7 +31,7 @@ export function Game() {
                 </Col>
                 <Col>
                     <div id="room-list">
-                        <h2>Rooms <span><Button variant="secondary" onClick={() =>
+                        <h2>Rooms <span><Button variant="stylish" onClick={() =>
                         {
                         setShow(true);
                         }}>Create Room</Button></span></h2>
