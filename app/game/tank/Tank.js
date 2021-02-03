@@ -2,8 +2,9 @@ const Player = require("./Player")
 const Barrier = require("./Barrier");
 const Bullet = require("./Bullet");
 const random = require("better-random");
+const Game = require("../Game");
 
-class TankGame{
+class TankGame extends Game{
     tanks = [];
     
     actions = {};
@@ -57,6 +58,10 @@ class TankGame{
         return false;
     }
 
+    start = (cb,deathcb) => {
+        this.loop = setInterval(() => cb(this.update(deathcb)),33);
+    }
+
     randomPoint(){
         const x = random.randInt(0,this.map.width)
         const y = random.randInt(0,this.map.height)
@@ -67,14 +72,15 @@ class TankGame{
         return({x,y});
     }
 
-    addTank = (user) => {
+    addPlayer = (user,cb) => {
         const randomcolor = require("randomcolor");
         const player = this.tanks.find((val) => val.id === user.id);
         if(player) return;
         this.tanks.push(new Player(user.id,user.name,0,0,20,20,randomcolor()))
+        cb({info:this.getInfo(),gameState:this.update()});
     }
 
-    removeTank = (id) => {
+    removePlayer = (id) => {
         this.tanks.splice(this.tanks.indexOf(this.tanks.find((val) => val.id === id)),1);
     }
 
@@ -92,7 +98,7 @@ class TankGame{
         }
     }
 
-    moveTank = (id,input) => {
+    updatePlayer = (id,input) => {
         const player = this.tanks.find((val) => val.id === id);
         if(!player || player.dead) return;
         player.x = input.x;
@@ -147,7 +153,7 @@ class TankGame{
                         p.bullets.splice(f,1);
                         p.killCount += 1;
                         t.dead = true;
-                        deathcb(t.id);
+                        if(deathcb) deathcb(t.id);
                         setTimeout(() => {
                             t.dead = false
                         },5000)

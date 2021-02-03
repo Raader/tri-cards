@@ -14,7 +14,7 @@ class Game{
     }
 
     updatePlayer = () => {
-        
+
     }
 
     update = () =>{
@@ -22,7 +22,7 @@ class Game{
     }
 
     stop = () => {
-
+        clearInterval(this.loop);
     }
 }
 

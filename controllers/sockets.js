@@ -53,7 +53,7 @@ function connection(i,socket){
 }
 function disconnecting(socket){
     snakeGame.removePlayer(socket.user,() => console.log(socket.user.name + " left snake"))
-    tankGame.removeTank(socket.user.id);
+    tankGame.removePlayer(socket.user.id);
     leaveRoom(socket);
     
 }
@@ -152,19 +152,20 @@ setInterval(() => {
 },33)
 function joinTank(socket){
     socket.join("tank");
-    tankGame.addTank(socket.user);
-    socket.emit("joinTank",{info:tankGame.getInfo(),gameState:tankGame.update()});
+    tankGame.addPlayer(socket.user,(data) => {
+        socket.emit("joinTank",data);
+    });
     console.log(socket.user.name + " joined tank")
 }
 
 function leaveTank(socket){
     socket.leave("tank");
-    tankGame.removeTank(socket.user.id);
+    tankGame.removePlayer(socket.user.id);
     console.log(socket.user.name + " left tank");
 }
 
 function tankUpdate(socket,input){
-    tankGame.moveTank(socket.user.id,input)
+    tankGame.updatePlayer(socket.user.id,input)
 }
 
 function fireBullet(socket){
