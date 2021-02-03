@@ -39,21 +39,16 @@ export function Room(props){
                         <p><i class="fas fa-user"></i> {user.name}</p>
                     </div>)}
                     </div>
-                    </div>
-                </Col>
-            </Row>
-            <Row>
-                <Col sm="8" className="mx-auto" id="room-bottom-col">
-                <div id="room-bottom">
+                    <div id="room-bottom">
                 {isHost ? 
-                <Button variant="secondary">Start Game</Button>
+                <Button variant="stylish">Start Game</Button>
                 :
                 <p>Waiting for host to start the game</p>
                 }
                 </div>
+                    </div>
                 </Col>
             </Row>
-            
         </Container>
     )
 }
