@@ -1,12 +1,16 @@
+const Snake = require("./game/snake/Snake");
+
 class Room{
     users = [];
     owner;
+
     constructor(name,id,owner,onUsers,removeRoom){
         this.name = name;
         this.id = id;
         this.owner = owner;
         this.onUsers = onUsers;
         this.removeRoom = removeRoom;
+        this.game = new Snake();
     }
 
     updateUsers = () => {
@@ -17,16 +21,16 @@ class Room{
         this.onUsers(list);
     }
 
-    addUser = (user,cb) => {
-        const u = this.users.find((val) => val.user.id === user.id);
+    addUser = (socket,cb) => {
+        const u = this.users.find((val) => val.user.id === socket.user.id);
         if(u) return;
-        this.users.push({user});
-        cb(user.id === this.owner.id);
+        this.users.push(socket);
+        cb(socket.user.id === this.owner.id);
         this.updateUsers()
     } 
 
-    removeUser = (user,cb) => {
-        const u = this.users.find((val) => val.user.id === user.id);
+    removeUser = (socket,cb) => {
+        const u = this.users.find((val) => val.user.id === socket.user.id);
         this.users.splice(this.users.indexOf(u),1);
         cb();
         this.updateUsers()

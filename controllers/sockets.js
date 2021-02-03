@@ -105,7 +105,7 @@ function joinRoom(socket,id){
     if(!room) return;
     socket.join(id);
     socket.room = room;
-    room.addUser(socket.user,(isHost) => {
+    room.addUser(socket,(isHost) => {
         socket.emit("joinRoom",{id:room.id,name:room.name,isHost});
         console.log(socket.user.name + " joined the room: " + room.name);
     })
@@ -115,7 +115,7 @@ function leaveRoom(socket){
     if(!socket.room) return;
     const room = socket.room
     socket.leave(socket.room.id);
-    room.removeUser(socket.user,() => {
+    room.removeUser(socket,() => {
         console.log(socket.user.name + " left the room: " + room.name);
     })
     socket.room = null;
