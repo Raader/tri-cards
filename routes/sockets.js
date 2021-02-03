@@ -41,6 +41,10 @@ function socketHandler(io, socket){
         controller.leaveRoom(socket);
     })
 
+    socket.on("startGame", () => {
+        controller.startGame(socket);
+    })
+
     socket.on("joinTank",() => {
         controller.joinTank(socket);
     })

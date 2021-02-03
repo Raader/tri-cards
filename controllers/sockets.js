@@ -121,19 +121,25 @@ function leaveRoom(socket){
     socket.room = null;
 }
 
+function startGame(socket){
+    if(!socket.room) return;
+    const room = socket.room
+    room.startGame(socket);
+    console.log("start")
+}
 const state={}
 const tanks = []
 const barriers = [
     {x:100,y:50,width:50,height:300}
 ]
-setInterval(() => {
-    io.to("tank").emit("tankUpdate",tankGame.update((id) => {
-        const socket = Object.values(sockets).find((val) => val && val.user.id === id);
-        if(socket){
-            socket.emit("death");
-        }
-    }));
-},33)
+tankGame.start((state) => {
+    io.to("tank").emit("tankUpdate",state)
+},(id) => {
+    const socket = Object.values(sockets).find(val => val && val.user.id === id);
+    if(socket){
+        socket.emit("death");
+    }
+})
 function joinTank(socket){
     socket.join("tank");
     tankGame.addPlayer(socket.user,(data) => {
@@ -196,3 +202,4 @@ module.exports.fireBullet = fireBullet;
 module.exports.joinSnake = joinSnake;
 module.exports.leaveSnake = leaveSnake;
 module.exports.snakeUpdate = snakeUpdate;
+module.exports.startGame = startGame;

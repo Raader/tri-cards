@@ -36,6 +36,15 @@ class Room{
         this.updateUsers()
     }
 
+    startGame = (socket) => {
+        if(socket.user.id === this.owner.id){
+            console.log("start")
+            for(let user of this.users){
+                user.emit("startGame","snake");
+            }
+        }
+    }
+
 }
 
 module.exports = Room;

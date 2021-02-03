@@ -19,6 +19,7 @@ import { Cards } from './components/Cards';
 import { useEffect } from 'react';
 import { Tank } from './components/Tank';
 import { Snake } from './components/Snake';
+import { Play } from './components/Play';
 function App() {
   const user = useUser()
 
@@ -49,6 +50,9 @@ function App() {
         </Route>
         <Route path="/snake">
           <Snake></Snake>
+        </Route>
+        <Route path="/play">
+          <Play></Play>
         </Route>
         <Route path="/users/:id">
           <Profile user={user}></Profile>
