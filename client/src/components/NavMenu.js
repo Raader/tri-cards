@@ -29,7 +29,13 @@ export function NavMenu(props) {
                         <NavDropdown.Item onClick={() => history.push("/users/" + user._id)} id="profile-button" >Profile</NavDropdown.Item>
                         <NavDropdown.Item onClick={props.user.logout} id="logout" >Logout</NavDropdown.Item>
                     </NavDropdown>
-                    : <Navbar.Text><a href="/login">Login</a> / <a href="/join">Sign Up</a></Navbar.Text>}
+                    :
+                    <Fragment>
+                        <Nav.Link onClick={() => history.push("/login")}>Login /</Nav.Link>
+                        <Nav.Link onClick={() => history.push("/login")}>Sign Up</Nav.Link>
+                    </Fragment>
+
+                    }
                     <Nav.Link><i class="fab fa-github"></i> Github</Nav.Link>
                 </Nav>
             </Navbar.Collapse>
