@@ -52,7 +52,7 @@ function connection(i,socket){
     console.log( socket.user.name + " socket has connected.");
 }
 function disconnecting(socket){
-    snakeGame.removeSnake(socket.user,() => console.log(socket.user.name + " left snake"))
+    snakeGame.removePlayer(socket.user,() => console.log(socket.user.name + " left snake"))
     tankGame.removeTank(socket.user.id);
     leaveRoom(socket);
     
@@ -173,11 +173,11 @@ function fireBullet(socket){
 
 const Snake = require("../app/game/snake/Snake");
 const snakeGame = new Snake();
-setInterval(() =>{
-    io.to("snake").emit("gameState",snakeGame.update())
-})
+snakeGame.start((state) => {
+    io.to("snake").emit("gameState",state);
+}) 
 function joinSnake(socket){
-    snakeGame.addSnake(socket.user,(data) => {
+    snakeGame.addPlayer(socket.user,(data) => {
         socket.join("snake");
         socket.emit("joinSnake",data)
         console.log(socket.user.name + " joined snake");
@@ -185,14 +185,14 @@ function joinSnake(socket){
 }
 
 function leaveSnake(socket){
-    snakeGame.removeSnake(socket.user, () => {
+    snakeGame.removePlayer(socket.user, () => {
         socket.leave("snake");
         console.log(socket.user.name + " left snake");
     })
 }
 
 function snakeUpdate(socket,data){
-    snakeGame.snakeUpdate(socket.user,data);
+    snakeGame.updatePlayer(socket.user,data);
 }
 module.exports.connection = connection;
 module.exports.disconnect = disconnect;

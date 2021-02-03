@@ -3,7 +3,7 @@ const Barrier = require("./Barrier");
 const Bullet = require("./Bullet");
 const random = require("better-random");
 
-class Game{
+class TankGame{
     tanks = [];
     
     actions = {};
@@ -168,4 +168,4 @@ class Game{
         return gameState;
     }
 }
-module.exports.game = Game;
+module.exports.game = TankGame;

@@ -1,7 +1,18 @@
-class Game{
-    snakes = [];
+const Game = require("../Game");
 
-    addSnake = (user,cb) => {
+class SnakeGame extends Game{
+    snakes = [];
+    constructor(){
+        super();
+    }
+    start = (cb) => {
+        this.loop = setInterval(() => cb(this.update()),33)
+    }
+
+    stop = () => {
+        clearInterval(this.loop);
+    }
+    addPlayer = (user,cb) => {
         const randomcolor = require("randomcolor");
         const snake = this.snakes.find((val) => val.user.id === user.id);
         if(snake) return;
@@ -9,12 +20,12 @@ class Game{
         cb({map:{height:500,width:500}});
     }
 
-    removeSnake = (user,cb) => {
+    removePlayer = (user,cb) => {
         this.snakes.splice(this.snakes.indexOf(this.snakes.find((val) => val.user.id === user.id)),1);
         cb()
     }
 
-    snakeUpdate = (user,data,cb) => {
+    updatePlayer = (user,data,cb) => {
         const snake = this.snakes.find((val) => val.user.id === user.id);
         if(!snake || !data) return;
         snake.x = data.x;
@@ -33,4 +44,4 @@ class Game{
 
 }
 
-module.exports = Game;
+module.exports = SnakeGame;

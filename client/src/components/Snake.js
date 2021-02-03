@@ -12,6 +12,13 @@ export function Snake(props){
     let gameData;
 
     useEffect(() => {
+        subToGameState((state) => {
+            gameState = state;
+        })
+        return unSubFromGameState;
+    },[])
+
+    useEffect(() => {
         let loop;
         joinSnake((err,data) =>{
             gameData = data;
@@ -40,12 +47,7 @@ export function Snake(props){
         };
     },[])
 
-    useEffect(() => {
-        subToGameState((state) => {
-            gameState = state;
-        })
-        return unSubFromGameState;
-    },[])
+
 
     useEffect(() => {
 
@@ -58,7 +60,7 @@ export function Snake(props){
         }
         p.draw = () => {          
             p.background("moccasin")
-
+            if(!gameState) return;
             for(let s of gameState.snakes){
                 p.push()
             p.fill(s.color)
