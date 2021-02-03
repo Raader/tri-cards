@@ -6,7 +6,7 @@ export function subscribeToRoomList(callback){
 }
 
 export function unsubscribeFromRoomList(){
-    socket.emit("unsubFromRoomList");
+    socket.removeAllListeners("roomList");
 }
 
 export function createRoom(name,cb){
@@ -19,6 +19,7 @@ export function joinRoom(id,cb){
 }
 
 export function leaveRoom(){
+    socket.removeAllListeners("joinRoom");
     socket.emit("leaveRoom");
 }
 
@@ -26,5 +27,5 @@ export function subscribeToRoomUsers(cb){
     socket.on("roomUsers",(list) => cb(null,list));
 }
 export function unsubscribeFromRoomUsers(){
-    socket.on("roomUser",null);
+    socket.removeAllListeners("roomUsers");
 }

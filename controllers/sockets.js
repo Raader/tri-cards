@@ -16,14 +16,14 @@ function updateUserList(){
             userList.push(socket.user);
         }
     }
-    io.to("userListSubs").emit("userList",userList);
+    io.emit("userList",userList);
 }
 
 function updateRoomList(){
     const list = rooms.map(val => {
         return {name:val.name,id:val.id};
     });
-    io.to("roomListSubs").emit("roomList",list)
+    io.emit("roomList",list)
 }
 
 function updateRoomUsers(room){
