@@ -1,11 +1,12 @@
 import { socket } from "./socket";
 
 export function joinSnake(cb){
-    socket.on("joinSnake",(data) => cb(null,data))
-    socket.emit("joinSnake");
+    socket.on("joinGame",(data) => cb(null,data))
+    socket.emit("joinGame");
 }
+
 export function leaveSnake(){
-    socket.removeAllListeners("joinSnake");
+    socket.removeAllListeners("joinGame");
     socket.emit("leaveSnake");
 }
 
@@ -14,9 +15,9 @@ export function subToGameState(cb){
 }
 
 export function unSubFromGameState(){
-    socket.removeAllListeners("gameSate");
+    socket.removeAllListeners("gameState");
 }
 
 export function updateSnake(data){
-    socket.emit("snakeUpdate",data);
+    socket.emit("update",data);
 }

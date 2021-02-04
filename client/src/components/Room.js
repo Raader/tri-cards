@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { useHistory, useParams } from "react-router-dom";
-import { joinRoom, leaveRoom, startGame, subscribeToGameStart, subscribeToRoomUsers, unsubscribeFromRoomUsers } from "../api/rooms";
+import { joinRoom, leaveRoom, startGame, subscribeToGameStart, subscribeToRoomUsers, unsubscribeFromGameStart, unsubscribeFromRoomUsers } from "../api/rooms";
 import "../sheets/Room.css"
+import { Play } from "./Play";
 
 export function Room(props){
     const {id} = useParams()
@@ -10,13 +11,14 @@ export function Room(props){
     const [users,setUsers] = useState([]);
     const [isHost,setIsHost] = useState(false);
     const history = useHistory();
+    const [started,setStarted] = useState(false);
     useEffect(() => {
         joinRoom(id,(err, room) =>{
             if(err) return console.error(err);
             setName(room.name);
             setIsHost(room.isHost);
         })
-        return () => leaveRoom();
+        return leaveRoom;
     },[id])
 
     useEffect(() => {
@@ -29,13 +31,15 @@ export function Room(props){
 
     useEffect(() => {
         subscribeToGameStart(() => {
-            history.push("/play");
+            console.log(started);
+            setStarted(true);
         })
-    }
-    )
+        return unsubscribeFromGameStart;
+    },[started])
     return (
         <Container id="room-ctn">
-            <Row>
+            { !started ?
+            (<Row>
                 <Col className="mx-auto" sm="8" id="room-users-col">
                     <div id="room-main">
                     <div id="room-name">
@@ -56,7 +60,10 @@ export function Room(props){
                 </div>
                     </div>
                 </Col>
-            </Row>
+            </Row>)
+            :
+            <Play></Play>
+            }
         </Container>
     )
 }

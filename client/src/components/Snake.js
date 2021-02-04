@@ -26,6 +26,7 @@ export function Snake(props){
             snake = new S(25,25,25,25);
             p.current = new p5(sketch,canvas.current);
             loop = setInterval(() => {
+            if(!gameState) return;
             const input = { uKey: p.current.keyIsDown(87), dKey: p.current.keyIsDown(83), rKey: p.current.keyIsDown(68), lKey: p.current.keyIsDown(65) };
             const [oldX,oldY] = snake.calculateMovement(input);
             if(areaOutOfArea(snake.getArea(),{x:0,y:0,width:500,height:500})){
