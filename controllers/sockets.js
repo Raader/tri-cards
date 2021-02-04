@@ -91,6 +91,7 @@ function createRoom(socket,roomName){
         io.to(id).emit("roomUsers",list)
     },() => {
         rooms.splice(rooms.indexOf(room),1);
+        updateRoomList();
         console.log("removed room: " + room.name);
     })
     rooms.push(room);
