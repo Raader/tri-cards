@@ -22,7 +22,7 @@ function updateUserList(){
 
 function updateRoomList(){
     const list = rooms.map(val => {
-        return {name:val.name,id:val.id};
+        return {name:val.name,id:val.id,started:val.started};
     });
     io.emit("roomList",list)
 }
@@ -127,6 +127,7 @@ function startGame(socket){
     const room = socket.room
     room.startGame(socket);
     console.log("start")
+    updateRoomList();
 }
 const state={}
 const tanks = []

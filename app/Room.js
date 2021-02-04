@@ -3,6 +3,7 @@ const Snake = require("./game/snake/Snake");
 class Room{
     users = [];
     owner;
+    started = false;
 
     constructor(name,id,owner,onUsers,removeRoom){
         this.name = name;
@@ -23,6 +24,7 @@ class Room{
     }
 
     addUser = (socket,cb) => {
+        if(this.started) return;
         const u = this.users.find((val) => val.user.id === socket.user.id);
         if(u) return;
         this.users.push(socket);
@@ -32,6 +34,7 @@ class Room{
 
     removeUser = (socket,cb) => {
         const u = this.users.find((val) => val.user.id === socket.user.id);
+        if(!u) return;
         u.removeAllListeners("joinGame")
         u.removeAllListeners("update")
         this.users.splice(this.users.indexOf(u),1);
@@ -42,7 +45,7 @@ class Room{
     startGame = (socket) => {
         if(socket.user.id === this.owner.id){
             console.log("start")
-            
+            this.started = true;
             for(let user of this.users){
                 user.emit("startGame","snake");
                 user.on("joinGame",() => {

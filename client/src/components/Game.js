@@ -37,8 +37,11 @@ export function Game() {
                         }}>Create Room</Button></span></h2>
                         
                         <div id="rooms">
-                        {game.roomList.map(room => (<div className="list-room" onClick={() => history.push("/room/" + room.id)}>
-                            <p>{room.name}</p></div>))}
+                        {game.roomList.map(room => !room.started ?
+                        <div className="list-room" onClick={() => history.push("/room/" + room.id)}><p>{room.name}</p></div>
+                        :
+                        <div className="list-room started-room"><p>{room.name}</p></div>  
+                        )}
                         </div>
                     </div>
                 </Col>
