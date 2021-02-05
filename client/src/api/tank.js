@@ -1,20 +1,20 @@
 import {socket} from "./socket";
 
 export function joinTank(cb){
-    socket.on("joinTank",(info) => cb(null,info));
-    socket.emit("joinTank")
+    socket.on("joinGame",(info) => cb(null,info));
+    socket.emit("joinGame")
 }
 export function leaveTank(){
-    socket.removeAllListeners("joinTank");
-    socket.emit("leaveTank");
+    socket.removeAllListeners("joinGame");
+    socket.emit("leaveGame");
 }
 
 export function tankUpdate(input){
-    socket.emit("tankUpdate",input);
+    socket.emit("update",input);
 }
 
 export function subToGameState(cb){
-    socket.on("tankUpdate",(state) => cb(null,state));
+    socket.on("gameState",(state) => cb(null,state));
 }
 export function subToDeath(cb){
     socket.on("death",() => cb(null));
@@ -24,5 +24,5 @@ export function unSubFromDeath(){
 }
 
 export function unSubFromGameState(){
-    socket.removeAllListeners("tankUpdate");
+    socket.removeAllListeners("update");
 }

@@ -75,7 +75,7 @@ export function Tank(props) {
         }
         p.keyPressed = () => {
             if (p.keyCode === 32) {
-                socket.emit("fireBullet");
+                socket.emit("fire");
             }
         }
         p.draw = () => {
@@ -187,11 +187,6 @@ export function Tank(props) {
                 <Col>
                     <div id="tank-area" ref={ref => canvas.current = ref}>
 
-                    </div>
-                </Col>
-                <Col>
-                    <div>
-                        {players.map(val => <h1>{`${val.name}: ${val.killCount}`}</h1>)}
                     </div>
                 </Col>
             </Row>

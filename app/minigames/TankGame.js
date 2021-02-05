@@ -10,9 +10,9 @@ class TankGame{
         const sockets = this.sockets;
         for(let socket of sockets){
             socket.on("joinGame", () => {
-                this.game.addPlayer(socket.user.id,info => {
+                this.game.addPlayer(socket.user,info => {
                     socket.emit("joinGame",info);
-                    console.log(user.user.name + " joined the game");
+                    console.log(socket.user.name + " joined the game");
                 })
             })
             socket.on("update",(data) => {
