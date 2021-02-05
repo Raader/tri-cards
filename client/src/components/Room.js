@@ -62,7 +62,7 @@ export function Room(props){
                 </Col>
             </Row>)
             :
-            <Play></Play>
+            <Play users={users}></Play>
             }
         </Container>
     )
