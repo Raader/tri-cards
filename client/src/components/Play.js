@@ -1,5 +1,6 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { Snake } from "./Snake";
+import { Tank } from "./Tank";
 import "../sheets/Play.css"
 
 export function Play(props){
@@ -18,7 +19,7 @@ export function Play(props){
                     </div>
                 </Col>
                 <Col className="main-col mx-auto">
-                <Snake></Snake>
+                <Tank></Tank>
                 </Col>
                 <Col className="play-col">
                     <div className="play-div">

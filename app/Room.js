@@ -1,5 +1,5 @@
 const Snake = require("./minigames/SnakeGame");
-
+const Tank = require("./minigames/TankGame");
 class Room{
     users = [];
     owner;
@@ -11,7 +11,7 @@ class Room{
         this.owner = owner;
         this.onUsers = onUsers;
         this.removeRoom = removeRoom;
-        this.game = new Snake(this.users);
+        this.game = new Tank(this.users);
     }
 
     updateUsers = () => {

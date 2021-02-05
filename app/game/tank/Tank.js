@@ -80,8 +80,9 @@ class TankGame extends Game{
         cb({info:this.getInfo(),gameState:this.update()});
     }
 
-    removePlayer = (id) => {
+    removePlayer = (id,cb) => {
         this.tanks.splice(this.tanks.indexOf(this.tanks.find((val) => val.id === id)),1);
+        if(cb) cb();
     }
 
     fire = (id) => {
