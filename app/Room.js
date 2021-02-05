@@ -35,11 +35,13 @@ class Room{
     removeUser = (socket,cb) => {
         const u = this.users.find((val) => val.user.id === socket.user.id);
         if(!u) return;
-        u.removeAllListeners("joinGame")
-        u.removeAllListeners("update")
-        this.users.splice(this.users.indexOf(u),1);
-        cb();
-        this.updateUsers()
+        this.game.removePlayer(u.user,() => {
+            u.removeAllListeners("joinGame")
+            u.removeAllListeners("update")
+            this.users.splice(this.users.indexOf(u),1);
+            cb();
+            this.updateUsers()
+        });
     }
 
     startGame = (socket) => {
