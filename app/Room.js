@@ -1,4 +1,4 @@
-const Snake = require("./game/snake/Snake");
+const Snake = require("./minigames/SnakeGame");
 
 class Room{
     users = [];
@@ -11,7 +11,7 @@ class Room{
         this.owner = owner;
         this.onUsers = onUsers;
         this.removeRoom = removeRoom;
-        this.game = new Snake();
+        this.game = new Snake(this.users);
     }
 
     updateUsers = () => {
@@ -35,9 +35,7 @@ class Room{
     removeUser = (socket,cb) => {
         const u = this.users.find((val) => val.user.id === socket.user.id);
         if(!u) return;
-        this.game.removePlayer(u.user,() => {
-            u.removeAllListeners("joinGame")
-            u.removeAllListeners("update")
+        this.game.removePlayer(u,() => {
             this.users.splice(this.users.indexOf(u),1);
             cb();
             this.updateUsers()
@@ -48,25 +46,9 @@ class Room{
         if(socket.user.id === this.owner.id){
             console.log("start")
             this.started = true;
-            for(let user of this.users){
-                user.emit("startGame","snake");
-                user.on("joinGame",() => {
-                    this.game.addPlayer(user.user,(info) => {
-                        user.emit("joinGame", info);
-                        console.log(user.user.name + " joined the game");
-                    })
-                })
-                user.on("update",(data) => {
-                    this.game.updatePlayer(user.user,data)
-                })
-            }
+            this.game.start(() => {
 
-            this.game.start((state) => {
-                for(let user of this.users){
-                    user.emit("gameState",state)
-                }
             })
-            
         }
     }
 
