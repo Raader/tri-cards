@@ -16,7 +16,7 @@
     border: 0.25rem solid #4b677e;
     border-radius: 1rem;
     height: 30rem;
-    padding: 0.2rem;
+    overflow-y: scroll;
 }
 
 #users-div .room-user{
