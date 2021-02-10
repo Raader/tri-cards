@@ -39,7 +39,7 @@ export function Snake(props){
                     }
                 }
             }
-            updateSnake({dead:snake.dead,x:snake.x,y:snake.y,parts:snake.parts.map((val) => ({x:val.x,y:val.y,width:val.width,height:val.height}))});
+            updateSnake({dead:snake.dead,dir:snake.dir,x:snake.x,y:snake.y,parts:snake.parts.map((val) => ({x:val.x,y:val.y,width:val.width,height:val.height}))});
             },100)
         })
         return () => {
@@ -83,6 +83,13 @@ export function Snake(props){
             p.rect(0,0,snake.width,snake.height)
             p.pop()
             }
+            }
+            for(let a of gameState.apples){
+                p.push()
+                p.fill("red");
+                p.translate(a.x,a.y);
+                p.rect(0,0,snake.width,snake.height)
+                p.pop()
             }
         }
     }
