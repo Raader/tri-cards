@@ -18,10 +18,11 @@
 .list-user{
     text-align: left;
     font-size: 1.5rem;
-    
+    border-bottom: 0.25rem solid #3D5467;
 }
 .list-user p{
     margin-left: 1rem;
+    margin-bottom: 0rem;
 }
 
 .list-room{

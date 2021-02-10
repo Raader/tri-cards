@@ -17,9 +17,11 @@
     background-color: #384d5e;
     font-size: 2rem;
     text-align: left;
+    border-bottom: 0.25rem solid #4b677e;
 }
 .room-user p{
     margin-left: 1rem;
+    margin-bottom: 0;
 }
 #room-users{
     border: 0.25rem solid #4b677e;
