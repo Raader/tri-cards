@@ -13,7 +13,7 @@ export function Game() {
     return (
         <Container id="game">
             <CreateRoom show={show} setShow={setShow} create={
-                (name) => game.createRoom(name,(err,room) => {
+                (name,g) => game.createRoom(name,g,(err,room) => {
                             if(err) return console.error(err);
                             history.push("/room/" + room.id);
                             })

@@ -5,6 +5,7 @@ export function CreateRoom(props) {
     const handleClose = () => props.setShow(false);
     const handleShow = () => props.setShow(true);
     const name = useRef();
+    const game = useRef();
     return (
         <Modal className="create-room" show={props.show} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -12,9 +13,14 @@ export function CreateRoom(props) {
             </Modal.Header>
             <Modal.Body>
                 <Form.Control type="text" ref={ref => name.current = ref} placeholder="Room Name"/>
+                <Form.Label>Game</Form.Label>
+                <Form.Control as="select" ref={ref => game.current = ref}>
+                    <option>tank</option>
+                    <option>snake</option>
+                </Form.Control>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="stylish" onClick={() => props.create(name.current.value)}>Create</Button>
+                <Button variant="stylish" onClick={() => props.create(name.current.value,game.current.value)}>Create</Button>
             </Modal.Footer>
         </Modal>
     )

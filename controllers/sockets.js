@@ -83,10 +83,11 @@ function generateId(length = 5){
     return id;
 }
 
-function createRoom(socket,roomName){
+function createRoom(socket,data){
+    const roomName = data.name;
     if(socket.room) return;
     const id = generateId();
-    const room = new Room(roomName,id,socket.user,
+    const room = new Room(roomName,data.game,id,socket.user,
     (list) => {
         io.to(id).emit("roomUsers",list)
     },() => {
@@ -107,7 +108,7 @@ function joinRoom(socket,id){
     socket.join(id);
     socket.room = room;
     room.addUser(socket,(isHost) => {
-        socket.emit("joinRoom",{id:room.id,name:room.name,isHost});
+        socket.emit("joinRoom",{id:room.id,name:room.name,game:room.gameName,isHost});
         console.log(socket.user.name + " joined the room: " + room.name);
     })
 }
@@ -123,10 +124,9 @@ function leaveRoom(socket){
 }
 
 function startGame(socket){
-    if(!socket.room) return;
+    if(!socket.room || socket.room.started) return;
     const room = socket.room
     room.startGame(socket);
-    console.log("start")
     updateRoomList();
 }
 const state={}

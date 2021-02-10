@@ -15,8 +15,8 @@ export function useGame(){
         subscribeToRoomList((err,list) => setRoomList(list));
         return(() => unsubscribeFromRoomList())
     },[])
-    const createRoom = (name, cb) => {
-        cr(name, cb)
+    const createRoom = (name,game, cb) => {
+        cr(name,game, cb)
     }
     return({userList,roomList,createRoom})
 }

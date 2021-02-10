@@ -1,10 +1,10 @@
+import { Fragment } from "react";
 import { useEffect, useState } from "react"
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { useHistory, useParams } from "react-router-dom";
 import { joinRoom, leaveRoom, startGame, subscribeToGameStart, subscribeToRoomUsers, unsubscribeFromGameStart, unsubscribeFromRoomUsers } from "../api/rooms";
 import "../sheets/Room.css"
 import { Play } from "./Play";
-
 export function Room(props){
     const {id} = useParams()
     const [name, setName] = useState("");
@@ -12,10 +12,13 @@ export function Room(props){
     const [isHost,setIsHost] = useState(false);
     const history = useHistory();
     const [started,setStarted] = useState(false);
+    const [game,setGame] = useState("")
     useEffect(() => {
         joinRoom(id,(err, room) =>{
             if(err) return console.error(err);
             setName(room.name);
+            setGame(room.game);
+            console.log(room.game)
             setIsHost(room.isHost);
         })
         return leaveRoom;
@@ -31,7 +34,7 @@ export function Room(props){
 
     useEffect(() => {
         subscribeToGameStart(() => {
-            console.log(started);
+            console.log("start");
             setStarted(true);
         })
         return unsubscribeFromGameStart;
@@ -62,7 +65,7 @@ export function Room(props){
                 </Col>
             </Row>)
             :
-            <Play users={users}></Play>
+            <Play users={users} game={game}></Play>
             }
         </Container>
     )

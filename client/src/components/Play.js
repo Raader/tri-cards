@@ -2,8 +2,20 @@ import { Container, Row, Col } from "react-bootstrap";
 import { Snake } from "./Snake";
 import { Tank } from "./Tank";
 import "../sheets/Play.css"
-
+import { useEffect, useState } from "react";
+import { Fragment } from "react";
 export function Play(props){
+    function renderGame(){
+        if(props.game === "tank"){
+            return <Tank></Tank>
+        }
+        else if(props.game === "snake"){
+            return <Snake></Snake>
+        }
+        else{
+            return <Fragment></Fragment>
+        }
+    }
     return(
         <Container fluid>
             <Row>
@@ -19,7 +31,7 @@ export function Play(props){
                     </div>
                 </Col>
                 <Col className="main-col mx-auto">
-                <Tank></Tank>
+                {renderGame()}
                 </Col>
                 <Col className="play-col">
                     <div className="play-div">

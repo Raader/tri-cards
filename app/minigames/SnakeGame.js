@@ -9,16 +9,18 @@ class SnakeGame {
     start = (cb) => {
         const sockets = this.sockets;
         for (let user of sockets) {
-            user.emit("startGame", "snake");
+            
             user.on("joinGame", () => {
                 this.game.addPlayer(user.user, (info) => {
                     user.emit("joinGame", info);
                     console.log(user.user.name + " joined the game");
+                    user.on("update", (data) => {
+                        this.game.updatePlayer(user.user, data)
+                    })
                 })
             })
-            user.on("update", (data) => {
-                this.game.updatePlayer(user.user, data)
-            })
+            
+            user.emit("startGame", "snake");
         }
         this.game.start((state) => {
             for(let user of sockets){

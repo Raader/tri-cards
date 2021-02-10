@@ -4,14 +4,19 @@ class Room{
     users = [];
     owner;
     started = false;
+    games = {
+        "tank": Tank,
+        "snake": Snake
+    }
 
-    constructor(name,id,owner,onUsers,removeRoom){
+    constructor(name,game,id,owner,onUsers,removeRoom){
         this.name = name;
         this.id = id;
         this.owner = owner;
         this.onUsers = onUsers;
         this.removeRoom = removeRoom;
-        this.game = new Tank(this.users);
+        this.game = new this.games[game](this.users);
+        this.gameName = game;
     }
 
     updateUsers = () => {
@@ -43,7 +48,7 @@ class Room{
     }
 
     startGame = (socket) => {
-        if(socket.user.id === this.owner.id){
+        if(socket.user.id === this.owner.id && !this.started){
             console.log("start")
             this.started = true;
             this.game.start(() => {

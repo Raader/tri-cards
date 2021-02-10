@@ -34,6 +34,7 @@ export function Tank(props) {
 
     useEffect(() => {        
         joinTank((err, state) => {
+            if(i) return;
             console.log(state);
             i = state.info;
             gameState = state.gameState;
@@ -46,7 +47,8 @@ export function Tank(props) {
 
     useEffect(() => {
         subToGameState((err, state) => {
-            gameState = state;
+            gameState = state; 
+            if(!gameState.tanks) return;
             setPlayers(gameState.tanks.map(val => ({ name: val.name, id: val.id, killCount: val.killCount })))
         });
         return unSubFromGameState;

@@ -9,9 +9,9 @@ export function unsubscribeFromRoomList(){
     socket.removeAllListeners("roomList");
 }
 
-export function createRoom(name,cb){
+export function createRoom(name,game,cb){
     socket.on("createRoom",(room) => cb(null,room));
-    socket.emit("createRoom",name)
+    socket.emit("createRoom",{name,game})
 }
 export function joinRoom(id,cb){
     socket.on("joinRoom", (room) => cb(null,room));
