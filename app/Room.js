@@ -24,7 +24,7 @@ class Room{
             this.game.stop();
             return this.removeRoom();
         }
-        const list = this.users.map((val) => ({name:val.user.name,_id:val.user.name}));
+        const list = this.users.map((val) => ({name:val.user.name,_id:val.user.name,score:val.score,dead:val.dead}));
         this.onUsers(list);
     }
 
@@ -32,6 +32,8 @@ class Room{
         if(this.started) return;
         const u = this.users.find((val) => val.user.id === socket.user.id);
         if(u) return;
+        socket.score = 0;
+        socket.dead = false;
         this.users.push(socket);
         cb(socket.user.id === this.owner.id);
         this.updateUsers()
@@ -51,8 +53,16 @@ class Room{
         if(socket.user.id === this.owner.id && !this.started){
             console.log("start")
             this.started = true;
-            this.game.start(() => {
-
+            this.game.start((players) => {
+                if(!players) return;
+                for(let player of players){
+                    const user = this.users.find((val) => val.user.id == player.user.id);
+                    if(user){
+                        user.score = player.score;
+                        user.dead = player.dead;
+                    }
+                }
+                this.updateUsers();
             })
         }
     }

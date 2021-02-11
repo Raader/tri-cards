@@ -58,8 +58,9 @@ class TankGame extends Game{
         return false;
     }
 
-    start = (cb,deathcb) => {
+    start = (cb,deathcb,onUsers) => {
         this.loop = setInterval(() => cb(this.update(deathcb)),33);
+        this.onUsers = onUsers;
     }
 
     randomPoint(){
@@ -97,6 +98,9 @@ class TankGame extends Game{
         //setTimeout(() => tank.bullets.splice(tank.bullets.indexOf(bullet),1),10000)
         setTimeout(() => tank.onCooldown = false,1000);
         }
+    }
+    updateUsers = () => {
+        if(this.onUsers) this.onUsers(this.tanks.map(val => ({user:{id:val.id}, score:val.killCount,dead:val.dead})))
     }
 
     updatePlayer = (id,input) => {
@@ -154,6 +158,7 @@ class TankGame extends Game{
                         p.bullets.splice(f,1);
                         p.killCount += 1;
                         t.dead = true;
+                        this.updateUsers();
                         if(deathcb) deathcb(t.id);
                         setTimeout(() => {
                             t.dead = false

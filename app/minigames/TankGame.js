@@ -35,8 +35,7 @@ class TankGame{
             const socket = this.sockets.find((val) => val.user.id === id);
             if(!socket) return;
             socket.emit("death");
-        })
-        if(cb) cb();
+        },cb)
     }
 
     removePlayer = (socket,cb) =>{

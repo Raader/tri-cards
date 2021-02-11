@@ -26,8 +26,7 @@ class SnakeGame {
             for(let user of sockets){
                 user.emit("gameState",state)
             }
-            if(cb) cb();
-        });
+        },cb);
     }
 
     removePlayer = (socket,cb) =>{

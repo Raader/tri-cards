@@ -13,9 +13,10 @@ class SnakeGame extends Game{
     constructor(){
         super();
     }
-    start = (cb) => {
+    start = (cb,onUsers) => {
         this.loop = setInterval(() => cb(this.update()),100);
         this.createApple();
+        this.onUsers = onUsers;
     }
 
     createApple = () => {
@@ -72,17 +73,23 @@ class SnakeGame extends Game{
         snake.calculateDir(data.input)
     }
 
+    updateUsers = () => {
+        if(this.onUsers) this.onUsers(this.snakes.map(val => ({user:val.user,score:val.parts.length,dead:val.dead})));
+    }
+
     update = () => {
         for(let snake of this.snakes){
             snake.calculateMovement();
             if(physics.areaOutOfArea(snake.getArea(),{x:0,y:0,width:this.map.width,height:this.map.height})){
                 snake.dead = true;
+                this.updateUsers();
             }
             else{
                 for(let other of this.snakes){
                     for(let part of other.parts){
                         if(physics.collides({x:snake.x + snake.width/2,y:snake.y + snake.height/2},part)){
                             snake.dead = true;
+                            this.updateUsers();
                         }
                     }
                 }
@@ -90,6 +97,7 @@ class SnakeGame extends Game{
             for(let a of this.apples){
                 if(physics.collides({x:snake.x + snake.width/2,y:snake.y + snake.height/2},a)){
                     snake.addPart();
+                    this.updateUsers();
                     this.apples.splice(this.apples.indexOf(a),1);
                     this.createApple();
                 }

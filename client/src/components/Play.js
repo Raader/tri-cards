@@ -25,7 +25,7 @@ export function Play(props){
                         <div id="users-div">
                         {props.users.map((user) => 
                         <div className="room-user">
-                        <p><i class="fas fa-user"></i> {user.name}</p>
+                            <p style={user.dead ? {color:"red"} : {}}><span>{user.score ? user.score : "0"}</span> <i class="fas fa-user"></i> {user.name} </p>
                         </div>)}
                         </div>
                     </div>
