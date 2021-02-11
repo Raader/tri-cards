@@ -23,3 +23,8 @@
     font-size: 1.5rem;
     background-color: #364b5c;
 }
+
+.username-col {
+    padding: 0 !important;
+    border-right: 0.25rem solid #4b677e;
+}

@@ -24,9 +24,21 @@ export function Play(props){
                         <h2>Users</h2>
                         <div id="users-div">
                         {props.users.map((user) => 
+                        <Fragment>
                         <div className="room-user">
-                            <p style={user.dead ? {color:"red"} : {}}><span>{user.score ? user.score : "0"}</span> <i class="fas fa-user"></i> {user.name} </p>
-                        </div>)}
+                            <Container>
+                                <Row>
+                                    <Col className="username-col">
+                                    <p style={user.dead ? {color:"#619397"} : {}}><i class="fas fa-user"></i> {user.name} </p>
+                                    </Col>
+                                    <Col xs="auto">
+                                    {user.score ? user.score : "0"}
+                                    </Col>
+
+                                </Row>
+                            </Container>
+                        </div>
+                        </Fragment>)}
                         </div>
                     </div>
                 </Col>
