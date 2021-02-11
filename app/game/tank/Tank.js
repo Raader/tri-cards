@@ -73,11 +73,10 @@ class TankGame extends Game{
         return({x,y});
     }
 
-    addPlayer = (user,cb) => {
-        const randomcolor = require("randomcolor");
+    addPlayer = (user,color,cb) => {
         const player = this.tanks.find((val) => val.id === user.id);
         if(player) return;
-        this.tanks.push(new Player(user.id,user.name,0,0,20,20,randomcolor()))
+        this.tanks.push(new Player(user.id,user.name,0,0,20,20,color))
         cb({info:this.getInfo(),gameState:this.update()});
     }
 

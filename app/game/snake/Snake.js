@@ -45,12 +45,11 @@ class SnakeGame extends Game{
         clearInterval(this.loop);
     }
 
-    addPlayer = (user,cb) => {
-        const randomcolor = require("randomcolor");
+    addPlayer = (user,color,cb) => {
         const snake = this.snakes.find((val) => val.user.id === user.id);
         if(snake) return;
         const tile = this.randomTile();
-        const newSnake = new SnakePlayer(tile.x,tile.y,25,25,randomcolor(),user);
+        const newSnake = new SnakePlayer(tile.x,tile.y,25,25,color,user);
         this.snakes.push(newSnake);
         cb({map:this.map,gameState:this.update()});
     }

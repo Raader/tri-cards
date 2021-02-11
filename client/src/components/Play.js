@@ -27,14 +27,13 @@ export function Play(props){
                         <Fragment>
                         <div className="room-user">
                             <Container>
-                                <Row>
-                                    <Col className="username-col">
+                                <Row style={{color:user.color? user.color : "black"}}>
+                                    <Col className="username-col" >
                                     <p style={user.dead ? {color:"#619397"} : {}}><i class="fas fa-user"></i> {user.name} </p>
                                     </Col>
-                                    <Col xs="auto">
+                                    <Col xs="auto" style={user.dead ? {color:"#619397"} : {}}>
                                     {user.score ? user.score : "0"}
                                     </Col>
-
                                 </Row>
                             </Container>
                         </div>

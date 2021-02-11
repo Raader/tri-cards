@@ -24,7 +24,7 @@ class Room{
             this.game.stop();
             return this.removeRoom();
         }
-        const list = this.users.map((val) => ({name:val.user.name,_id:val.user.name,score:val.score,dead:val.dead}));
+        const list = this.users.map((val) => ({name:val.user.name,_id:val.user.name,score:val.score,dead:val.dead,color:val.color}));
         this.onUsers(list);
     }
 
@@ -32,8 +32,10 @@ class Room{
         if(this.started) return;
         const u = this.users.find((val) => val.user.id === socket.user.id);
         if(u) return;
+        const randomcolor = require("randomcolor");
         socket.score = 0;
         socket.dead = false;
+        socket.color = randomcolor();
         this.users.push(socket);
         cb(socket.user.id === this.owner.id);
         this.updateUsers()

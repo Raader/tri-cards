@@ -11,7 +11,7 @@ class SnakeGame {
         for (let user of sockets) {
             
             user.on("joinGame", () => {
-                this.game.addPlayer(user.user, (info) => {
+                this.game.addPlayer(user.user,user.color, (info) => {
                     user.emit("joinGame", info);
                     console.log(user.user.name + " joined the game");
                     user.on("update", (data) => {
