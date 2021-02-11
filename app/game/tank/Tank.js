@@ -162,6 +162,7 @@ class TankGame extends Game{
                         if(deathcb) deathcb(t.id);
                         setTimeout(() => {
                             t.dead = false
+                            this.updateUsers();
                         },5000)
                         break
                     }
