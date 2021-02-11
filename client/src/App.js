@@ -45,12 +45,6 @@ function App() {
 
           <Game></Game>
         </Route>
-        <Route path="/tank">
-          <Tank user={user}></Tank>
-        </Route>
-        <Route path="/snake">
-          <Snake></Snake>
-        </Route>
         <Route path="/play">
           <Play></Play>
         </Route>

@@ -129,64 +129,7 @@ function startGame(socket){
     room.startGame(socket);
     updateRoomList();
 }
-const state={}
-const tanks = []
-const barriers = [
-    {x:100,y:50,width:50,height:300}
-]
-tankGame.start((state) => {
-    io.to("tank").emit("tankUpdate",state)
-},(id) => {
-    const socket = Object.values(sockets).find(val => val && val.user.id === id);
-    if(socket){
-        socket.emit("death");
-    }
-})
-function joinTank(socket){
-    socket.join("tank");
-    tankGame.addPlayer(socket.user,(data) => {
-        socket.emit("joinTank",data);
-    });
-    console.log(socket.user.name + " joined tank")
-}
 
-function leaveTank(socket){
-    socket.leave("tank");
-    tankGame.removePlayer(socket.user.id);
-    console.log(socket.user.name + " left tank");
-}
-
-function tankUpdate(socket,input){
-    tankGame.updatePlayer(socket.user.id,input)
-}
-
-function fireBullet(socket){
-    tankGame.fire(socket.user.id);
-}
-
-const Snake = require("../app/game/snake/Snake");
-const snakeGame = new Snake();
-snakeGame.start((state) => {
-    io.to("snake").emit("gameState",state);
-}) 
-function joinSnake(socket){
-    snakeGame.addPlayer(socket.user,(data) => {
-        socket.join("snake");
-        socket.emit("joinSnake",data)
-        console.log(socket.user.name + " joined snake");
-    })
-}
-
-function leaveSnake(socket){
-    snakeGame.removePlayer(socket.user, () => {
-        socket.leave("snake");
-        console.log(socket.user.name + " left snake");
-    })
-}
-
-function snakeUpdate(socket,data){
-    snakeGame.updatePlayer(socket.user,data);
-}
 module.exports.connection = connection;
 module.exports.disconnect = disconnect;
 module.exports.disconnecting = disconnecting;
@@ -197,11 +140,4 @@ module.exports.unsubFromRoomList = unsubFromRoomList;
 module.exports.createRoom = createRoom;
 module.exports.joinRoom = joinRoom;
 module.exports.leaveRoom = leaveRoom;
-module.exports.joinTank = joinTank;
-module.exports.leaveTank = leaveTank;
-module.exports.tankUpdate = tankUpdate;
-module.exports.fireBullet = fireBullet;
-module.exports.joinSnake = joinSnake;
-module.exports.leaveSnake = leaveSnake;
-module.exports.snakeUpdate = snakeUpdate;
 module.exports.startGame = startGame;

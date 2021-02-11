@@ -44,33 +44,6 @@ function socketHandler(io, socket){
     socket.on("startGame", () => {
         controller.startGame(socket);
     })
-
-    socket.on("joinTank",() => {
-        controller.joinTank(socket);
-    })
-
-    socket.on("leaveTank", () => {
-        controller.leaveTank(socket);
-    })
-
-    socket.on("tankUpdate",(pos) => {
-        controller.tankUpdate(socket,pos);
-    })
-    socket.on("fireBullet", () => {
-        controller.fireBullet(socket);
-    })
-
-    socket.on("joinSnake", () => {
-        controller.joinSnake(socket)
-    })
-
-    socket.on("leaveSnake", () => {
-        controller.leaveSnake(socket);
-    })
-    
-    socket.on("snakeUpdate", (data) => {
-        controller.snakeUpdate(socket,data)
-    })
 }
 
 module.exports = socketHandler;

@@ -18,8 +18,6 @@ export function NavMenu(props) {
                     <Nav.Link className={"nav-link" + (radio === 0 ? " a-nav-link" : "")} onClick={() => {history.push("/");setRadio(0)}}><i class="fas fa-home"></i> Home</Nav.Link>
                     <Nav.Link className={"nav-link" + (radio === 1 ? " a-nav-link" : "")}  onClick={() => {history.push("/about");setRadio(1)}}><i class="fas fa-home"></i> About</Nav.Link>
                     <Nav.Link className={"nav-link" + (radio === 2 ? " a-nav-link" : "")}  onClick={() => {history.push("/game");setRadio(2)}}><i class="fas fa-gamepad"></i> Game <Badge variant="secondary">FREE</Badge></Nav.Link>
-                    <Nav.Link className={"nav-link" + (radio === 3 ? " a-nav-link" : "")}  onClick={() => {history.push("/tank");setRadio(3)}}><i class="fas fa-gamepad"></i> Tank <Badge variant="secondary">FREE</Badge></Nav.Link>
-                    <Nav.Link className={"nav-link" + (radio === 4 ? " a-nav-link" : "")}  onClick={() => {history.push("/snake");setRadio(4)}}><i class="fas fa-gamepad"></i> Snake <Badge variant="secondary">FREE</Badge></Nav.Link>
                 </Nav>
             </Navbar.Collapse>
             <Navbar.Collapse className="justify-content-end">
