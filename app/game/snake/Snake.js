@@ -87,6 +87,14 @@ class SnakeGame extends Game{
                     }
                 }
             }
+            for(let a of this.apples){
+                if(physics.collides({x:snake.x + snake.width/2,y:snake.y + snake.height/2},a)){
+                    snake.addPart();
+                    this.apples.splice(this.apples.indexOf(a),1);
+                    this.createApple();
+                }
+            }
+
         }
         const snakes = this.snakes.filter((val) => !val.dead).map((s) => ({user:s.user, x:s.x,y:s.y,width:s.width,height:s.height,color:s.color,parts:s.parts}))
         const gameState = {snakes,apples:this.apples};

@@ -11,7 +11,7 @@ class SnakePlayer {
         this.parts = [];
         this.dead = false;
         let curY = this.y + this.height;
-        for(let i = 0; i < 10;i++){
+        for(let i = 0; i < 2;i++){
             this.parts.push({x:this.x,y:curY,dir:{x:0,y:-1},width:this.width,height:this.height});
             curY += this.height;
         }
@@ -25,6 +25,11 @@ class SnakePlayer {
         height:this.height
         }
     }
+
+    addPart = () => {
+        this.parts.push({x:this.x,y:this.y,dir:{x:0,y:-1},width:this.width,height:this.height})
+    }
+
     calculateDir = (input) => {
         if(input.uKey){
             this.dir = {x:0,y:-1};
