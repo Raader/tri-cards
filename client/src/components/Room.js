@@ -27,6 +27,7 @@ export function Room(props){
     useEffect(() => {
         subscribeToRoomUsers((err,list) => {
             if(err) return console.error(err);
+            const sortedList = list.sort((a,b) => b.score - a.score)
             setUsers(list);   
         })
         return unsubscribeFromRoomUsers;
