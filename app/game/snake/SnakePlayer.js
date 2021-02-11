@@ -25,6 +25,20 @@ class SnakePlayer {
         height:this.height
         }
     }
+    calculateDir = (input) => {
+        if(input.uKey){
+            this.dir = {x:0,y:-1};
+        }
+        else if(input.dKey){
+            this.dir = {x:0,y:1};
+        }
+        else if(input.rKey){
+            this.dir = {x:1,y:0};
+        }
+        else if(input.lKey){
+            this.dir = {x:-1,y:0};
+        }
+    }
 
     calculateMovement = () => {
         const oldX = this.x;

@@ -61,7 +61,7 @@ class SnakeGame extends Game{
 
     updatePlayer = (user,data,cb) => {
         const snake = this.snakes.find((val) => val.user.id === user.id);
-        if(!snake || !data) return;
+        if(!snake || !data || !data.input) return;
         //snake.x = data.x;
         //snake.y = data.y;
         //snake.dead = data.dead;
@@ -69,7 +69,7 @@ class SnakeGame extends Game{
         //for(let part of data.parts){
             //snake.parts.push(part);
         //}
-        snake.dir = data.dir;
+        snake.calculateDir(data.input)
     }
 
     update = () => {
@@ -88,7 +88,8 @@ class SnakeGame extends Game{
                 }
             }
         }
-        const gameState = {snakes:this.snakes.filter((val) => !val.dead),apples:this.apples};
+        const snakes = this.snakes.filter((val) => !val.dead).map((s) => ({user:s.user, x:s.x,y:s.y,width:s.width,height:s.height,color:s.color,parts:s.parts}))
+        const gameState = {snakes,apples:this.apples};
         return gameState;
     }
 
