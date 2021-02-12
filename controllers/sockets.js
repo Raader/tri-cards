@@ -2,8 +2,6 @@ const sockets = {}
 let userList = []
 let io;
 const rooms = [];
-const game = require("../app/game/tank/Tank").game;
-const tankGame = new game();
 const Room = require("../app/Room");
 
 /**
@@ -39,8 +37,6 @@ function connection(i,socket){
     console.log( socket.user.name + " socket has connected.");
 }
 function disconnecting(socket){
-    snakeGame.removePlayer(socket.user,() => console.log(socket.user.name + " left snake"))
-    tankGame.removePlayer(socket.user.id);
     leaveRoom(socket);
     
 }
