@@ -24,7 +24,7 @@ function App() {
   const user = useUser()
 
   useEffect(() => {
-    document.body.style.backgroundColor = "#75B9BE"
+    document.body.style.backgroundColor = "#C8C8C8"
   },[])
   return (
     <Router>

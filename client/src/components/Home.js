@@ -1,11 +1,11 @@
-import { Jumbotron,Button, Carousel } from "react-bootstrap";
+import { Jumbotron,Button, Carousel, Container, Row, Col } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-import tank from "../tank.png"
-import snake from "../snake.png"
+import "../sheets/Home.css";
+
 export function Home(){
     const history = useHistory();
     return(
-        <div>
+        <div id="home">
             
             <Jumbotron id="main-jumbot" fluid>
                 <h1 id="hey-there" >Hey There!</h1>
@@ -20,28 +20,35 @@ export function Home(){
                 </p>
                 
                 <p>
-                <Button variant="classic" onClick={() => history.push("/join")}>Join Now <i class="fas fa-play"></i></Button>
+                <Button variant="new" onClick={() => history.push("/join")}>Join Now <i class="fas fa-play"></i></Button>
                 </p>
             </Jumbotron>
-            <Carousel id="main-caro">
-                <Carousel.Item>
-                <Carousel.Caption>
-                    <h3>Tank Minigame</h3>
-                    <p>One for all deatmatch</p>
-                    </Carousel.Caption>
-                    <img className="caro-img" src={tank}>
-                    </img>
-                    
-
-                </Carousel.Item>
-                <Carousel.Item>
-                <Carousel.Caption>
-                    <h3>Snake Minigame</h3>
-                </Carousel.Caption>
-                <img className="snake-img" src={snake}>
-                    </img>
-                </Carousel.Item>
-            </Carousel>
+            <div id="home-bottom">
+            <Container>
+                <Row>
+                    <Col>
+                    <h3>Play with up to 10 people</h3>
+                    <p>Minigames are designed to handle large or small amounts of people. 
+                        Everyone gets a unique color at the start and sustains it between games.
+                        All games use this color identify players.
+                        Inviting your friends are easy as copying the room url and sharing it.
+                        </p>
+                    </Col>
+                    <Col>
+                    <h3>Try dozens of games</h3>
+                    <p>From a tank battle game to the classic snake game, 
+                        try all of them and level up along the way.
+                        New games are always on their way.
+                    </p>
+                    </Col>
+                    <Col>
+                    <h3>Compeletely free</h3>
+                    <p>There are no micro-transactions or ads whatever, 
+                        It's completely free and fully open-source</p>
+                    </Col>
+                </Row>
+            </Container>
+            </div>
             
         </div>
     )

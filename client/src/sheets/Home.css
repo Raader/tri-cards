@@ -1,0 +1,95 @@
+#main-jumbot {
+    background-color: #2d2b2e !important;
+    background-image: url("../icons/dice.png");
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: 22rem 22rem;
+    color: #C8C8C8;
+}
+
+#main-caro {
+    margin-top: -4rem;
+    height: 30rem;
+    overflow: hidden;
+}
+
+#main-caro h3 {
+    font-size: 4rem;
+    color: #75B9BE !important;
+    margin-bottom: 35rem;
+}
+
+.caro-img {
+    width: 70rem;
+    bottom: 20rem;
+    position: relative;
+}
+
+@keyframes change-color {
+    0% {
+        color: #C8C8C8;
+    }
+
+    50% {
+        color: #D36135;
+    }
+
+    100% {
+        color: #C8C8C8;
+    }
+}
+
+#hey-there {
+    animation-name: change-color;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+#gear1 {
+    right: 30%;
+    animation-delay: 0.5s;
+}
+
+#gear2 {
+    left: 30%;
+    bottom: 8rem !important;
+}
+
+#gear1,
+#gear2 {
+    font-size: 8rem;
+    position: relative;
+    bottom: 10rem;
+    animation-name: spin;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+#home-bottom {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: x-large;
+    font-weight: 350;
+}
+
+#home-bottom h3 {
+    font-weight: 400;
+}
+
+@media only screen and (max-width: 600px) {
+    #main-caro {
+        margin-top: -2rem;
+    }
+
+    #main-caro h3 {
+        font-size: 3.5rem;
+        margin-bottom: 5rem;
+    }
+
+    .caro-img,
+    .snake-img {
+        width: 30rem;
+        position: relative;
+        top: 3rem;
+    }
+}

@@ -1,0 +1,47 @@
+#main-nav {
+    text-decoration: none;
+}
+
+#nav-main {
+    background-color: #242325;
+}
+
+#h-main {
+    color: #D36135;
+}
+
+.nav-link {
+    color: #c8c8c8b4 !important;
+}
+
+.a-nav-link {
+    color: #d3d2d2e3 !important;
+}
+
+.nav-link:hover {
+    color: #d3d2d2 !important;
+}
+
+#github-link {
+    color: #880267 !important;
+}
+
+#user-dropdown {
+    color: #0a767e !important;
+}
+
+.dropdown-menu {
+    background-color: #242325 !important;
+}
+
+.user-drop {
+    color: #c8c8c8b4 !important;
+}
+
+.user-drop:hover {
+    background-color: #313033 !important;
+}
+
+#logout:hover {
+    color: #7E0D15 !important;
+}

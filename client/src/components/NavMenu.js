@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { Nav, Navbar, Badge, NavDropdown } from "react-bootstrap";
 import { Link,NavLink, useHistory } from "react-router-dom";
-
+import "../sheets/Navbar.css"
 export function NavMenu(props) {
     const [user,setUser] = useState();
     const history = useHistory();
@@ -10,7 +10,7 @@ export function NavMenu(props) {
         setUser(props.user.user);
     },[user,props.user.user])
     return (
-        <Navbar id="nav-main" expand="lg">
+        <Navbar id="nav-main" expand="lg" sticky="top">
             <Navbar.Brand id="h-main" href="#"><span><i class="fas fa-gamepad"></i></span>Tricards</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
@@ -23,9 +23,9 @@ export function NavMenu(props) {
             <Navbar.Collapse className="justify-content-end">
                 <Nav>
                     {user ?  
-                    <NavDropdown title={user.name} id="useer-dropdown">
-                        <NavDropdown.Item onClick={() => history.push("/users/" + user._id)} id="profile-button" >Profile</NavDropdown.Item>
-                        <NavDropdown.Item onClick={props.user.logout} id="logout" >Logout</NavDropdown.Item>
+                    <NavDropdown title={user.name} id="user-dropdown">
+                        <NavDropdown.Item className="user-drop" onClick={() => history.push("/users/" + user._id)} id="profile-button" >Profile</NavDropdown.Item>
+                        <NavDropdown.Item className="user-drop" onClick={props.user.logout} id="logout" >Logout</NavDropdown.Item>
                     </NavDropdown>
                     :
                     <Fragment>
@@ -34,7 +34,7 @@ export function NavMenu(props) {
                     </Fragment>
 
                     }
-                    <Nav.Link><i class="fab fa-github"></i> Github</Nav.Link>
+                    <Nav.Link id="github-link"><i class="fab fa-github"></i> Github</Nav.Link>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
