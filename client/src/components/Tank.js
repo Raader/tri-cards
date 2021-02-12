@@ -167,15 +167,6 @@ export function Tank(props) {
                 p.rect(0, tank.height/2 + 2.5, 25, 8);
                 p.rect(0, -tank.height/2 -2.5, 25, 8);
                 p.pop()
-
-                p.push()
-                p.textSize(20);
-                p.textAlign(p.CENTER)
-                p.fill("white")
-                p.text(tank.name, lx, ly + tank.height * 1.5);
-                p.pop()
-
-
             }
         }
     }

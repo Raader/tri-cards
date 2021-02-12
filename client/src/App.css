@@ -38,7 +38,7 @@
   margin-top: 1cm;
   padding: 0.2cm;
 }
-@keyframes App-logo-spin {
+@keyframes spin {
   from {
     transform: rotate(0deg);
   }
@@ -125,8 +125,83 @@
   background-color:  #4b677e!important;
   border-radius: 1rem !important;
   color:#e5d5c2 !important;
+  transition: color 0.5s;
+}
+.btn-classic:hover{
+  color:#f5e4d0 !important;
 }
 .btn-stylish:hover{
   background-color:  #577994!important;
 }
 
+#main-jumbot{
+  background-color: #445e74 !important;
+  color: #e5d5c2;
+  margin-bottom: 0;
+}
+#main-caro{
+  background-color: #49657c !important;
+  margin-top:-4rem;
+  height: 30rem;
+  overflow: hidden;
+}
+#main-caro h3{
+  font-size: 4rem;
+  color: #75B9BE !important;
+  margin-bottom: 35rem;
+}
+
+.caro-img{
+  width: 70rem;
+  bottom: 20rem;
+  position: relative;
+}
+
+@keyframes change-color{
+  0%{
+    color:#e5d5c2;
+  }
+  50%{
+    color:#FE5F55;
+  }
+  100%{
+    color:#e5d5c2;
+  }
+}
+
+#hey-there{
+  animation-name: change-color;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+#gear1{
+  right: 30%;
+  animation-delay: 0.5s;
+}
+
+#gear2{
+  left: 30%;
+  bottom: 8rem !important;
+}
+#gear1,#gear2{
+  font-size: 8rem;
+  position: relative;
+  bottom: 10rem;
+  animation-name: spin;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+@media only screen and (max-width: 600px){
+  #main-caro{
+    margin-top: -2rem;
+  }
+  #main-caro h3{
+    font-size: 3.5rem;
+    margin-bottom: 5rem;
+  }
+  .caro-img,.snake-img{
+    width: 30rem;
+    position: relative;
+    top: 3rem;
+  }
+}
