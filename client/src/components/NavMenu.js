@@ -6,12 +6,20 @@ export function NavMenu(props) {
     const [user,setUser] = useState();
     const history = useHistory();
     const [radio,setRadio] = useState(0);
+    const [scrolled,setScrolled] = useState(false);
+    useEffect(() => {
+        window.addEventListener("scroll",function(){
+            const margin = 50;
+            setScrolled(document.body.scrollTop > margin || document.documentElement.scrollTop > margin);
+        })
+        return window.onscroll = () =>{}
+    },[])
     useEffect(() =>{
         setUser(props.user.user);
     },[user,props.user.user])
     return (
         <Navbar id="nav-main" expand="lg" sticky="top">
-            <Navbar.Brand id="h-main" href="#"><span><i class="fas fa-gamepad"></i></span>Tricards</Navbar.Brand>
+            <Navbar.Brand id="h-main" href="#"><span><i class="fas fa-gamepad"></i></span> Tricards</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto" id="main-nav">
