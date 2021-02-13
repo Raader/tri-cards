@@ -2,12 +2,12 @@ import { Button, ButtonGroup, Col, Container, Row } from "react-bootstrap";
 import { MiniProfile } from "./MiniProfile";
 import "../sheets/ProfileColumn.css"
 
-export function ProfileColumn() {
+export function ProfileColumn(props) {
     return(
         <Container fluid id="profile-column">
             <Row>
                 <Col>
-                <MiniProfile></MiniProfile>
+                <MiniProfile user={props.user}></MiniProfile>
                 </Col>
             </Row>
             <Row className="profile-btns-row">

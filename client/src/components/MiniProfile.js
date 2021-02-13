@@ -1,7 +1,7 @@
 import { Container,Row,Col, ProgressBar } from "react-bootstrap";
 import avatar from "../icons/user.png"
 
-export function MiniProfile(){
+export function MiniProfile(props){
     return (
         <Container className="mini-profile" fluid>
             <Row>
@@ -13,12 +13,12 @@ export function MiniProfile(){
             </Row>
             <Row>
                 <Col>
-                <div className="profile-name">Faruk</div>
+                <div className="profile-name">{props.user.user ? props.user.user.name : ""}</div>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                <div className="status-msg">I like potatos</div>
+                <div className="status-msg">{props.user.user ? props.user.user.status_msg : ""}</div>
                 </Col>
             </Row>
             <Row className="follow-row">

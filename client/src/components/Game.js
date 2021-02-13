@@ -7,7 +7,7 @@ import "../sheets/Game.css";
 import { CreateRoom } from "./CreateRoom";
 import { ProfileColumn } from "./ProfileColumn";
 
-export function Game() {
+export function Game(props) {
     const game = useGame()
     const history = useHistory();
     const [show,setShow] = useState(false)
@@ -21,7 +21,7 @@ export function Game() {
                 }></CreateRoom>
             <Row>
                 <Col sm="3" id="prof-col">
-                <ProfileColumn></ProfileColumn>
+                <ProfileColumn user={props.user}></ProfileColumn>
                 </Col>
                 <Col className="no-padding">
                     <div id="room-list">

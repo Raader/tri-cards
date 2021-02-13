@@ -43,7 +43,7 @@ function App() {
         </Route>
         <Route path="/game">
 
-          <Game></Game>
+          <Game user={user}></Game>
         </Route>
         <Route path="/play">
           <Play></Play>
