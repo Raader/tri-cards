@@ -65,10 +65,10 @@
 }
 
 .btn-stylish{
-  background-color:  #4b677e!important;
-  border: 0.15rem solid#5e9297!important;
+  background-color:  #242325!important;
+  border: 0.15rem solid #3a393b!important;
   border-radius: 1rem !important;
-  color:#75B9BE !important;
+  color: #828183 !important;
 }
 
 .btn-classic{
@@ -81,7 +81,7 @@
   color:#f5e4d0 !important;
 }
 .btn-stylish:hover{
-  background-color:  #577994!important;
+  background-color:#3a393b!important;
 }
 
 .btn-new{
