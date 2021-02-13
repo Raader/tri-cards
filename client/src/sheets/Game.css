@@ -1,19 +1,20 @@
 #user-list{
-    background-color:#242325;
-    color: #548C2F;
-    padding: 1rem;
-    border-radius: 1rem;
+    background-color:#2b2a2c;
+    color: #C8C8C8;
+    padding: 0.75rem;
     margin-bottom: 1rem;
+    height: 100vh;
+    overflow: hidden;
 }
 .user-list h2 .room-list h2{
 
 }
 #users {
-    background-color: #242325;
+    background-color: #1f1e20;
     border: 0.25rem solid #302f31;
     border-radius: 1rem;
     overflow-y: scroll;
-    height: 25rem;
+    height: 80vh;
 }
 .list-user{
     text-align: left;
@@ -46,18 +47,23 @@
 
 #room-list{
     background-color:#242325;
-    color: #F9A620;
-    padding: 1rem;
-    border-radius: 1rem;
+    color: #C8C8C8;
+    padding: 0.75rem;
+    height: 100vh;
 
 }
 #rooms{
     border: 0.25rem solid #302f31;
-    border-radius: 1rem;
-    height: 25rem;
+    background-color:#1f1e20;
+    border-radius: 0.75rem;
+    height: 80vh;
     overflow-y: scroll;
 }
 
 #prof-col{
     padding: 0 !important;
+}
+
+.no-padding{
+    padding: 0 !important;;
 }

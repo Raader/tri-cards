@@ -23,17 +23,7 @@ export function Game() {
                 <Col sm="3" id="prof-col">
                 <ProfileColumn></ProfileColumn>
                 </Col>
-                <Col sm="4">
-                    <div id="user-list">
-                        <h2>Users</h2>
-                        <div id="users">
-                        {game.userList.map((user) => <div className="list-user" onClick={() => window.location.pathname = "users/" + user.id}>
-                            <p><i class="fas fa-user"></i> {user.name}</p>
-                        </div>)}
-                        </div>
-                    </div>
-                </Col>
-                <Col>
+                <Col className="no-padding">
                     <div id="room-list">
                         <h2>Rooms <span><Button variant="stylish" onClick={() =>
                         {
@@ -46,6 +36,16 @@ export function Game() {
                         :
                         <div className="list-room started-room"><p>{room.name}</p></div>  
                         )}
+                        </div>
+                    </div>
+                </Col>
+                <Col sm="2" className="no-padding">
+                    <div id="user-list">
+                        <h2>Users</h2>
+                        <div id="users">
+                        {game.userList.map((user) => <div className="list-user" onClick={() => window.location.pathname = "users/" + user.id}>
+                            <p><i class="fas fa-user"></i> {user.name}</p>
+                        </div>)}
                         </div>
                     </div>
                 </Col>
