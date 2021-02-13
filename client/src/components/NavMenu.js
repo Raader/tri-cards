@@ -19,7 +19,7 @@ export function NavMenu(props) {
     },[user,props.user.user])
     return (
         <Navbar id="nav-main" expand="lg" sticky="top">
-            <Navbar.Brand id="h-main" href="#"><span><i class="fas fa-gamepad"></i></span> Tricards</Navbar.Brand>
+            <Navbar.Brand id="h-main" href="#"><span><i class="fas fa-cubes"></i></span> Trigames</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto" id="main-nav">

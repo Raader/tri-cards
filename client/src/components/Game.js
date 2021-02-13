@@ -11,7 +11,7 @@ export function Game() {
     const history = useHistory();
     const [show,setShow] = useState(false)
     return (
-        <Container id="game">
+        <Container id="game" fluid="xl">
             <CreateRoom show={show} setShow={setShow} create={
                 (name,g) => game.createRoom(name,g,(err,room) => {
                             if(err) return console.error(err);

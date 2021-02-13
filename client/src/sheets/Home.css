@@ -77,6 +77,8 @@
 }
 
 @media only screen and (max-width: 600px) {
+    #main-jumbot{
+    }
     #main-caro {
         margin-top: -2rem;
     }
@@ -92,4 +94,8 @@
         position: relative;
         top: 3rem;
     }
+}
+
+.symbol{
+    font-size: 2.5rem;
 }

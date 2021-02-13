@@ -27,6 +27,7 @@ export function Home(){
             <Container>
                 <Row>
                     <Col>
+                    <i class="fas fa-users symbol"></i>
                     <h3>Play with up to 10 people</h3>
                     <p>Minigames are designed to handle large or small amounts of people. 
                         Everyone gets a unique color at the start and sustains it between games.
@@ -35,6 +36,7 @@ export function Home(){
                         </p>
                     </Col>
                     <Col>
+                    <i class="fas fa-trophy symbol"></i>
                     <h3>Try dozens of games</h3>
                     <p>From a tank battle game to the classic snake game, 
                         try all of them and level up along the way.
@@ -42,6 +44,7 @@ export function Home(){
                     </p>
                     </Col>
                     <Col>
+                    <i class="fas fa-lock-open symbol"></i>
                     <h3>Compeletely free</h3>
                     <p>There are no micro-transactions or ads whatever, 
                         It's completely free and fully open-source</p>
