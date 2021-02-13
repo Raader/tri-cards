@@ -1,0 +1,73 @@
+#profile-column {
+    background-color: #2b2a2c;
+    padding-top:1rem;
+    height: 100vh;
+}
+
+.avatar-portrait {
+    border: 0.5rem #414042 solid;
+    background-color: #C8C8C8;
+    border-radius: 1rem;
+    overflow: hidden;
+    padding-top: 0.1rem;
+}
+
+.avatar-portrait img {
+    width: 10rem;
+    height: 10rem;
+}
+
+.profile-name {
+    font-size: 1.5rem;
+}
+.bg-xp{
+    background-color: #0a767e !important;
+    font-size: 1rem !important;
+}
+.xp-bar{
+    margin: 1rem !important;
+    padding: 0.2rem;
+    margin-top:0.5rem !important;
+    font-size: x-large;
+}
+.mini-profile{
+    margin-bottom: 1rem;
+}
+
+.btn-profile{
+    color:#C8C8C8 !important;
+    font-size: 1.5rem !important;
+}
+.profile-btns{
+    text-align: left;
+    
+}
+.profile-btns-row{
+    background-color: #373638;
+}
+.follow-row{
+    background-color: #373638;
+    border-radius: 0.75rem;
+    margin-top: 0.8rem;
+}
+.follow-count{
+    
+}
+.follow-count p{
+    margin-bottom: 0;
+}
+
+.status-msg{
+    font-size: 0.85rem;
+    font-weight: 400;
+}
+
+.hover-blue:hover{
+    color: #0a767e !important;
+}
+.hover-yellow:hover{
+    color: #F9A620 !important;
+}
+.hover-green:hover{
+    color:#548C2F !important;
+}

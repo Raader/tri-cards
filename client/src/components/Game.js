@@ -5,13 +5,14 @@ import { useHistory } from "react-router-dom";
 import { useGame } from "../hooks/useGame";
 import "../sheets/Game.css";
 import { CreateRoom } from "./CreateRoom";
+import { ProfileColumn } from "./ProfileColumn";
 
 export function Game() {
     const game = useGame()
     const history = useHistory();
     const [show,setShow] = useState(false)
     return (
-        <Container id="game" fluid="xl">
+        <Container id="game" fluid>
             <CreateRoom show={show} setShow={setShow} create={
                 (name,g) => game.createRoom(name,g,(err,room) => {
                             if(err) return console.error(err);
@@ -19,6 +20,9 @@ export function Game() {
                             })
                 }></CreateRoom>
             <Row>
+                <Col sm="3" id="prof-col">
+                <ProfileColumn></ProfileColumn>
+                </Col>
                 <Col sm="4">
                     <div id="user-list">
                         <h2>Users</h2>
