@@ -1,7 +1,7 @@
 
 
 #room-ctn{
-    color: #75B9BE;
+    color: #C8C8C8;
     
     margin-top:1rem;
     border-radius: 1rem;
@@ -10,21 +10,21 @@
 #room-main{
     padding: 1rem;
     border-radius: 1rem;
-    background-color: #3D5467;
+    background-color: #242325;
     margin:1rem;
 }
 .room-user{
-    background-color: #384d5e;
+    background-color: #242325;
     font-size: 2rem;
     text-align: left;
-    border-bottom: 0.25rem solid #4b677e;
+    border-bottom: 0.25rem solid #302f31;
 }
 .room-user p{
     margin-left: 1rem;
     margin-bottom: 0;
 }
 #room-users{
-    border: 0.25rem solid #4b677e;
+    border: 0.25rem solid #302f31;
     border-radius: 1rem;
     height: 20rem;
     overflow-y: scroll;
@@ -32,7 +32,6 @@
 #room-bottom{
     font-size: 1rem;
     border-radius: 1rem;
-    background-color:#3D5467;
     height: 4rem;
     padding:1rem;
 }

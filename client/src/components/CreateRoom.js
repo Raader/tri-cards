@@ -12,7 +12,8 @@ export function CreateRoom(props) {
                 <Modal.Title>Create Room</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Form.Control type="text" ref={ref => name.current = ref} placeholder="Room Name"/>
+                <Form.Label>Room Name</Form.Label>
+                <Form.Control type="text" ref={ref => name.current = ref} placeholder="Awesome Room #1"/>
                 <Form.Label>Game</Form.Label>
                 <Form.Control as="select" ref={ref => game.current = ref}>
                     <option>tank</option>

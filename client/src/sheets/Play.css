@@ -1,19 +1,19 @@
 .play-div{
-    background-color:#3D5467;
+    background-color:#242325;
     border-radius: 1rem;
     margin-bottom: 1rem;
     padding: 1rem;
 }
 
 .main-col{
-    background-color:#3D5467;
+    background-color:#242325;
     border-radius: 1rem;
     padding: 1rem;
     margin-bottom: 1rem;
 }
 
 #users-div,#howto-div{
-    border: 0.25rem solid #4b677e;
+    border: 0.25rem solid #302f31;
     border-radius: 1rem;
     height: 30rem;
     overflow-y: scroll;
@@ -21,10 +21,10 @@
 
 #users-div .room-user{
     font-size: 1.5rem;
-    background-color: #364b5c;
+    background-color: #242325;
 }
 
 .username-col {
     padding: 0 !important;
-    border-right: 0.25rem solid #4b677e;
+    border-right: 0.25rem solid #302f31;
 }

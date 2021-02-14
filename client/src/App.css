@@ -57,10 +57,19 @@
   padding: 0;
 }
 .create-room .modal-content{
-  background-color: #3D5467 !important;
+  background-color: #242325 !important;
   border-radius: 1rem;
-  color:#75B9BE;
+  color:#C8C8C8;
   border-color: 0;
+}
+.modal-header, .modal-footer{
+  border:0 !important;
+}
+.modal-header{
+  padding-bottom: 0 !important;
+}
+.modal-footer{
+  padding-top: 0 !important;
 }
 
 .create-room .modal-body{
