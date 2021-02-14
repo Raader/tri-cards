@@ -1,16 +1,25 @@
 import { set } from "mongoose";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { useGame } from "../hooks/useGame";
 import "../sheets/Game.css";
 import { CreateRoom } from "./CreateRoom";
 import { ProfileColumn } from "./ProfileColumn";
+import { UsersColumn } from "./UsersColumn";
 
 export function Game(props) {
     const game = useGame()
     const history = useHistory();
     const [show,setShow] = useState(false)
+    const [test,setTest] = useState([])
+    useEffect(() => {
+        const t = []
+        for(let i = 0; i <50; i ++){
+            t.push({name:"FarukMaruk",_id:"11111"});
+        }
+        setTest(t);
+    },[])
     return (
         <Container id="game" fluid>
             <CreateRoom show={show} setShow={setShow} create={
@@ -40,16 +49,7 @@ export function Game(props) {
                     </div>
                 </Col>
                 <Col sm="2" className="no-padding">
-                    <div id="user-list">
-                        <h4>Users</h4>
-                        
-                        <div id="users">
-                        {game.userList.map((user) => <div className="list-user" onClick={() => window.location.pathname = "users/" + user.id}>
-                            <p><i class="fas fa-user"></i> {user.name}</p>
-                        </div>)}
-                        </div>
-                        <div className="online-count">{game.userList ? game.userList.length : 0} users online</div>
-                    </div>
+                    <UsersColumn userList={game.userList}></UsersColumn>
                 </Col>
             </Row>
         </Container>
