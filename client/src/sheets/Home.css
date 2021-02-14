@@ -65,11 +65,15 @@
     animation-duration: 2s;
     animation-iteration-count: infinite;
 }
+#home{
+    background-color: #C8C8C8;
+}
 
 #home-bottom {
     font-family: 'Source Sans Pro', sans-serif;
     font-size: x-large;
     font-weight: 350;
+    color:black;
 }
 
 #home-bottom h3 {

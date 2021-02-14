@@ -18,7 +18,7 @@
 }
 .list-user{
     text-align: left;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     
 }
 .list-user p, .list-room p{
@@ -43,6 +43,7 @@
 }
 #game{
     color: #C8C8C8;
+    font-family: 'Source Sans Pro', sans-serif;
 }
 
 #room-list{
@@ -66,4 +67,8 @@
 
 .no-padding{
     padding: 0 !important;;
+}
+
+.online-count{
+    color:#61C9A8;
 }
