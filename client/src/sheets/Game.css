@@ -1,41 +1,6 @@
-.list-user p, .list-room p{
-    margin-left: 1rem;
-    margin-bottom: 0rem;
-}
-
-.list-room{
-    font-size: 2rem;
-}
-.started-room{
-    color: rgba(226, 58, 58, 0.555);
-}
-.list-room{
-    transition: background-color 0.35s;
-    background-color: #242325;
-    border-bottom: 0.25rem solid #2d2c2e;
-}
- .list-room:hover{
-    cursor: pointer;
-    background-color: #323133;
-}
 #game{
     color: #C8C8C8;
     font-family: 'Source Sans Pro', sans-serif;
-}
-
-#room-list{
-    background-color:#242325;
-    color: #C8C8C8;
-    padding: 0.75rem;
-    height: 100vh;
-
-}
-#rooms{
-    border: 0.25rem solid #302f31;
-    background-color:#1f1e20;
-    border-radius: 0.75rem;
-    height: 80vh;
-    overflow-y: scroll;
 }
 
 #prof-col{

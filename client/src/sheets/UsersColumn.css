@@ -11,12 +11,17 @@
 
 #users {
     overflow-y: scroll;
-    height: 80vh;
+    height: 75vh;
 }
 .list-user{
     text-align: left;
     font-size: 1.25rem;
     
+}
+
+.list-user p{
+    margin-left: 1rem;
+    margin-bottom: 0rem;
 }
 
 .list-user{
