@@ -37,7 +37,7 @@ export function MiniProfile(props){
             </Row>
             
             <Row>
-                <Col>
+                <Col className="no-padding">
                 <div className="xp-bar">
                 <div>LvL 5</div>
                 <ProgressBar variant="xp" now={50} label="100/200xp"></ProgressBar>

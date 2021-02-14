@@ -24,8 +24,8 @@ export function NavMenu(props) {
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto" id="main-nav">
                     <Nav.Link className={"nav-link" + (radio === 0 ? " a-nav-link" : "")} onClick={() => {history.push("/");setRadio(0)}}><i class="fas fa-home"></i> Home</Nav.Link>
-                    <Nav.Link className={"nav-link" + (radio === 0 ? " a-nav-link" : "")} onClick={() => {history.push("/");setRadio(0)}}><i class="far fa-info-circle"></i> Help</Nav.Link>   
-                    <Nav.Link className={"nav-link" + (radio === 0 ? " a-nav-link" : "")} onClick={() => {history.push("/");setRadio(0)}}><i class="far fa-newspaper"></i> News</Nav.Link>                                
+                    <Nav.Link className={"nav-link" + (radio === 1 ? " a-nav-link" : "")} onClick={() => {history.push("/");setRadio(1)}}><i class="far fa-info-circle"></i> Help</Nav.Link>   
+                    <Nav.Link className={"nav-link" + (radio === 2 ? " a-nav-link" : "")} onClick={() => {history.push("/");setRadio(2)}}><i class="far fa-newspaper"></i> News</Nav.Link>                                
                              
                 </Nav>
             </Navbar.Collapse>

@@ -29,7 +29,7 @@ export function Game(props) {
                             })
                 }></CreateRoom>
             <Row>
-                <Col sm="3" id="prof-col">
+                <Col sm="2" id="prof-col">
                 <ProfileColumn user={props.user}></ProfileColumn>
                 </Col>
                 <Col className="no-padding">

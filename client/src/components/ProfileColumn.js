@@ -13,9 +13,15 @@ export function ProfileColumn(props) {
             <Row className="profile-btns-row">
                 <Col xs="auto">
                 <div className="profile-btns">
-                <Button variant="profile" className="hover-blue"><i class="fas fa-user"></i> Visit Profile</Button>
-                <Button variant="profile" className="hover-yellow"><i class="fas fa-user-edit"></i> Edit Profile</Button>
-                <Button variant="profile"className="hover-green"><i class="fas fa-trophy"></i> View Achivements</Button>
+                    <div>
+                    <Button variant="profile" className="hover-blue"><i class="fas fa-user"></i> Profile</Button>
+                    </div>
+                    <div>
+                    <Button variant="profile" className="hover-yellow"><i class="fas fa-user-edit"></i> Edit</Button>
+                    </div>
+                    <div>
+                    <Button variant="profile"className="hover-green"><i class="fas fa-trophy"></i> Achivements</Button>
+                    </div>
                 </div>
                 </Col>
             </Row>
