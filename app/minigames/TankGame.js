@@ -25,7 +25,10 @@ class TankGame{
                     
                 })
             })
-            socket.emit("startGame","tank");
+            socket.emit("startRoom","tank");
+        }
+        for(let socket of sockets){
+            socket.emit("gameStart");
         }
         this.game.start((state) => {
             for(let socket of sockets){

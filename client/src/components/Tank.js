@@ -6,6 +6,7 @@ import { joinTank, leaveTank, subToDeath, subToGameState, tankUpdate, unSubFromD
 import { collides, intersects } from "../game/Physics";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import random from "better-random";
+import { subscribeToGameStart, unsubscribeFromGameStart } from "../api/game";
 const p5 = require("p5");
 
 export function Tank(props) {
@@ -54,11 +55,17 @@ export function Tank(props) {
         return unSubFromGameState;
     }, [])
     useEffect(() => {
-        let int = setInterval(() => {
-            if(!player) return;
-            tankUpdate({ x: player.x, y: player.y, dir: player.dir });
-        }, 33)
-        return () => clearInterval(int);
+        let int = 0;
+        subscribeToGameStart(() => {
+            int = setInterval(() => {
+                if(!player) return;
+                tankUpdate({ x: player.x, y: player.y, dir: player.dir });
+            }, 33)
+        })
+        return () => {
+            clearInterval(int);
+            unsubscribeFromGameStart();
+        };
     },[player])
     useEffect(() => {
         subToDeath((err) => {

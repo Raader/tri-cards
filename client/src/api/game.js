@@ -1,3 +1,4 @@
+import { socket } from "./socket";
 export function getAllCards(cb){
     fetch("/api/game/cards")
     .then(res => res.json())
@@ -8,4 +9,11 @@ export function getAllCards(cb){
     .catch(err => {
         cb(err);
     })
+}
+
+export function subscribeToGameStart(cb){
+    socket.on("gameStart",cb)
+}
+export function unsubscribeFromGameStart(){
+    socket.removeAllListeners("gameStart");
 }

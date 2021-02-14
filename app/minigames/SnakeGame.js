@@ -4,12 +4,16 @@ class SnakeGame {
     constructor(sockets) {
         this.game = new S();
         this.sockets = sockets;
+        this.game = new S((state) => {
+            for(let user of sockets){
+                user.emit("gameState",state)
+            }
+        });
     }
 
     start = (cb) => {
         const sockets = this.sockets;
         for (let user of sockets) {
-            
             user.on("joinGame", () => {
                 this.game.addPlayer(user.user,user.color, (info) => {
                     user.emit("joinGame", info);
@@ -19,14 +23,20 @@ class SnakeGame {
                     })
                 })
             })
-            
-            user.emit("startGame", "snake");
+            user.emit("startRoom", "snake");
         }
-        this.game.start((state) => {
+        setTimeout(() => {
             for(let user of sockets){
-                user.emit("gameState",state)
+                user.emit("gameStart");
             }
-        },cb);
+            this.game.start((state) => {
+                for(let user of sockets){
+                    user.emit("gameState",state)
+                }
+            },cb);
+        },3000)
+        
+        
     }
 
     removePlayer = (socket,cb) =>{

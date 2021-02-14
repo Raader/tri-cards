@@ -35,9 +35,9 @@ export function unsubscribeFromRoomUsers(){
 }
 
 export function subscribeToGameStart(cb){
-    socket.on("startGame",(name) => cb(null,name))
+    socket.on("startRoom",(name) => cb(null,name))
 }
 
 export function unsubscribeFromGameStart(cb){
-    socket.removeAllListeners("startGame");
+    socket.removeAllListeners("startRoom");
 }

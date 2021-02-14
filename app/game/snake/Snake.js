@@ -10,12 +10,15 @@ class SnakeGame extends Game{
         height:500,
         width:500
     }
-    constructor(){
+    started = false;
+    constructor(onUpdate){
         super();
+        this.onUpdate = onUpdate;
+        this.createApple();
     }
     start = (cb,onUsers) => {
+        this.started = true;
         this.loop = setInterval(() => cb(this.update()),100);
-        this.createApple();
         this.onUsers = onUsers;
     }
 
@@ -52,6 +55,7 @@ class SnakeGame extends Game{
         const newSnake = new SnakePlayer(tile.x,tile.y,25,25,color,user);
         this.snakes.push(newSnake);
         cb({map:this.map,gameState:this.update()});
+        this.onUpdate(this.update());
     }
 
     removePlayer = (user,cb) => {
@@ -77,6 +81,7 @@ class SnakeGame extends Game{
     }
 
     update = () => {
+        if(this.started){
         for(let snake of this.snakes){
             snake.calculateMovement();
             if(physics.areaOutOfArea(snake.getArea(),{x:0,y:0,width:this.map.width,height:this.map.height})){
@@ -101,7 +106,7 @@ class SnakeGame extends Game{
                     this.createApple();
                 }
             }
-
+        }
         }
         const snakes = this.snakes.filter((val) => !val.dead).map((s) => ({user:s.user, x:s.x,y:s.y,width:s.width,height:s.height,color:s.color,parts:s.parts}))
         const gameState = {snakes,apples:this.apples};
