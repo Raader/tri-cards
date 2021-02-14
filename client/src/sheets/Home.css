@@ -41,7 +41,7 @@
 }
 
 #hey-there {
-    animation-name: change-color;
+    color:#D36135;
     animation-duration: 2s;
     animation-iteration-count: infinite;
 }

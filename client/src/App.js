@@ -62,7 +62,11 @@ function App() {
           <Cards></Cards>
         </Route>
         <Route path="/">
-            <Home></Home>
+          {user.user ? 
+          <Game user={user}></Game>
+          :
+          <Home></Home>
+          }
         </Route>
       </Switch>      
     </div>
