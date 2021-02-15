@@ -4,7 +4,7 @@ import { subscribeToGameStart, unsubscribeFromGameStart } from "../api/game";
 import { user } from "../api/join";
 import { joinSnake, leaveSnake, subToGameState, unSubFromGameState, updateSnake } from "../api/snake";
 import { areaOutOfArea, collides, intersects } from "../game/Physics";
-import { Snake as S } from "../game/Snake";
+import { Snake as S, snakeMovement } from "../game/Snake";
 
 export function Snake(props) {
     const canvas = useRef();
@@ -21,12 +21,12 @@ export function Snake(props) {
             if(!gameState.snakes) return;
             s = gameState.snakes.find((val) => val.user.id === user._id);
             if(!s)return;
-            const input = inputs[0]
+            const input = inputs[s.time]
             if(input && input.x === s.x && input.y === s.y){
-                inputs.splice(0,1);
+                inputs.splice(s.time,1);
                 return;
             }
-            inputs.splice(0,1);
+            inputs.splice(s.time,1);
             snake.x = s.x;
             snake.y = s.y;
             snake.parts = s.parts;
@@ -55,12 +55,9 @@ export function Snake(props) {
             console.log("snake started")
             loop = setInterval(() => {
                 const input = { uKey: p.current.keyIsDown(87), dKey: p.current.keyIsDown(83), rKey: p.current.keyIsDown(68), lKey: p.current.keyIsDown(65) };
-                updateSnake({ input });
+                updateSnake({ input,time:inputs.length });
                 if(snake && s){
-                    snake.calculateMovement(input);
-                    s.x = snake.x;
-                    s.y = snake.y;
-                    s.parts = snake.parts;
+                    snakeMovement(snake,input);
                     inputs.push({x:s.x,y:s.y});
                 } 
             }, 100)

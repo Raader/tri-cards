@@ -2,6 +2,7 @@ class SnakePlayer {
     constructor(x, y, width, height, color, user) {
         this.user = user;
         this.color = color
+        this.onInput = 0;
         this.x = x;
         this.y = y;
         this.dir = {x:0,y:-1}

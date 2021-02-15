@@ -62,3 +62,38 @@ export class Snake {
         return [oldX,oldY];
     }
 }
+
+export function snakeMovement(snake, input) {
+    const oldX = snake.x;
+    const oldY = snake.y;
+    const oldDir = { x: snake.dir.x, y: snake.dir.y };
+    if (input.uKey) {
+        snake.dir = { x: 0, y: -1 };
+    }
+    else if (input.dKey) {
+        snake.dir = { x: 0, y: 1 };
+    }
+    else if (input.rKey) {
+        snake.dir = { x: 1, y: 0 };
+    }
+    else if (input.lKey) {
+        snake.dir = { x: -1, y: 0 };
+    }
+    let curX = oldX;
+    let curY = oldY;
+    let curDir = oldDir;
+    for (let part of snake.parts) {
+        let oX = part.x;
+        let oY = part.y;
+        let oDir = part.dir;
+        part.x = curX;
+        part.y = curY;
+        part.dir = curDir;
+        curX = oX;
+        curY = oY;
+        curDir = oDir;
+    }
+    snake.x += snake.speed * snake.dir.x;
+    snake.y += snake.speed * snake.dir.y;
+    return [oldX, oldY];
+}
