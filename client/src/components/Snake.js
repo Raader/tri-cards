@@ -31,7 +31,7 @@ export function Snake(props) {
             if(input){
                 inputs.splice(0,index + 1)
                 for(let ip of inputs){
-                    snakeMovement(s,ip);
+                    //snakeMovement(s,ip);
                 }
             }
             }
@@ -63,7 +63,7 @@ export function Snake(props) {
                 const input = { uKey: p.current.keyIsDown(87), dKey: p.current.keyIsDown(83), rKey: p.current.keyIsDown(68), lKey: p.current.keyIsDown(65) };
                 updateSnake({ input,time:inputs.length });
                 if(s){
-                    snakeMovement(s,input);
+                    //snakeMovement(s,input);
                     inputs.push({input,time:inputs.length});
                 } 
             }, 100)
