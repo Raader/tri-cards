@@ -11,15 +11,17 @@ class SnakeGame extends Game{
         width:500
     }
     started = false;
-    constructor(onUpdate){
+    constructor(onUpdate,onUsers){
         super();
         this.onUpdate = onUpdate;
+        this.onUsers = onUsers;
         this.createApple();
     }
     start = (cb,onUsers) => {
         this.started = true;
         this.loop = setInterval(() => cb(this.update()),100);
-        this.onUsers = onUsers;
+        
+        this.updateUsers();
     }
 
     createApple = () => {

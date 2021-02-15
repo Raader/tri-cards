@@ -4,7 +4,7 @@ class SnakePlayer {
         this.color = color
         this.x = x;
         this.y = y;
-        this.dir = {x:1,y:0}
+        this.dir = {x:0,y:-1}
         this.speed = width;
         this.width = width;
         this.height = height;

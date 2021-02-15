@@ -15,7 +15,17 @@ class Room{
         this.owner = owner;
         this.onUsers = onUsers;
         this.removeRoom = removeRoom;
-        this.game = new this.games[game](this.users);
+        this.game = new this.games[game](this.users,(players) => {
+            if (!players) return;
+            for (let player of players) {
+                const user = this.users.find((val) => val.user.id == player.user.id);
+                if (user) {
+                    user.score = player.score;
+                    user.dead = player.dead;
+                }
+            }
+            this.updateUsers();
+        });
         this.gameName = game;
     }
 
