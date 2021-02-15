@@ -9,7 +9,6 @@ import { Snake as S, snakeMovement } from "../game/Snake";
 export function Snake(props) {
     const canvas = useRef();
     let p = useRef();
-    let snake = new S(0,0,25,25);
     let s;
     let gameState;
     let gameData;
@@ -17,19 +16,22 @@ export function Snake(props) {
 
     useEffect(() => {
         subToGameState((state) => {
-            gameState = state;
-            if(!gameState.snakes) return;
-            s = gameState.snakes.find((val) => val.user.id === user._id);
-            if(!s)return;
+            
+            if(!state.snakes) return;
+            s = state.snakes.find((val) => val.user.id === user._id);
+            if(s){
             const input = inputs[s.time]
-            if(input && input.x === s.x && input.y === s.y){
-                inputs.splice(s.time,1);
-                return;
+            if(input){
+                const fInputs = []
+                for(let i = s.time + 1; i < inputs.length;i++){
+                    fInputs.push(inputs[i])
+                }
+                for(let ip of fInputs){
+                    snakeMovement(s,ip);
+                }
             }
-            inputs.splice(s.time,1);
-            snake.x = s.x;
-            snake.y = s.y;
-            snake.parts = s.parts;
+            }
+            gameState = state;
         })
         return unSubFromGameState;
     }, [])
@@ -56,9 +58,9 @@ export function Snake(props) {
             loop = setInterval(() => {
                 const input = { uKey: p.current.keyIsDown(87), dKey: p.current.keyIsDown(83), rKey: p.current.keyIsDown(68), lKey: p.current.keyIsDown(65) };
                 updateSnake({ input,time:inputs.length });
-                if(snake && s){
-                    snakeMovement(snake,input);
-                    inputs.push({x:s.x,y:s.y});
+                if(s){
+                    snakeMovement(s,input);
+                    inputs.push(input);
                 } 
             }, 100)
         })

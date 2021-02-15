@@ -111,7 +111,7 @@ class SnakeGame extends Game{
             }
         }
         }
-        const snakes = this.snakes.filter((val) => !val.dead).map((s) => ({user:s.user,time:s.onInput,x:s.x,y:s.y,dir:s.dir,width:s.width,height:s.height,color:s.color,parts:s.parts}))
+        const snakes = this.snakes.filter((val) => !val.dead).map((s) => ({user:s.user,time:s.onInput,speed:s.speed,x:s.x,y:s.y,dir:s.dir,width:s.width,height:s.height,color:s.color,parts:s.parts}))
         const gameState = {snakes,apples:this.apples};
         return gameState;
     }
