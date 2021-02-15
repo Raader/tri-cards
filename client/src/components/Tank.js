@@ -56,7 +56,9 @@ export function Tank(props) {
     }, [])
     useEffect(() => {
         let int = 0;
+        console.log("sub to game start")
         subscribeToGameStart(() => {
+            console.log("staterted the game")
             int = setInterval(() => {
                 if(!player) return;
                 tankUpdate({ x: player.x, y: player.y, dir: player.dir });
@@ -66,7 +68,7 @@ export function Tank(props) {
             clearInterval(int);
             unsubscribeFromGameStart();
         };
-    },[player])
+    },[])
     useEffect(() => {
         subToDeath((err) => {
             randomPoint(player);
@@ -86,6 +88,7 @@ export function Tank(props) {
             if (p.keyCode === 32) {
                 socket.emit("fire");
             }
+            return false;
         }
         p.draw = () => {
             if (!gameState.tanks) return;

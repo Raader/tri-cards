@@ -15,6 +15,7 @@ class TankGame{
             socket.on("joinGame", () => {
                 this.game.addPlayer(socket.user,socket.color,info => {
                     socket.emit("joinGame",info);
+                    socket.emit("gameStart");
                     console.log(socket.user.name + " joined the game");
                     socket.on("update",(data) => {
                         this.game.updatePlayer(socket.user.id,data);
@@ -26,9 +27,7 @@ class TankGame{
                 })
             })
             socket.emit("startRoom","tank");
-        }
-        for(let socket of sockets){
-            socket.emit("gameStart");
+            
         }
         this.game.start((state) => {
             for(let socket of sockets){
