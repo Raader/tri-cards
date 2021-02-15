@@ -20,13 +20,17 @@ export function Snake(props) {
             if(!state.snakes) return;
             s = state.snakes.find((val) => val.user.id === user._id);
             if(s){
-            const input = inputs[s.time]
-            if(input){
-                const fInputs = []
-                for(let i = s.time + 1; i < inputs.length;i++){
-                    fInputs.push(inputs[i])
+            let input;
+            let index;
+            for(let i = 0; i < inputs.length;i++){
+                if(inputs[i].time === s.time){
+                    index = i;
+                    input = inputs[i];
                 }
-                for(let ip of fInputs){
+            }
+            if(input){
+                inputs.splice(0,index + 1)
+                for(let ip of inputs){
                     snakeMovement(s,ip);
                 }
             }
@@ -60,7 +64,7 @@ export function Snake(props) {
                 updateSnake({ input,time:inputs.length });
                 if(s){
                     snakeMovement(s,input);
-                    inputs.push(input);
+                    inputs.push({input,time:inputs.length});
                 } 
             }, 100)
         })
