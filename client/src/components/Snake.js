@@ -13,6 +13,7 @@ export function Snake(props) {
     let s;
     let gameState;
     let gameData;
+    let inputs = [];
 
     useEffect(() => {
         subToGameState((state) => {
@@ -20,6 +21,12 @@ export function Snake(props) {
             if(!gameState.snakes) return;
             s = gameState.snakes.find((val) => val.user.id === user._id);
             if(!s)return;
+            const input = inputs[0]
+            if(input && input.x === s.x && input.y === s.y){
+                inputs.splice(0,1);
+                return;
+            }
+            inputs.splice(0,1);
             snake.x = s.x;
             snake.y = s.y;
             snake.parts = s.parts;
@@ -49,12 +56,12 @@ export function Snake(props) {
             loop = setInterval(() => {
                 const input = { uKey: p.current.keyIsDown(87), dKey: p.current.keyIsDown(83), rKey: p.current.keyIsDown(68), lKey: p.current.keyIsDown(65) };
                 updateSnake({ input });
-                
                 if(snake && s){
                     snake.calculateMovement(input);
                     s.x = snake.x;
                     s.y = snake.y;
                     s.parts = snake.parts;
+                    inputs.push({x:s.x,y:s.y});
                 } 
             }, 100)
         })
